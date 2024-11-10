@@ -1,0 +1,218 @@
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/point_cloud2.hpp>
+#include <visualization_msgs/msg/marker_array.hpp>
+#include <pcl_conversions/pcl_conversions.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/voxel_grid.h>
+#include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/search/kdtree.h>
+
+class ObjectDetectionVisualizerNode : public rclcpp::Node {
+public:
+    ObjectDetectionVisualizerNode() : Node("object_detection_visualizer_node") {
+        pointcloud_subscriber_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
+            "points/xyzrgba", rclcpp::SensorDataQoS(),
+            std::bind(&ObjectDetectionVisualizerNode::pointcloudCallback, this, std::placeholders::_1));
+
+        marker_publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+            "object_markers", 10);
+    }
+
+private:
+    void pointcloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+        pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
+        pcl::fromROSMsg(*msg, *cloud);
+
+        // 1. Punktwolke filtern
+        pcl::PointCloud<pcl::PointXYZ>::Ptr filtered_cloud(new pcl::PointCloud<pcl::PointXYZ>);
+        pcl::VoxelGrid<pcl::PointXYZ> voxel_filter;
+        voxel_filter.setInputCloud(cloud);
+        voxel_filter.setLeafSize(0.01f, 0.01f, 0.01f);
+        voxel_filter.filter(*filtered_cloud);
+
+        // 2. Objekt-Marker initialisieren
+        visualization_msgs::msg::MarkerArray marker_array;
+        int id = 0;
+
+        // 3. Ebene erkennen (Plane Segmentation)
+        detectPlane(filtered_cloud, marker_array, id, msg->header.frame_id);
+
+        // 4. Kugeln erkennen (Sphere Segmentation)
+        detectSphere(filtered_cloud, marker_array, id, msg->header.frame_id);
+
+        // 5. Boxen erkennen (Box Segmentation)
+        detectBox(filtered_cloud, marker_array, id, msg->header.frame_id);
+
+        // 6. Zylinder erkennen (Cylinder Segmentation)
+        detectCylinder(filtered_cloud, marker_array, id, msg->header.frame_id);
+
+        // 7. Veröffentliche die Marker
+        marker_publisher_->publish(marker_array);
+        RCLCPP_INFO(this->get_logger(), "Erkannte Objekte visualisiert.");
+    }
+
+    void detectPlane(pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud, 
+                     visualization_msgs::msg::MarkerArray& marker_array, 
+                     int& id, const std::string& frame_id) {
+        pcl::SACSegmentation<pcl::PointXYZ> plane_seg;
+        plane_seg.setOptimizeCoefficients(true);
+        plane_seg.setModelType(pcl::SACMODEL_PLANE);
+        plane_seg.setMethodType(pcl::SAC_RANSAC);
+        plane_seg.setDistanceThreshold(0.01);
+        plane_seg.setInputCloud(cloud);
+        
+        pcl::PointIndices::Ptr plane_inliers(new pcl::PointIndices);
+        pcl::ModelCoefficients::Ptr plane_coefficients(new pcl::ModelCoefficients);
+        plane_seg.segment(*plane_inliers, *plane_coefficients);
+
+        if (plane_inliers->indices.size() > 0) {
+            visualization_msgs::msg::Marker plane_marker;
+            plane_marker.header.frame_id = frame_id;
+            plane_marker.header.stamp = this->now();
+            plane_marker.ns = "detected_plane";
+            plane_marker.id = id++;
+            plane_marker.type = visualization_msgs::msg::Marker::CUBE;
+            plane_marker.action = visualization_msgs::msg::Marker::ADD;
+            plane_marker.pose.position.x = plane_coefficients->values[0];
+            plane_marker.pose.position.y = plane_coefficients->values[1];
+            plane_marker.pose.position.z = plane_coefficients->values[2];
+            plane_marker.pose.orientation.w = 1.0;
+            plane_marker.scale.x = 1.0;
+            plane_marker.scale.y = 1.0;
+            plane_marker.scale.z = 0.01;
+            plane_marker.color.r = 0.0;
+            plane_marker.color.g = 1.0;
+            plane_marker.color.b = 0.0;
+            plane_marker.color.a = 0.5;
+
+            marker_array.markers.push_back(plane_marker);
+        }
+    }
+
+    void detectSphere(pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud, 
+                      visualization_msgs::msg::MarkerArray& marker_array, 
+                      int& id, const std::string& frame_id) {
+        pcl::SACSegmentation<pcl::PointXYZ> sphere_seg;
+        sphere_seg.setOptimizeCoefficients(true);
+        sphere_seg.setModelType(pcl::SACMODEL_SPHERE); // Kugelmodell setzen
+        sphere_seg.setMethodType(pcl::SAC_RANSAC);
+        sphere_seg.setDistanceThreshold(0.01);
+        sphere_seg.setInputCloud(cloud);
+        
+        pcl::PointIndices::Ptr sphere_inliers(new pcl::PointIndices);
+        pcl::ModelCoefficients::Ptr sphere_coefficients(new pcl::ModelCoefficients);
+        sphere_seg.segment(*sphere_inliers, *sphere_coefficients);
+
+        if (sphere_inliers->indices.size() > 0) {
+            visualization_msgs::msg::Marker sphere_marker;
+            sphere_marker.header.frame_id = frame_id;
+            sphere_marker.header.stamp = this->now();
+            sphere_marker.ns = "detected_sphere";
+            sphere_marker.id = id++;
+            sphere_marker.type = visualization_msgs::msg::Marker::SPHERE;
+            sphere_marker.action = visualization_msgs::msg::Marker::ADD;
+            sphere_marker.pose.position.x = sphere_coefficients->values[0];
+            sphere_marker.pose.position.y = sphere_coefficients->values[1];
+            sphere_marker.pose.position.z = sphere_coefficients->values[2];
+            sphere_marker.scale.x = sphere_coefficients->values[3] * 2;
+            sphere_marker.scale.y = sphere_coefficients->values[3] * 2;
+            sphere_marker.scale.z = sphere_coefficients->values[3] * 2;
+            sphere_marker.color.r = 0.0;
+            sphere_marker.color.g = 0.0;
+            sphere_marker.color.b = 1.0;
+            sphere_marker.color.a = 0.5;
+
+            marker_array.markers.push_back(sphere_marker);
+        }
+    }
+
+    void detectBox(pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud, 
+                   visualization_msgs::msg::MarkerArray& marker_array, 
+                   int& id, const std::string& frame_id) {
+        pcl::SACSegmentation<pcl::PointXYZ> box_seg;
+        box_seg.setOptimizeCoefficients(true);
+        //box_seg.setModelType(pcl::SACMODEL_BOX); // ToDo Gibt es nicht
+        box_seg.setMethodType(pcl::SAC_RANSAC);
+        box_seg.setDistanceThreshold(0.01);
+        box_seg.setInputCloud(cloud);
+        
+        pcl::PointIndices::Ptr box_inliers(new pcl::PointIndices);
+        pcl::ModelCoefficients::Ptr box_coefficients(new pcl::ModelCoefficients);
+        box_seg.segment(*box_inliers, *box_coefficients);
+
+        if (box_inliers->indices.size() > 0) {
+            visualization_msgs::msg::Marker box_marker;
+            box_marker.header.frame_id = frame_id;
+            box_marker.header.stamp = this->now();
+            box_marker.ns = "detected_box";
+            box_marker.id = id++;
+            box_marker.type = visualization_msgs::msg::Marker::CUBE;
+            box_marker.action = visualization_msgs::msg::Marker::ADD;
+            box_marker.pose.position.x = box_coefficients->values[0];
+            box_marker.pose.position.y = box_coefficients->values[1];
+            box_marker.pose.position.z = box_coefficients->values[2];
+            box_marker.pose.orientation.x = box_coefficients->values[3];
+            box_marker.pose.orientation.y = box_coefficients->values[4];
+            box_marker.pose.orientation.z = box_coefficients->values[5];
+            box_marker.pose.orientation.w = box_coefficients->values[6];
+            box_marker.scale.x = box_coefficients->values[7] * 2;
+            box_marker.scale.y = box_coefficients->values[8] * 2;
+            box_marker.scale.z = box_coefficients->values[9] * 2;
+            box_marker.color.r = 1.0;
+            box_marker.color.g = 1.0;
+            box_marker.color.b = 0.0;
+            box_marker.color.a = 0.5;
+
+            marker_array.markers.push_back(box_marker);
+        }
+    }
+
+    void detectCylinder(pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud, 
+                        visualization_msgs::msg::MarkerArray& marker_array, 
+                        int& id, const std::string& frame_id) {
+        pcl::SACSegmentation<pcl::PointXYZ> cylinder_seg;
+        cylinder_seg.setOptimizeCoefficients(true);
+        cylinder_seg.setModelType(pcl::SACMODEL_CYLINDER); // Zylinder Modell
+        cylinder_seg.setMethodType(pcl::SAC_RANSAC);
+        cylinder_seg.setDistanceThreshold(0.01);
+        cylinder_seg.setInputCloud(cloud);
+        
+        pcl::PointIndices::Ptr cylinder_inliers(new pcl::PointIndices);
+        pcl::ModelCoefficients::Ptr cylinder_coefficients(new pcl::ModelCoefficients);
+        cylinder_seg.segment(*cylinder_inliers, *cylinder_coefficients);
+
+        if (cylinder_inliers->indices.size() > 0) {
+            visualization_msgs::msg::Marker cylinder_marker;
+            cylinder_marker.header.frame_id = frame_id;
+            cylinder_marker.header.stamp = this->now();
+            cylinder_marker.ns = "detected_cylinder";
+            cylinder_marker.id = id++;
+            cylinder_marker.type = visualization_msgs::msg::Marker::CYLINDER;
+            cylinder_marker.action = visualization_msgs::msg::Marker::ADD;
+            cylinder_marker.pose.position.x = cylinder_coefficients->values[0];
+            cylinder_marker.pose.position.y = cylinder_coefficients->values[1];
+            cylinder_marker.pose.position.z = cylinder_coefficients->values[2];
+            cylinder_marker.scale.x = cylinder_coefficients->values[3] * 2;
+            cylinder_marker.scale.y = cylinder_coefficients->values[3] * 2;
+            cylinder_marker.scale.z = cylinder_coefficients->values[6] * 2;
+            cylinder_marker.color.r = 1.0;
+            cylinder_marker.color.g = 0.0;
+            cylinder_marker.color.b = 1.0;
+            cylinder_marker.color.a = 0.5;
+
+            marker_array.markers.push_back(cylinder_marker);
+        }
+    }
+
+    rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_subscriber_;
+    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_publisher_;
+};
+
+int main(int argc, char *argv[]) {
+    rclcpp::init(argc, argv);
+    rclcpp::spin(std::make_shared<ObjectDetectionVisualizerNode>());
+    rclcpp::shutdown();
+    return 0;
+}

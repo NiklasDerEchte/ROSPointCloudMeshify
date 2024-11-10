@@ -12,20 +12,38 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(pcl_ros REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
 include_directories(
   include
   ${PCL_INCLUDE_DIRS}
 )
 
+# Build object detection
 add_executable(object_detection_node src/object_detection_node.cpp)
 ament_target_dependencies(object_detection_node rclcpp sensor_msgs pcl_conversions pcl_ros)
-
 target_link_libraries(object_detection_node
   ${PCL_LIBRARIES}
 )
-
 install(TARGETS object_detection_node
+  DESTINATION lib/${PROJECT_NAME})
+
+# Build visualizer
+add_executable(object_detection_visualizer_node src/object_detection_visualizer.cpp)
+ament_target_dependencies(object_detection_visualizer_node rclcpp sensor_msgs pcl_conversions pcl_ros visualization_msgs)
+target_link_libraries(object_detection_visualizer_node
+  ${PCL_LIBRARIES}
+)
+install(TARGETS object_detection_visualizer_node
+  DESTINATION lib/${PROJECT_NAME})
+
+# Build geometry visualizer
+add_executable(object_detection_geometryc_visualizer_node src/object_detection_geometryc_visualizer.cpp)
+ament_target_dependencies(object_detection_geometryc_visualizer_node rclcpp sensor_msgs pcl_conversions pcl_ros visualization_msgs)
+target_link_libraries(object_detection_geometryc_visualizer_node
+  ${PCL_LIBRARIES}
+)
+install(TARGETS object_detection_geometryc_visualizer_node
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
