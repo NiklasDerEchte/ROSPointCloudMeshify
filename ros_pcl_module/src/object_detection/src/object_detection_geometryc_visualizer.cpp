@@ -1,7 +1,7 @@
 #include <memory>
 #include <vector>
 #include <iostream>
-
+#include <pcl/features/moment_of_inertia_estimation.h> 
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "pcl/point_cloud.h"
@@ -9,20 +9,19 @@
 #include "pcl/filters/voxel_grid.h"
 #include "pcl/segmentation/sac_segmentation.h"
 #include "pcl/segmentation/extract_clusters.h"
-#include "pcl/filters/extract_indices.h"        // Für ExtractIndices
+#include "pcl/filters/extract_indices.h"
 #include "pcl/common/common.h"
 #include "pcl/common/centroid.h"
-#include "pcl/common/eigen.h"                   // Für Eigen-Berechnungen
-#include "pcl_conversions/pcl_conversions.h"    // Für die Konvertierung zwischen ROS und PCL
+#include "pcl/common/eigen.h"
+#include "pcl_conversions/pcl_conversions.h"
 #include "visualization_msgs/msg/marker_array.hpp"
 #include "visualization_msgs/msg/marker.hpp"
-#include <Eigen/Dense>                          // Eigen-Bibliothek für SelfAdjointEigenSolver
-#include <Eigen/Eigenvalues>                    // Für SelfAdjointEigenSolver
+#include <Eigen/Dense>
+#include <Eigen/Eigenvalues>
 
 class ObjectDetectionVisualizerNode : public rclcpp::Node {
 public:
-    ObjectDetectionVisualizerNode() : Node("object_detection_geometrcy_visualizer_node")
-    {
+    ObjectDetectionVisualizerNode() : Node("object_detection_geometrcy_visualizer_node") {
         // Publisher für Marker
         marker_publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("object_markers", 10);
 
@@ -32,8 +31,10 @@ public:
         );
     }
 private:
-    void pointcloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
-    {
+    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_publisher_;
+    rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_subscriber_;
+
+    void pointcloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
         pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
         pcl::fromROSMsg(*msg, *cloud);
 
@@ -95,22 +96,16 @@ private:
                 continue;
             }
 
-            // Berechne die Bounding Box
-            Eigen::Vector4f centroid;
-            Eigen::Matrix3f covariance;
-            pcl::compute3DCentroid(*cluster_cloud, centroid);
-            pcl::computeCovarianceMatrixNormalized(*cluster_cloud, centroid, covariance);
+           // Verwende MomentOfInertiaEstimation um präzise BoundingBox zu berechnen
+            pcl::MomentOfInertiaEstimation<pcl::PointXYZ> feature_extractor;
+            feature_extractor.setInputCloud(cluster_cloud);
+            feature_extractor.compute();
 
-            Eigen::SelfAdjointEigenSolver<Eigen::Matrix3f> eigen_solver(covariance);
-            if (eigen_solver.info() != Eigen::Success) {
-                RCLCPP_WARN(this->get_logger(), "Fehler bei der Berechnung der Eigenwerte. Überspringe Cluster.");
-                continue;
-            }
-
-            Eigen::Matrix3f eigens = eigen_solver.eigenvectors();
-
-            Eigen::Vector4f min_point, max_point;
-            pcl::getMinMax3D(*cluster_cloud, indices.indices, min_point, max_point);
+            pcl::PointXYZ min_point_AABB, max_point_AABB; // AABB (Axis-Aligned Bounding Box)
+            pcl::PointXYZ position_OBB; // OBB (Oriented Bounding Box)
+            Eigen::Matrix3f rotational_matrix_OBB;
+            feature_extractor.getAABB(min_point_AABB, max_point_AABB);
+            feature_extractor.getOBB(min_point_AABB, max_point_AABB, position_OBB, rotational_matrix_OBB);
 
             // Marker für RViz erstellen
             visualization_msgs::msg::Marker marker;
@@ -121,19 +116,21 @@ private:
             marker.type = visualization_msgs::msg::Marker::CUBE;
             marker.action = visualization_msgs::msg::Marker::ADD;
 
-            marker.pose.position.x = centroid[0];
-            marker.pose.position.y = centroid[1];
-            marker.pose.position.z = centroid[2];
+            // Setze Position und Orientierung entsprechend der OBB
+            marker.pose.position.x = position_OBB.x;
+            marker.pose.position.y = position_OBB.y;
+            marker.pose.position.z = position_OBB.z;
 
-            Eigen::Quaternionf quaternion(eigens);
+            Eigen::Quaternionf quaternion(rotational_matrix_OBB);
             marker.pose.orientation.x = quaternion.x();
             marker.pose.orientation.y = quaternion.y();
             marker.pose.orientation.z = quaternion.z();
             marker.pose.orientation.w = quaternion.w();
 
-            marker.scale.x = max_point.x() - min_point.x();
-            marker.scale.y = max_point.y() - min_point.y();
-            marker.scale.z = max_point.z() - min_point.z();
+            // Größe der Bounding Box entsprechend dem OBB
+            marker.scale.x = max_point_AABB.x - min_point_AABB.x;
+            marker.scale.y = max_point_AABB.y - min_point_AABB.y;
+            marker.scale.z = max_point_AABB.z - min_point_AABB.z;
 
             marker.color.r = 0.0f;
             marker.color.g = 1.0f;
@@ -147,13 +144,9 @@ private:
         marker_publisher_->publish(marker_array);
         RCLCPP_INFO(this->get_logger(), "Anzahl der erkannten Objekte: %ld", cluster_indices.size());
     }
-
-    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_publisher_;
-    rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_subscriber_;
 };
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     rclcpp::init(argc, argv);
     rclcpp::spin(std::make_shared<ObjectDetectionVisualizerNode>());
     rclcpp::shutdown();
