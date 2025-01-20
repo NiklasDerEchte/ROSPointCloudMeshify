@@ -138,6 +138,7 @@ private:
             marker.color.a = 0.5f;
 
             marker_array.markers.push_back(marker);
+            RCLCPP_INFO(this->get_logger(), "object_detection_%d %f %f %f | %f %f %f", marker.id, marker.pose.position.x, marker.pose.position.y, marker.pose.position.z, marker.scale.x, marker.scale.y, marker.scale.z);
         }
 
         // Veröffentlichung in RViz

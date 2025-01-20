@@ -46,6 +46,15 @@ target_link_libraries(object_detection_geometryc_visualizer_node
 install(TARGETS object_detection_geometryc_visualizer_node
   DESTINATION lib/${PROJECT_NAME})
 
+# Build mesh creator
+add_executable(object_detection_mesh_creator_node src/object_detection_mesh_creator.cpp)
+ament_target_dependencies(object_detection_mesh_creator_node rclcpp sensor_msgs pcl_conversions pcl_ros visualization_msgs)
+target_link_libraries(object_detection_mesh_creator_node
+  ${PCL_LIBRARIES}
+)
+install(TARGETS object_detection_mesh_creator_node
+  DESTINATION lib/${PROJECT_NAME})
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
