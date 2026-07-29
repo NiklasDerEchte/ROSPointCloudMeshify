@@ -25,6 +25,8 @@ link_directories(
 
 set(NODES 
   marker_array_node
+  marker_array_node_2
+  float_array_node
 )
 
 foreach(node ${NODES})

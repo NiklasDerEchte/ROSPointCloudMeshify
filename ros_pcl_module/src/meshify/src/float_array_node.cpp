@@ -10,27 +10,28 @@
 #include <pcl/features/normal_3d.h>
 #include <pcl/io/vtk_io.h>
 #include <pcl/surface/poisson.h>
-#include <visualization_msgs/msg/marker_array.hpp>
+#include <std_msgs/msg/float32_multi_array.hpp>
 #include <pcl/surface/organized_fast_mesh.h>
 
-class MarkerArrayNode : public rclcpp::Node {
+class Float32ArrayNode : public rclcpp::Node {
 public:
-    MarkerArrayNode() 
-        : Node("marker_array_node"),
+    Float32ArrayNode() 
+        : Node("float_array_node"),
           distance_threshold_(declare_parameter("distance_threshold", 0.01)),
           search_radius_(declare_parameter("search_radius", 0.1)),
           max_neighbors_(declare_parameter("max_neighbors", 150)),
           normal_k_search_(declare_parameter("normal_k_search", 20)),
-          output_topic_(declare_parameter("output_topic", "/object_markers")),
+          output_topic_(declare_parameter("output_topic", "/object_mesh/vertices")),
           mode_(declare_parameter("mode", "fast")) // fast, greedy, poisson
         {
 
         pointcloud_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>("/points/xyzrgba", 100, 
-            std::bind(&MarkerArrayNode::pointCloudCallback, this, std::placeholders::_1)
+            std::bind(&Float32ArrayNode::pointCloudCallback, this, std::placeholders::_1)
         );
 
-        mesh_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(this->output_topic_, 10);
-        RCLCPP_INFO(this->get_logger(), "Node initialized");
+        // Interleaved xyzrgba floats for Unity (one message, TRIANGLE_LIST order)
+        mesh_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>(this->output_topic_, 10);
+        RCLCPP_INFO(this->get_logger(), "Node initialized, publishing Float32MultiArray on %s", output_topic_.c_str());
     }
 
 private:
@@ -118,13 +119,18 @@ private:
         }
 
 
-        RCLCPP_INFO(this->get_logger(), "Convert mesh to markers");
-        // Convert mesh to markers and publish
-        visualization_msgs::msg::MarkerArray marker_array;
-        convertMeshToMarkers<PointT>(mesh, marker_array);
+        RCLCPP_INFO(this->get_logger(), "Convert mesh to Float32MultiArray (xyzrgba)");
+        std_msgs::msg::Float32MultiArray vertex_array;
+        convertMeshToFloatArray<PointT>(mesh, vertex_array);
 
-        RCLCPP_INFO(this->get_logger(), "publish");
-        mesh_pub_->publish(marker_array);
+        if (vertex_array.data.empty()) {
+            RCLCPP_WARN(this->get_logger(), "Float32MultiArray empty, skip publish");
+            return;
+        }
+
+        RCLCPP_INFO(this->get_logger(), "publish %zu floats (%zu vertices)",
+            vertex_array.data.size(), vertex_array.data.size() / 7);
+        mesh_pub_->publish(vertex_array);
     }
 
     // ----------------------------------------------------------------------- [Surface Reconstruction Algos]
@@ -198,20 +204,13 @@ private:
         RCLCPP_INFO(this->get_logger(), "Poisson mesh created in %ld ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() - t1);
     }
 
-    // ----------------------------------------------------------------------- [Convert Mesh -> Markers]
+    // ----------------------------------------------------------------------- [Convert Mesh -> Float32MultiArray xyzrgba]
 
     template <typename PointT>
-    void convertMeshToMarkers(
-        const pcl::PolygonMesh &mesh, 
-        visualization_msgs::msg::MarkerArray &marker_array) {
-        visualization_msgs::msg::Marker marker;
+    void convertMeshToFloatArray(
+        const pcl::PolygonMesh &mesh,
+        std_msgs::msg::Float32MultiArray &vertex_array) {
         long t1 = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-        marker.header.frame_id = "zivid_optical_frame";
-        marker.header.stamp = this->now();
-        marker.ns = "mesh";
-        marker.id = 0;
-        marker.type = visualization_msgs::msg::Marker::TRIANGLE_LIST;
-        marker.action = visualization_msgs::msg::Marker::ADD;
 
         typename pcl::PointCloud<PointT> cloud;
         pcl::fromPCLPointCloud2(mesh.cloud, cloud);
@@ -221,41 +220,47 @@ private:
             return;
         }
 
+        size_t tri = 0;
+        for (const auto &p : mesh.polygons) {
+            if (p.vertices.size() == 3) {
+                ++tri;
+            }
+        }
+        
+        vertex_array.data.resize(tri * 3 * 7);
+        float *d = vertex_array.data.data();
+        size_t w = 0;
         for (const auto &polygon : mesh.polygons) {
-            if (polygon.vertices.size() == 3) {
-                for (const auto &vertex_idx : polygon.vertices) {
-                    const auto &point = cloud.points[vertex_idx];
-                    geometry_msgs::msg::Point pt;
-                    pt.x = point.x;
-                    pt.y = point.y;
-                    pt.z = point.z;
-                    marker.points.push_back(pt);
+            if (polygon.vertices.size() != 3) {
+                continue;
+            }
 
-                    if constexpr (std::is_same<PointT, pcl::PointXYZRGB>::value || std::is_same<PointT, pcl::PointXYZRGBA>::value) { 
-                        std_msgs::msg::ColorRGBA color;
-                        color.a = 1.0;
-                        color.r = static_cast<float>(point.r) / 255.0f;
-                        color.g = static_cast<float>(point.g) / 255.0f;
-                        color.b = static_cast<float>(point.b) / 255.0f;
-                        marker.colors.push_back(color);
-                    }
+            for (const auto vertex_idx : polygon.vertices) {
+                const auto &point = cloud.points[vertex_idx];
+
+                d[w + 0] = point.x;
+                d[w + 1] = point.y;
+                d[w + 2] = point.z;
+
+                if constexpr (std::is_same_v<PointT, pcl::PointXYZRGB> ||
+                            std::is_same_v<PointT, pcl::PointXYZRGBA>) {
+                    d[w + 3] = point.r / 255.0f;
+                    d[w + 4] = point.g / 255.0f;
+                    d[w + 5] = point.b / 255.0f;
+                    d[w + 6] = 1.0f;
+                } else {
+                    d[w + 3] = 0.0f;
+                    d[w + 4] = 1.0f;
+                    d[w + 5] = 0.0f;
+                    d[w + 6] = 1.0f;
                 }
+                w += 7;
             }
         }
 
-        marker.scale.x = 1.0;
-        marker.scale.y = 1.0;
-        marker.scale.z = 1.0;
-
-        if constexpr (std::is_same<PointT, pcl::PointXYZ>::value) {
-            marker.color.a = 1.0;
-            marker.color.r = 0.0;
-            marker.color.g = 1.0;
-            marker.color.b = 0.0;
-        }
-        
-        marker_array.markers.push_back(marker);
-        RCLCPP_INFO(this->get_logger(), "Mesh converted to markers in %ld ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() - t1);
+        RCLCPP_INFO(this->get_logger(), "Mesh converted to Float32MultiArray in %ld ms (%zu vertices)",
+            std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() - t1,
+            vertex_array.data.size() / 7);
     }
 
     // ----------------------------------------------------------------------- [Helper functions]
@@ -331,7 +336,7 @@ private:
     }
 
     rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_sub_;
-    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr mesh_pub_;
+    rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr mesh_pub_;
 
     double distance_threshold_;
     double search_radius_;
@@ -343,7 +348,7 @@ private:
 
 int main(int argc, char **argv) {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<MarkerArrayNode>();
+    auto node = std::make_shared<Float32ArrayNode>();
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;
