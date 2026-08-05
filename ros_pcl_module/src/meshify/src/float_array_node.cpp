@@ -59,6 +59,7 @@ private:
                 RCLCPP_INFO(this->get_logger(), "Handle XYZ PointCloud");
                 this->handlePointCloud<pcl::PointXYZ, pcl::Normal, pcl::PointNormal>(msg);
             }
+            RCLCPP_INFO(this->get_logger(), "--- frame done ---");
 
         } catch (const std::exception &e) {
             RCLCPP_ERROR(this->get_logger(), "Error processing PointCloud: %s", e.what());
@@ -114,11 +115,6 @@ private:
             return;
         }
 
-        for (const auto &field : mesh.cloud.fields) {
-            std::cout << "Field name: " << field.name << std::endl;
-        }
-
-
         RCLCPP_INFO(this->get_logger(), "Convert mesh to Float32MultiArray (xyzrgba)");
         std_msgs::msg::Float32MultiArray vertex_array;
         convertMeshToFloatArray<PointT>(mesh, vertex_array);
@@ -128,8 +124,7 @@ private:
             return;
         }
 
-        RCLCPP_INFO(this->get_logger(), "publish %zu floats (%zu vertices)",
-            vertex_array.data.size(), vertex_array.data.size() / 7);
+        RCLCPP_INFO(this->get_logger(), "publish %zu floats (%zu vertices)", vertex_array.data.size(), vertex_array.data.size() / 7);
         mesh_pub_->publish(vertex_array);
     }
 
@@ -301,6 +296,8 @@ private:
         pcl::SACSegmentation<PointT> seg;
 
         seg.setOptimizeCoefficients(true);
+        seg.setMaxIterations(50);
+        seg.setProbability(0.85);
         seg.setModelType(pcl::SACMODEL_PLANE);
         seg.setMethodType(pcl::SAC_RANSAC);
         seg.setDistanceThreshold(distance_threshold_);
