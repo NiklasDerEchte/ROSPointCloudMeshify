@@ -27,6 +27,7 @@ set(NODES
   marker_array_node
   marker_array_node_2
   float_array_node
+  float_array_unity_plane_node
 )
 
 foreach(node ${NODES})
