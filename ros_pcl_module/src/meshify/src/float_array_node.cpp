@@ -12,6 +12,7 @@
 #include <pcl/surface/poisson.h>
 #include <std_msgs/msg/float32_multi_array.hpp>
 #include <pcl/surface/organized_fast_mesh.h>
+#include <cmath>
 
 class Float32ArrayNode : public rclcpp::Node {
 public:
@@ -290,18 +291,37 @@ private:
         typename pcl::PointCloud<PointT>::Ptr cloudOut(new pcl::PointCloud<PointT>());
         pcl::copyPointCloud<PointT, PointT>(*cloudIn, *cloudOut);
 
+        // RANSAC only samples finite pixels. The cloud stays organized
+        pcl::IndicesPtr finite(new pcl::Indices());
+        finite->reserve(cloudOut->size());
+        for (std::size_t i = 0; i < cloudOut->points.size(); ++i) {
+            const auto &p = cloudOut->points[i];
+            if (std::isfinite(p.x) && std::isfinite(p.y) && std::isfinite(p.z)) {
+                finite->push_back(static_cast<int>(i));
+            }
+        }
+
+        RCLCPP_INFO(this->get_logger(), "Plane RANSAC on %zu/%zu finite points (%u x %u)",
+            finite->size(), cloudOut->size(), cloudOut->width, cloudOut->height);
+
+        if (finite->size() < 3) {
+            RCLCPP_WARN(this->get_logger(), "Not enough finite points for plane segmentation");
+            return nullptr;
+        }
+
         // Perform plane segmentation
         pcl::PointIndices::Ptr inliers(new pcl::PointIndices);
         pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
         pcl::SACSegmentation<PointT> seg;
 
         seg.setOptimizeCoefficients(true);
-        seg.setMaxIterations(50);
+        seg.setMaxIterations(1000);
         seg.setProbability(0.85);
         seg.setModelType(pcl::SACMODEL_PLANE);
         seg.setMethodType(pcl::SAC_RANSAC);
         seg.setDistanceThreshold(distance_threshold_);
         seg.setInputCloud(cloudOut);
+        seg.setIndices(finite);
         seg.segment(*inliers, *coefficients);
 
         if (inliers->indices.empty()) {
