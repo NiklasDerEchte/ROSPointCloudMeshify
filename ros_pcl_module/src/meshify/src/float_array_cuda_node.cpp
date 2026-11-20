@@ -37,7 +37,7 @@ public:
           queue_depth_(declare_parameter("queue_depth", 100))
     {
         if (mode_ != "fast") {
-            throw std::invalid_argument("mode must be fast on the GPU, got '" + mode_ + "'");
+            throw std::invalid_argument("mode must be fast, got '" + mode_ + "'");
         }
         meshify::initFloatArrayCuda();
 
@@ -98,7 +98,7 @@ private:
         frame_.unpack_ms = elapsedMs(t_unpack);
         RCLCPP_INFO(this->get_logger(), "seq=%llu Unpack point cloud in %.3f ms", seq, frame_.unpack_ms);
 
-        // GPU: the mesh kernel needs an organized image, there is no greedy fallback.
+        // The organized fast mesh needs an image layout.
         if (height_ < 2 || width_ < 2) {
             RCLCPP_WARN(this->get_logger(), "seq=%llu PointCloud is not organized, skip frame", seq);
             frame_.status = "not_organized";

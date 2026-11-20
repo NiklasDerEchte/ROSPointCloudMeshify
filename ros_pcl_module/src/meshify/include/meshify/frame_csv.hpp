@@ -1,15 +1,16 @@
 #pragma once
 
-// Per-frame timing and CSV log shared by float_array_node (CPU) and float_array_cuda_node (GPU).
-// Both nodes write the same columns so one script can compare the runs.
+// Per-frame timing and CSV log shared by float_array_node (cpu), float_array_cuda_node (gpu)
+// and float_array_pcl_node (pcl). All write the same columns so one script can compare runs.
 //
 // All durations are steady_clock milliseconds. A stage a backend does not have stays 0:
-//   CPU only: copy_ms (working copy before RANSAC), normals_ms, convert_ms (mesh -> payload)
-//   GPU only: upload_ms (host -> device), download_ms (device -> host payload)
-// stamp_sec/stamp_nanosec are header.stamp and match CPU and GPU rows of the same frame.
+//   cpu, pcl: copy_ms (working copy before RANSAC), convert_ms (mesh -> payload)
+//   gpu:      upload_ms (host -> device), download_ms (device -> host payload)
+//   pcl:      normals_ms
+// stamp_sec/stamp_nanosec are header.stamp and match rows of the same frame across runs.
 //
-// status: ok, not_enough_finite, no_plane, empty_mesh, error,
-//         empty_cloud (CPU, poisson mode only), not_organized (GPU only).
+// status: ok, not_organized, not_enough_finite, no_plane, empty_mesh, error,
+//         empty_cloud (pcl, poisson only).
 
 #include <chrono>
 #include <cstddef>
