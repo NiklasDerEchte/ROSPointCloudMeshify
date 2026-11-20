@@ -17,7 +17,7 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(pcl_ros REQUIRED)
-find_package(visualization_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 
 include_directories(
   include
@@ -29,16 +29,13 @@ link_directories(
 )
 
 set(NODES
-  marker_array_node
-  marker_array_node_2
   float_array_node
   float_array_pcl_node
-  float_array_unity_plane_node
 )
 
 foreach(node ${NODES})
   add_executable(${node} src/${node}.cpp)
-  ament_target_dependencies(${node} rclcpp sensor_msgs pcl_conversions pcl_ros visualization_msgs)
+  ament_target_dependencies(${node} rclcpp sensor_msgs std_msgs pcl_conversions pcl_ros)
   target_link_libraries(${node} ${PCL_LIBRARIES})
   install(TARGETS ${node} DESTINATION lib/${PROJECT_NAME})
 endforeach()
@@ -68,7 +65,6 @@ endif()
 
 if(MESHIFY_CUDA_NODE)
   find_package(OpenMP REQUIRED)
-  find_package(std_msgs REQUIRED)
 
   if(NOT MESHIFY_CUDA_ARCHITECTURES)
     if(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 12.0)
