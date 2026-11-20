@@ -6,10 +6,18 @@
 namespace meshify
 {
 
+/// Stage durations in steady_clock milliseconds. Each stage ends with a device
+/// sync, so the GPU work is inside its own interval and not in the next one.
+///   upload_ms:   host->device copy of the organized cloud
+///   plane_ms:    finite filter, RANSAC, coefficient refinement, inliers -> NaN
+///   mesh_ms:     mesh kernel and triangle compaction (incl. triangle count read)
+///   download_ms: device->host copy of the triangle payload
 struct CudaMeshTimes
 {
-    long ransac_ms;
-    long mesh_ms;
+    double upload_ms;
+    double plane_ms;
+    double mesh_ms;
+    double download_ms;
 };
 
 enum class CudaMeshStatus

@@ -1,228 +1,303 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
+#include <std_msgs/msg/float32_multi_array.hpp>
+
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <pcl/filters/passthrough.h>
+#include <pcl/features/normal_3d.h>
 #include <pcl/filters/extract_indices.h>
+#include <pcl/filters/filter.h>
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/surface/gp3.h>
-#include <pcl/features/normal_3d.h>
-#include <pcl/io/vtk_io.h>
-#include <pcl/surface/poisson.h>
-#include <std_msgs/msg/float32_multi_array.hpp>
 #include <pcl/surface/organized_fast_mesh.h>
-#include <cmath>
+#include <pcl/surface/poisson.h>
+
+#include "meshify/frame_csv.hpp"
+
+#include <algorithm>
 #include <chrono>
+#include <cmath>
 #include <cstdint>
 #include <fstream>
+#include <functional>
 #include <limits>
+#include <stdexcept>
+#include <string>
+#include <type_traits>
 
+using meshify::elapsedMs;
+
+/**
+ * CPU (PCL) mesh node. Subscribes to an organized PointCloud2, removes the dominant plane
+ * with RANSAC, meshes the rest and publishes the triangles as a Float32MultiArray
+ * (TRIANGLE_LIST, 7 floats per vertex: x, y, z, r, g, b, a).
+ *
+ * mode: fast (OrganizedFastMesh, the counterpart of float_array_cuda_node), greedy, poisson.
+ */
 class Float32ArrayNode : public rclcpp::Node {
 public:
-    Float32ArrayNode() 
+    /// Declare parameters, open the CSV log and subscribe to /points/xyzrgba.
+    Float32ArrayNode()
         : Node("float_array_node"),
           distance_threshold_(declare_parameter("distance_threshold", 0.01)),
+          output_topic_(declare_parameter("output_topic", "/object_mesh/vertices")),
+          mode_(declare_parameter("mode", "fast")),
+          enable_logging_(declare_parameter("enable_logging", true)),
+          csv_path_(declare_parameter<std::string>("csv_path", "meshify_cpu.csv")),
+          queue_depth_(declare_parameter("queue_depth", 100)),
+          // greedy and poisson only.
           search_radius_(declare_parameter("search_radius", 0.1)),
           max_neighbors_(declare_parameter("max_neighbors", 150)),
-          normal_k_search_(declare_parameter("normal_k_search", 20)),
-          output_topic_(declare_parameter("output_topic", "/object_mesh/vertices")),
-          mode_(declare_parameter("mode", "fast")), // fast, greedy, poisson
-          csv_path_(declare_parameter<std::string>("csv_path", ""))
-        {
+          normal_k_search_(declare_parameter("normal_k_search", 20))
+    {
+        if (mode_ != "fast" && mode_ != "greedy" && mode_ != "poisson") {
+            throw std::invalid_argument("mode must be fast, greedy or poisson, got '" + mode_ + "'");
+        }
 
-        pointcloud_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>("/points/xyzrgba", 100, 
-            std::bind(&Float32ArrayNode::pointCloudCallback, this, std::placeholders::_1)
-        );
-
-        // Interleaved xyzrgba floats for Unity (one message, TRIANGLE_LIST order)
-        mesh_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>(this->output_topic_, 10);
+        pointcloud_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>("/points/xyzrgba",
+            static_cast<std::size_t>(std::max<int64_t>(1, queue_depth_)),
+            std::bind(&Float32ArrayNode::pointCloudCallback, this, std::placeholders::_1));
+        mesh_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>(output_topic_, 10);
         RCLCPP_INFO(this->get_logger(), "Node initialized, publishing Float32MultiArray on %s", output_topic_.c_str());
 
-        // csv_path empty: no file. One data row per frame, header only on a new file.
-        if (!csv_path_.empty()) {
-            csv_.open(csv_path_, std::ios::out | std::ios::app);
-            if (!csv_) {
-                RCLCPP_WARN(this->get_logger(), "csv_path '%s' could not be opened, CSV off", csv_path_.c_str());
+        if (enable_logging_) {
+            if (csv_path_.empty() || !meshify::openFrameCsv(csv_, csv_path_)) {
+                RCLCPP_WARN(this->get_logger(),
+                    "csv_path '%s' could not be opened or has a different header, CSV off", csv_path_.c_str());
             } else {
-                csv_.seekp(0, std::ios::end);
-                if (csv_.tellp() == 0) {
-                    csv_ << "seq,stamp_sec,stamp_nanosec,capture_to_callback_ms,unpack_ms,plane_ms,normals_ms,mesh_ms,convert_ms,publish_ms,total_ms,bytes,triangles\n";
-                }
-                csv_.setf(std::ios::fixed);
-                csv_.precision(3);
-                csv_.flush();
                 RCLCPP_INFO(this->get_logger(), "CSV frame log: %s", csv_path_.c_str());
             }
         }
+        RCLCPP_INFO(this->get_logger(), "mode=%s queue_depth=%ld", mode_.c_str(), static_cast<long>(queue_depth_));
     }
 
 private:
+    static constexpr const char * kBackend = "cpu";
+
+    // ----------------------------------------------------------------------- [Frame]
+
     void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
         const auto t_frame = std::chrono::steady_clock::now();
         const unsigned long long seq = ++frame_seq_;
-        stamp_valid_ = false;
-        stamp_sec_ = 0;
-        stamp_nanosec_ = 0;
-        capture_to_callback_ms_ = 0.0;
-        unpack_ms_ = 0.0;
-        plane_ms_ = 0.0;
-        normals_ms_ = 0.0;
-        mesh_ms_ = 0.0;
-        convert_ms_ = 0.0;
-        publish_ms_ = 0.0;
-        total_ms_ = 0.0;
-        frame_bytes_ = 0;
-        frame_triangles_ = 0;
+        frame_.reset(seq);
+        frame_.stamp_sec = msg->header.stamp.sec;
+        frame_.stamp_nanosec = msg->header.stamp.nanosec;
 
         try {
-            // Capture (header.stamp) to callback entry, both on the ROS clock (this->now()).
-            // The subscription queue (depth 100, single-threaded spin) sits inside this
-            // interval and is not split out here: callback entry is the start of processing.
-            // rmw received_timestamp is stamped at take(), immediately before this callback,
-            // and on the system clock, not the ROS clock, so it is not a separate queue wait.
-            const rclcpp::Time received = this->now();
-            stamp_sec_ = msg->header.stamp.sec;
-            stamp_nanosec_ = msg->header.stamp.nanosec;
-            if (stamp_sec_ != 0 || stamp_nanosec_ != 0) {
-                const rclcpp::Time stamp(msg->header.stamp, received.get_clock_type());
-                capture_to_callback_ms_ = (received - stamp).seconds() * 1000.0;
-                stamp_valid_ = true;
-                RCLCPP_INFO(this->get_logger(), "seq=%llu Capture to callback in %.3f ms (stamp %d.%09u)",
-                    seq, capture_to_callback_ms_, stamp_sec_, stamp_nanosec_);
-            } else {
-                RCLCPP_INFO(this->get_logger(), "seq=%llu Capture to callback n/a (header.stamp is 0)", seq);
-            }
-
             RCLCPP_INFO(this->get_logger(), "seq=%llu Received PointCloud2 message", seq);
-
-            bool hasRgb = false;
-            bool hasRgba = false;
-
-            for (const auto &field : msg->fields) {
-                if (field.name == "rgb") {
-                    hasRgb = true;
-                    break;
-                } else if (field.name == "rgba") {
-                    hasRgba = true;
-                    break;
-                }
-            }
-
-            if(hasRgb || hasRgba) {
+            if (hasColor(*msg)) {
                 RCLCPP_INFO(this->get_logger(), "seq=%llu Handle XYZ-RGB(A) PointCloud", seq);
-                this->handlePointCloud<pcl::PointXYZRGB, pcl::Normal, pcl::PointXYZRGBNormal>(msg);
+                handlePointCloud<pcl::PointXYZRGB, pcl::PointXYZRGBNormal>(msg);
             } else {
                 RCLCPP_INFO(this->get_logger(), "seq=%llu Handle XYZ PointCloud", seq);
-                this->handlePointCloud<pcl::PointXYZ, pcl::Normal, pcl::PointNormal>(msg);
+                handlePointCloud<pcl::PointXYZ, pcl::PointNormal>(msg);
             }
-            total_ms_ = elapsedMs(t_frame);
-            RCLCPP_INFO(this->get_logger(), "seq=%llu bytes %zu triangles %zu", seq, frame_bytes_, frame_triangles_);
-            RCLCPP_INFO(this->get_logger(), "seq=%llu Total in %.3f ms", seq, total_ms_);
-            writeFrameCsv();
-            RCLCPP_INFO(this->get_logger(), "seq=%llu --- frame done ---", seq);
-
-        } catch (const std::exception &e) {
-            total_ms_ = elapsedMs(t_frame);
+        } catch (const std::exception & e) {
+            frame_.status = "error";
             RCLCPP_ERROR(this->get_logger(), "seq=%llu Error processing PointCloud: %s", seq, e.what());
-            RCLCPP_INFO(this->get_logger(), "seq=%llu bytes %zu triangles %zu", seq, frame_bytes_, frame_triangles_);
-            RCLCPP_INFO(this->get_logger(), "seq=%llu Total in %.3f ms", seq, total_ms_);
-            writeFrameCsv();
         }
+
+        frame_.total_ms = elapsedMs(t_frame);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu bytes %zu triangles %zu", seq, frame_.bytes, frame_.triangles);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu Total in %.3f ms", seq, frame_.total_ms);
+        meshify::writeFrameCsv(csv_, kBackend, frame_);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu --- frame done ---", seq);
     }
 
-    // ----------------------------------------------------------------------- [Handle PointCloud Message]
-
-    template <typename PointT, typename NormalT, typename PointNormalT>
-    void handlePointCloud(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+    template <typename PointT, typename PointNormalT>
+    void handlePointCloud(const sensor_msgs::msg::PointCloud2::SharedPtr & msg) {
         const unsigned long long seq = frame_seq_;
-        // Convert ROS2 PointCloud2 to PCL
-        typename pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>());
+
         const auto t_unpack = std::chrono::steady_clock::now();
+        typename pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>());
         pcl::fromROSMsg(*msg, *cloud);
-        unpack_ms_ = elapsedMs(t_unpack);
-        RCLCPP_INFO(this->get_logger(), "seq=%llu Unpack point cloud in %.3f ms", seq, unpack_ms_);
+        frame_.unpack_ms = elapsedMs(t_unpack);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu Unpack point cloud in %.3f ms", seq, frame_.unpack_ms);
+
+        const bool organized_mesh = mode_ == "fast" && cloud->isOrganized();
+        if (mode_ == "fast" && !organized_mesh) {
+            RCLCPP_WARN(this->get_logger(), "seq=%llu PointCloud is not organized, use greedy mesh", seq);
+        }
+
+        // Poisson needs a dense cloud: drop plane points and NaNs. Fast and greedy keep the
+        // organized layout and only set the plane points to NaN.
+        const bool remove_points = mode_ == "poisson";
+        typename pcl::PointCloud<PointT>::Ptr cloud_filtered = planeSegmentation<PointT>(cloud, remove_points);
+        if (cloud_filtered == nullptr) {
+            RCLCPP_WARN(this->get_logger(), "seq=%llu Filtered PointCloud is empty", seq);
+            return;
+        }
+        if (cloud_filtered->empty()) {
+            RCLCPP_WARN(this->get_logger(), "seq=%llu Filtered PointCloud is empty", seq);
+            frame_.status = "empty_cloud";
+            return;
+        }
+
         pcl::PolygonMesh mesh;
-        
-        if (this->mode_ == "fast" && cloud->isOrganized()) {
-            typename pcl::PointCloud<PointT>::Ptr cloud_filtered = this->planeSegmentation<PointT>(cloud, false, false);
-
-            if (cloud_filtered == nullptr || cloud_filtered->empty()) {
-                RCLCPP_WARN(this->get_logger(), "seq=%llu Filtered PointCloud is empty", seq);
-                return;
-            }
-
+        if (organized_mesh) {
             RCLCPP_INFO(this->get_logger(), "seq=%llu Create organized triangulation mesh", seq);
-            this->createOrganizedTriangulationMesh<PointT>(cloud_filtered, mesh); 
-        } else if (this->mode_ == "poisson") {
-            typename pcl::PointCloud<PointT>::Ptr cloud_filtered = this->planeSegmentation<PointT>(cloud, true, true); // ToDo ist das hier richtig? weil poisson doch keine unorganized clouds bekommen darf
-
-            if (cloud_filtered == nullptr || cloud_filtered->empty()) {
-                RCLCPP_WARN(this->get_logger(), "seq=%llu Filtered PointCloud is empty", seq);
-                return;
-            }
-            RCLCPP_INFO(this->get_logger(), "seq=%llu Create unorganized poisson mesh", seq);
-            typename pcl::PointCloud<PointNormalT>::Ptr cloud_with_normals = this->estimateNormals<PointT, NormalT, PointNormalT>(cloud_filtered);
-
-            RCLCPP_INFO(this->get_logger(), "seq=%llu Create poisson-mesh", seq);
-            this->createPoissonMesh<PointNormalT>(cloud_with_normals, mesh);
-        } else if (this->mode_ == "greedy" || !cloud->isOrganized()) {
-            typename pcl::PointCloud<PointT>::Ptr cloud_filtered = this->planeSegmentation<PointT>(cloud, false, false);
-
-            if (cloud_filtered == nullptr || cloud_filtered->empty()) {
-                RCLCPP_WARN(this->get_logger(), "seq=%llu Filtered PointCloud is empty", seq);
-                return;
-            }
-
-            RCLCPP_INFO(this->get_logger(), "seq=%llu Create unorganized greedy mesh", seq);
-            typename pcl::PointCloud<PointNormalT>::Ptr cloud_with_normals = this->estimateNormals<PointT, NormalT, PointNormalT>(cloud_filtered);
-
-            RCLCPP_INFO(this->get_logger(), "seq=%llu Create greedy-triangulation-mesh", seq);
-            this->createGreedyTriangulationMesh<PointNormalT>(cloud_with_normals, mesh);
+            createOrganizedTriangulationMesh<PointT>(cloud_filtered, mesh);
         } else {
-            RCLCPP_WARN(this->get_logger(), "seq=%llu Unknown mode: %s", seq, this->mode_.c_str());
+            typename pcl::PointCloud<PointNormalT>::Ptr cloud_with_normals =
+                estimateNormals<PointT, PointNormalT>(cloud_filtered);
+            if (mode_ == "poisson") {
+                RCLCPP_INFO(this->get_logger(), "seq=%llu Create Poisson mesh", seq);
+                createPoissonMesh<PointNormalT>(cloud_with_normals, mesh);
+            } else {
+                RCLCPP_INFO(this->get_logger(), "seq=%llu Create greedy triangulation mesh", seq);
+                createGreedyTriangulationMesh<PointNormalT>(cloud_with_normals, mesh);
+            }
+        }
+
+        convertMeshToFloatArray<PointT>(mesh);
+        if (vertex_array_.data.empty()) {
+            RCLCPP_WARN(this->get_logger(), "seq=%llu Triangulation failed: no polygons created, skip publish", seq);
+            frame_.status = "empty_mesh";
             return;
         }
 
-        RCLCPP_INFO(this->get_logger(), "seq=%llu Convert mesh to Float32MultiArray (xyzrgba)", seq);
-        std_msgs::msg::Float32MultiArray vertex_array;
-        convertMeshToFloatArray<PointT>(mesh, vertex_array);
-
-        if (vertex_array.data.empty()) {
-            RCLCPP_WARN(this->get_logger(), "seq=%llu Float32MultiArray empty, skip publish", seq);
-            return;
-        }
-
-        frame_bytes_ = vertex_array.data.size() * 4;
-        frame_triangles_ = (vertex_array.data.size() / 7) / 3;
-        const auto t_publish = std::chrono::steady_clock::now();
-        mesh_pub_->publish(vertex_array);
-        publish_ms_ = elapsedMs(t_publish);
-        RCLCPP_INFO(this->get_logger(), "seq=%llu publish %zu floats (%zu vertices) in %.3f ms",
-            seq, vertex_array.data.size(), vertex_array.data.size() / 7, publish_ms_);
+        publishMesh();
     }
 
-    // ----------------------------------------------------------------------- [Surface Reconstruction Algos]
+    void publishMesh() {
+        frame_.bytes = vertex_array_.data.size() * sizeof(float);
+        frame_.triangles = vertex_array_.data.size() / 21;
+        const auto t_publish = std::chrono::steady_clock::now();
+        mesh_pub_->publish(vertex_array_);
+        frame_.publish_ms = elapsedMs(t_publish);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu Publish %zu floats (%zu vertices) in %.3f ms",
+            static_cast<unsigned long long>(frame_seq_), vertex_array_.data.size(),
+            vertex_array_.data.size() / 7, frame_.publish_ms);
+    }
+
+    static bool hasColor(const sensor_msgs::msg::PointCloud2 & msg) {
+        return std::any_of(msg.fields.begin(), msg.fields.end(),
+            [](const auto & field) { return field.name == "rgb" || field.name == "rgba"; });
+    }
+
+    // ----------------------------------------------------------------------- [Plane segmentation]
+
+    // RANSAC plane on the finite points. With remove_points=false the plane inliers are set
+    // to NaN and the cloud stays organized; with true, inliers and NaNs are removed.
+    template <typename PointT>
+    typename pcl::PointCloud<PointT>::Ptr planeSegmentation(
+        const typename pcl::PointCloud<PointT>::Ptr & cloud_in, bool remove_points) {
+        const unsigned long long seq = frame_seq_;
+
+        // Working copy, its own stage: the GPU segments its device buffer in place.
+        const auto t_copy = std::chrono::steady_clock::now();
+        typename pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>(*cloud_in));
+        frame_.copy_ms = elapsedMs(t_copy);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu Copy point cloud in %.3f ms", seq, frame_.copy_ms);
+
+        const auto t_plane = std::chrono::steady_clock::now();
+        pcl::IndicesPtr finite(new pcl::Indices());
+        finite->reserve(cloud->size());
+        for (std::size_t i = 0; i < cloud->size(); ++i) {
+            const auto & p = cloud->points[i];
+            if (std::isfinite(p.x) && std::isfinite(p.y) && std::isfinite(p.z)) {
+                finite->push_back(static_cast<int>(i));
+            }
+        }
+        if (finite->size() < 3) {
+            frame_.plane_ms = elapsedMs(t_plane);
+            logRansacInput(finite->size(), cloud->size(), cloud->width, cloud->height);
+            RCLCPP_WARN(this->get_logger(), "seq=%llu Not enough finite points for plane segmentation", seq);
+            frame_.status = "not_enough_finite";
+            return nullptr;
+        }
+
+        pcl::PointIndices::Ptr inliers(new pcl::PointIndices);
+        pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
+        pcl::SACSegmentation<PointT> seg;
+        seg.setOptimizeCoefficients(true);
+        seg.setMaxIterations(1000);
+        seg.setProbability(0.85);
+        seg.setModelType(pcl::SACMODEL_PLANE);
+        seg.setMethodType(pcl::SAC_RANSAC);
+        seg.setDistanceThreshold(distance_threshold_);
+        seg.setInputCloud(cloud);
+        seg.setIndices(finite);
+        seg.segment(*inliers, *coefficients);
+        if (inliers->indices.empty()) {
+            frame_.plane_ms = elapsedMs(t_plane);
+            logRansacInput(finite->size(), cloud->size(), cloud->width, cloud->height);
+            RCLCPP_WARN(this->get_logger(), "seq=%llu No plane found in the point cloud", seq);
+            frame_.status = "no_plane";
+            return nullptr;
+        }
+
+        if (remove_points) {
+            // Inlier indices refer to the full cloud, so extract them before dropping NaNs.
+            pcl::ExtractIndices<PointT> extract;
+            extract.setInputCloud(cloud);
+            extract.setIndices(inliers);
+            extract.setNegative(true);
+            extract.filter(*cloud);
+            pcl::Indices kept;
+            pcl::removeNaNFromPointCloud(*cloud, *cloud, kept);
+        } else {
+            constexpr float nan = std::numeric_limits<float>::quiet_NaN();
+            for (const int idx : inliers->indices) {
+                cloud->points[idx].x = nan;
+                cloud->points[idx].y = nan;
+                cloud->points[idx].z = nan;
+            }
+        }
+        frame_.plane_ms = elapsedMs(t_plane);
+        logRansacInput(finite->size(), cloud_in->size(), cloud_in->width, cloud_in->height);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu Plane segmentation in %.3f ms", seq, frame_.plane_ms);
+        return cloud;
+    }
+
+    void logRansacInput(std::size_t nfinite, std::size_t npoints, unsigned width, unsigned height) {
+        RCLCPP_INFO(this->get_logger(), "seq=%llu Plane RANSAC on %zu/%zu finite points (%u x %u)",
+            static_cast<unsigned long long>(frame_seq_), nfinite, npoints, width, height);
+    }
+
+    // ----------------------------------------------------------------------- [Normals]
+
+    template <typename PointT, typename PointNormalT>
+    typename pcl::PointCloud<PointNormalT>::Ptr estimateNormals(const typename pcl::PointCloud<PointT>::Ptr & cloud) {
+        const auto t_normals = std::chrono::steady_clock::now();
+        pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
+        typename pcl::search::KdTree<PointT>::Ptr tree(new pcl::search::KdTree<PointT>());
+        pcl::NormalEstimation<PointT, pcl::Normal> ne;
+        ne.setInputCloud(cloud);
+        ne.setSearchMethod(tree);
+        ne.setKSearch(normal_k_search_);
+        ne.compute(*normals);
+
+        typename pcl::PointCloud<PointNormalT>::Ptr cloud_with_normals(new pcl::PointCloud<PointNormalT>());
+        pcl::concatenateFields(*cloud, *normals, *cloud_with_normals);
+        frame_.normals_ms = elapsedMs(t_normals);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu Normals estimated in %.3f ms",
+            static_cast<unsigned long long>(frame_seq_), frame_.normals_ms);
+        return cloud_with_normals;
+    }
+
+    // ----------------------------------------------------------------------- [Mesh]
 
     template <typename PointT>
-    void createOrganizedTriangulationMesh(typename pcl::PointCloud<PointT>::Ptr &cloud, pcl::PolygonMesh &mesh) {
-        const auto t1 = std::chrono::steady_clock::now();
-        typename pcl::OrganizedFastMesh<PointT> ofm;
+    void createOrganizedTriangulationMesh(const typename pcl::PointCloud<PointT>::Ptr & cloud, pcl::PolygonMesh & mesh) {
+        const auto t_mesh = std::chrono::steady_clock::now();
+        pcl::OrganizedFastMesh<PointT> ofm;
         ofm.setInputCloud(cloud);
-        ofm.setTrianglePixelSize(4); // Größe der Pixel für die Nachbarschaft
+        ofm.setTrianglePixelSize(4);
         ofm.setTriangulationType(pcl::OrganizedFastMesh<PointT>::TRIANGLE_RIGHT_CUT);
         ofm.reconstruct(mesh);
-        mesh_ms_ = elapsedMs(t1);
+        frame_.mesh_ms = elapsedMs(t_mesh);
         RCLCPP_INFO(this->get_logger(), "seq=%llu Organized mesh created in %.3f ms",
-            static_cast<unsigned long long>(frame_seq_), mesh_ms_);
+            static_cast<unsigned long long>(frame_seq_), frame_.mesh_ms);
     }
 
     template <typename PointNormalT>
-    void createGreedyTriangulationMesh(typename pcl::PointCloud<PointNormalT>::Ptr &cloud_with_normals, pcl::PolygonMesh &mesh) {
-        const auto t1 = std::chrono::steady_clock::now();
-        // Create mesh using greedy triangulation
+    void createGreedyTriangulationMesh(
+        const typename pcl::PointCloud<PointNormalT>::Ptr & cloud_with_normals, pcl::PolygonMesh & mesh) {
+        const auto t_mesh = std::chrono::steady_clock::now();
         typename pcl::search::KdTree<PointNormalT>::Ptr tree(new pcl::search::KdTree<PointNormalT>());
-        typename pcl::GreedyProjectionTriangulation<PointNormalT> gp3;
+        pcl::GreedyProjectionTriangulation<PointNormalT> gp3;
         gp3.setSearchRadius(search_radius_);
         gp3.setMu(4);
         gp3.setMaximumNearestNeighbors(max_neighbors_);
@@ -230,279 +305,119 @@ private:
         gp3.setMinimumAngle(M_PI / 36);
         gp3.setMaximumAngle(M_PI / 2);
         gp3.setNormalConsistency(false);
-
         gp3.setInputCloud(cloud_with_normals);
         gp3.setSearchMethod(tree);
         gp3.reconstruct(mesh);
-        mesh_ms_ = elapsedMs(t1);
+        frame_.mesh_ms = elapsedMs(t_mesh);
         RCLCPP_INFO(this->get_logger(), "seq=%llu Greedy mesh created in %.3f ms",
-            static_cast<unsigned long long>(frame_seq_), mesh_ms_);
+            static_cast<unsigned long long>(frame_seq_), frame_.mesh_ms);
     }
 
     template <typename PointNormalT>
-    void createPoissonMesh(typename pcl::PointCloud<PointNormalT>::Ptr &cloud_with_normals, pcl::PolygonMesh &mesh) {
-        const auto t1 = std::chrono::steady_clock::now();
-        // Perform Poisson Surface Reconstruction
-        typename pcl::Poisson<PointNormalT> poisson;
-        poisson.setDepth(8);  // Depth of reconstruction
-        poisson.setSamplesPerNode(1.0f);  // Samples per node
-        poisson.setSolverDivide(8);  // Solver divide
-        poisson.setIsoDivide(8);  // Iso divide
-        //poisson.setUsePredictedNormals(true); // Use predicted normals if available
+    void createPoissonMesh(const typename pcl::PointCloud<PointNormalT>::Ptr & cloud_with_normals, pcl::PolygonMesh & mesh) {
+        const auto t_mesh = std::chrono::steady_clock::now();
+        pcl::Poisson<PointNormalT> poisson;
+        poisson.setDepth(8);
+        poisson.setSamplesPerNode(1.0f);
+        poisson.setSolverDivide(8);
+        poisson.setIsoDivide(8);
         poisson.setInputCloud(cloud_with_normals);
-
         poisson.reconstruct(mesh);
-        
-        // ToDo Funktioniert das hier trotz Warnung?
-        if constexpr (std::is_same<PointNormalT, pcl::PointXYZRGBNormal>::value) { // Workaround weil poisson reconstruction Farbinformationen löscht
-            typename pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr cloud_rgb(new pcl::PointCloud<pcl::PointXYZRGBNormal>());
-            pcl::copyPointCloud<pcl::PointXYZRGBNormal, pcl::PointXYZRGBNormal>(*cloud_with_normals, *cloud_rgb);
 
-            // Rekonstruiere die Punktwolke aus dem Mesh
-            pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr mesh_cloud(new pcl::PointCloud<pcl::PointXYZRGBNormal>);
-            pcl::fromPCLPointCloud2(mesh.cloud, *mesh_cloud);
-
-            // Übertrage RGB-Werte auf rekonstruierte Punkte
-            for (size_t i = 0; i < mesh_cloud->points.size(); ++i) {
-                if (i < cloud_rgb->points.size()) {
-                    mesh_cloud->points[i].r = cloud_rgb->points[i].r;
-                    mesh_cloud->points[i].g = cloud_rgb->points[i].g;
-                    mesh_cloud->points[i].b = cloud_rgb->points[i].b;
-                }
+        // Poisson drops the colors. Copy them back by index; the reconstructed vertices do not
+        // correspond to the input points, so this is only a rough coloring.
+        if constexpr (std::is_same_v<PointNormalT, pcl::PointXYZRGBNormal>) {
+            pcl::PointCloud<pcl::PointXYZRGBNormal> mesh_cloud;
+            pcl::fromPCLPointCloud2(mesh.cloud, mesh_cloud);
+            const std::size_t n = std::min(mesh_cloud.size(), cloud_with_normals->size());
+            for (std::size_t i = 0; i < n; ++i) {
+                mesh_cloud.points[i].r = cloud_with_normals->points[i].r;
+                mesh_cloud.points[i].g = cloud_with_normals->points[i].g;
+                mesh_cloud.points[i].b = cloud_with_normals->points[i].b;
             }
-
-            // Konvertiere zurück in PCLPointCloud2 und aktualisiere mesh.cloud
-            pcl::toPCLPointCloud2(*mesh_cloud, mesh.cloud);
+            pcl::toPCLPointCloud2(mesh_cloud, mesh.cloud);
         }
-        mesh_ms_ = elapsedMs(t1);
+        frame_.mesh_ms = elapsedMs(t_mesh);
         RCLCPP_INFO(this->get_logger(), "seq=%llu Poisson mesh created in %.3f ms",
-            static_cast<unsigned long long>(frame_seq_), mesh_ms_);
+            static_cast<unsigned long long>(frame_seq_), frame_.mesh_ms);
     }
 
-    // ----------------------------------------------------------------------- [Convert Mesh -> Float32MultiArray xyzrgba]
+    // ----------------------------------------------------------------------- [Mesh -> Float32MultiArray]
 
+    // Fills vertex_array_ with the triangles of `mesh`, 7 floats per vertex (x, y, z, r, g, b, a).
+    // Clouds without color are drawn green.
     template <typename PointT>
-    void convertMeshToFloatArray(
-        const pcl::PolygonMesh &mesh,
-        std_msgs::msg::Float32MultiArray &vertex_array) {
-        const auto t1 = std::chrono::steady_clock::now();
-        const unsigned long long seq = frame_seq_;
-
-        typename pcl::PointCloud<PointT> cloud;
+    void convertMeshToFloatArray(const pcl::PolygonMesh & mesh) {
+        const auto t_convert = std::chrono::steady_clock::now();
+        pcl::PointCloud<PointT> cloud;
         pcl::fromPCLPointCloud2(mesh.cloud, cloud);
 
-        if (mesh.polygons.empty()) {
-            convert_ms_ = elapsedMs(t1);
-            RCLCPP_WARN(this->get_logger(), "seq=%llu Triangulation failed: no polygons created", seq);
-            return;
-        }
-
-        size_t tri = 0;
-        for (const auto &p : mesh.polygons) {
-            if (p.vertices.size() == 3) {
+        std::size_t tri = 0;
+        for (const auto & polygon : mesh.polygons) {
+            if (polygon.vertices.size() == 3) {
                 ++tri;
             }
         }
-        
-        vertex_array.data.resize(tri * 3 * 7);
-        float *d = vertex_array.data.data();
-        size_t w = 0;
-        for (const auto &polygon : mesh.polygons) {
+        vertex_array_.data.resize(tri * 21);
+        float * d = vertex_array_.data.data();
+        for (const auto & polygon : mesh.polygons) {
             if (polygon.vertices.size() != 3) {
                 continue;
             }
-
             for (const auto vertex_idx : polygon.vertices) {
-                const auto &point = cloud.points[vertex_idx];
-
-                d[w + 0] = point.x;
-                d[w + 1] = point.y;
-                d[w + 2] = point.z;
-
-                if constexpr (std::is_same_v<PointT, pcl::PointXYZRGB> ||
-                            std::is_same_v<PointT, pcl::PointXYZRGBA>) {
-                    d[w + 3] = point.r / 255.0f;
-                    d[w + 4] = point.g / 255.0f;
-                    d[w + 5] = point.b / 255.0f;
-                    d[w + 6] = 1.0f;
+                const auto & point = cloud.points[vertex_idx];
+                d[0] = point.x;
+                d[1] = point.y;
+                d[2] = point.z;
+                if constexpr (std::is_same_v<PointT, pcl::PointXYZRGB>) {
+                    d[3] = point.r / 255.0f;
+                    d[4] = point.g / 255.0f;
+                    d[5] = point.b / 255.0f;
                 } else {
-                    d[w + 3] = 0.0f;
-                    d[w + 4] = 1.0f;
-                    d[w + 5] = 0.0f;
-                    d[w + 6] = 1.0f;
+                    d[3] = 0.0f;
+                    d[4] = 1.0f;
+                    d[5] = 0.0f;
                 }
-                w += 7;
+                d[6] = 1.0f;
+                d += 7;
             }
         }
-
-        convert_ms_ = elapsedMs(t1);
+        frame_.convert_ms = elapsedMs(t_convert);
         RCLCPP_INFO(this->get_logger(), "seq=%llu Mesh converted to Float32MultiArray in %.3f ms (%zu vertices)",
-            seq, convert_ms_, vertex_array.data.size() / 7);
+            static_cast<unsigned long long>(frame_seq_), frame_.convert_ms, vertex_array_.data.size() / 7);
     }
 
-    // ----------------------------------------------------------------------- [Helper functions]
-
-    template <typename PointT, typename NormalT, typename PointNormalT>
-    typename pcl::PointCloud<PointNormalT>::Ptr estimateNormals(typename pcl::PointCloud<PointT>::Ptr &cloud) {
-        const auto t1 = std::chrono::steady_clock::now();
-        // Estimate normals
-        typename pcl::PointCloud<NormalT>::Ptr normals(new pcl::PointCloud<NormalT>());
-        typename pcl::search::KdTree<PointT>::Ptr tree_xyz(new pcl::search::KdTree<PointT>());
-        typename pcl::NormalEstimation<PointT, NormalT> ne;
-        ne.setInputCloud(cloud);
-        ne.setSearchMethod(tree_xyz);
-        ne.setKSearch(normal_k_search_);
-        ne.compute(*normals);
-
-        typename pcl::PointCloud<PointNormalT>::Ptr cloud_with_normals(new pcl::PointCloud<PointNormalT>());
-        pcl::concatenateFields(*cloud, *normals, *cloud_with_normals);
-        normals_ms_ = elapsedMs(t1);
-        RCLCPP_INFO(this->get_logger(), "seq=%llu Normals estimated in %.3f ms",
-            static_cast<unsigned long long>(frame_seq_), normals_ms_);
-        return cloud_with_normals;
-    }
-
-    /**
-     * removePlanePoints und removeNaNValues können aus einer organisierten pointcloud eine unorganisierte machen
-    */
-    template <typename PointT>
-    typename pcl::PointCloud<PointT>::Ptr planeSegmentation(
-        typename pcl::PointCloud<PointT>::Ptr &cloudIn,
-        bool removePlanePoints, 
-        bool removeNaNValues) {
-        const auto t1 = std::chrono::steady_clock::now();
-        const unsigned long long seq = frame_seq_;
-        typename pcl::PointCloud<PointT>::Ptr cloudOut(new pcl::PointCloud<PointT>());
-        pcl::copyPointCloud<PointT, PointT>(*cloudIn, *cloudOut);
-
-        // RANSAC only samples finite pixels. The cloud stays organized
-        pcl::IndicesPtr finite(new pcl::Indices());
-        finite->reserve(cloudOut->size());
-        for (std::size_t i = 0; i < cloudOut->points.size(); ++i) {
-            const auto &p = cloudOut->points[i];
-            if (std::isfinite(p.x) && std::isfinite(p.y) && std::isfinite(p.z)) {
-                finite->push_back(static_cast<int>(i));
-            }
-        }
-
-        RCLCPP_INFO(this->get_logger(), "seq=%llu Plane RANSAC on %zu/%zu finite points (%u x %u)",
-            seq, finite->size(), cloudOut->size(), cloudOut->width, cloudOut->height);
-
-        if (finite->size() < 3) {
-            plane_ms_ = elapsedMs(t1);
-            RCLCPP_WARN(this->get_logger(), "seq=%llu Not enough finite points for plane segmentation", seq);
-            return nullptr;
-        }
-
-        // Perform plane segmentation
-        pcl::PointIndices::Ptr inliers(new pcl::PointIndices);
-        pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
-        pcl::SACSegmentation<PointT> seg;
-
-        seg.setOptimizeCoefficients(true);
-        seg.setMaxIterations(1000);
-        seg.setProbability(0.85);
-        seg.setModelType(pcl::SACMODEL_PLANE);
-        seg.setMethodType(pcl::SAC_RANSAC);
-        seg.setDistanceThreshold(distance_threshold_);
-        seg.setInputCloud(cloudOut);
-        seg.setIndices(finite);
-        seg.segment(*inliers, *coefficients);
-
-        if (inliers->indices.empty()) {
-            plane_ms_ = elapsedMs(t1);
-            RCLCPP_WARN(this->get_logger(), "seq=%llu No plane found in the point cloud", seq);
-            return nullptr;
-        }
-
-        if(removeNaNValues) {
-            // Remove NaN values
-            std::vector<int> indices;
-            pcl::removeNaNFromPointCloud(*cloudOut, *cloudOut, indices);
-        }
-
-        if(removePlanePoints) {
-            pcl::ExtractIndices<PointT> extract;
-            extract.setInputCloud(cloudOut);
-            extract.setIndices(inliers);
-            extract.setNegative(true);
-            extract.filter(*cloudOut);
-        } else {
-            for (int idx : inliers->indices) {
-                cloudOut->points[idx].x = std::numeric_limits<float>::quiet_NaN();
-                cloudOut->points[idx].y = std::numeric_limits<float>::quiet_NaN();
-                cloudOut->points[idx].z = std::numeric_limits<float>::quiet_NaN();
-            }
-        }
-        plane_ms_ = elapsedMs(t1);
-        RCLCPP_INFO(this->get_logger(), "seq=%llu Plane segmentation in %.3f ms", seq, plane_ms_);
-        return cloudOut;
-    }
-
-    // Stage durations are steady_clock milliseconds. Capture-to-callback is ROS time, not this.
-    static double elapsedMs(std::chrono::steady_clock::time_point t0)
-    {
-        return std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - t0).count();
-    }
-
-    // capture_to_callback_ms is left empty when header.stamp is zero.
-    void writeFrameCsv()
-    {
-        if (!csv_.is_open()) {
-            return;
-        }
-        csv_ << frame_seq_ << ','
-             << stamp_sec_ << ','
-             << stamp_nanosec_ << ',';
-        if (stamp_valid_) {
-            csv_ << capture_to_callback_ms_;
-        }
-        csv_ << ','
-             << unpack_ms_ << ','
-             << plane_ms_ << ','
-             << normals_ms_ << ','
-             << mesh_ms_ << ','
-             << convert_ms_ << ','
-             << publish_ms_ << ','
-             << total_ms_ << ','
-             << frame_bytes_ << ','
-             << frame_triangles_ << '\n';
-        csv_.flush();
-    }
+    // ----------------------------------------------------------------------- [Members]
 
     rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_sub_;
     rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr mesh_pub_;
 
     double distance_threshold_;
+    std::string output_topic_;
+    std::string mode_;
+    bool enable_logging_;
+    std::string csv_path_;
+    int64_t queue_depth_;
     double search_radius_;
     int max_neighbors_;
     int normal_k_search_;
-    std::string output_topic_;
-    std::string mode_;
-    std::string csv_path_;
 
     // rclcpp::spin is single-threaded, so one frame owns these fields.
     uint64_t frame_seq_{0};
-    bool stamp_valid_{false};
-    int32_t stamp_sec_{0};
-    uint32_t stamp_nanosec_{0};
-    double capture_to_callback_ms_{0.0};
-    double unpack_ms_{0.0};
-    double plane_ms_{0.0};
-    double normals_ms_{0.0};
-    double mesh_ms_{0.0};
-    double convert_ms_{0.0};
-    double publish_ms_{0.0};
-    double total_ms_{0.0};
-    size_t frame_bytes_{0};
-    size_t frame_triangles_{0};
+    meshify::FrameTimes frame_;
     std::ofstream csv_;
+    std_msgs::msg::Float32MultiArray vertex_array_;
 };
 
-int main(int argc, char **argv) {
+int main(int argc, char ** argv) {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<Float32ArrayNode>();
-    rclcpp::spin(node);
+    try {
+        rclcpp::spin(std::make_shared<Float32ArrayNode>());
+    } catch (const std::exception & e) {
+        RCLCPP_FATAL(rclcpp::get_logger("float_array_node"), "%s", e.what());
+        rclcpp::shutdown();
+        return 1;
+    }
     rclcpp::shutdown();
     return 0;
 }

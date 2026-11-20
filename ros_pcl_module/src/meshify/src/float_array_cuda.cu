@@ -1,4 +1,5 @@
 #include "meshify/float_array_cuda.hpp"
+#include "meshify/frame_csv.hpp"
 
 #include <cub/device/device_reduce.cuh>
 #include <cub/device/device_select.cuh>
@@ -58,12 +59,7 @@ struct Moments
 static_assert(sizeof(Point6) == 24, "point is 6 tightly packed floats");
 static_assert(sizeof(Triangle) == 84, "wire triangle is 21 floats");
 
-long nowMs()
-{
-    return std::chrono::duration_cast<std::chrono::milliseconds>(
-               std::chrono::system_clock::now().time_since_epoch())
-        .count();
-}
+using Clock = std::chrono::steady_clock;
 
 void check(cudaError_t status, const char * what)
 {
@@ -514,9 +510,15 @@ struct Gpu
         times = CudaMeshTimes{};
         nfinite_out = 0;
 
-        const long t_ransac = nowMs();
+        // Pageable cudaMemcpy may return before the DMA is done: sync so the
+        // copy is counted here and not in the RANSAC interval.
+        const auto t_upload = Clock::now();
         ensurePoints(n);
         check(cudaMemcpy(d_points_, xyzrgb, n64 * sizeof(Point6), cudaMemcpyHostToDevice), "upload");
+        check(cudaDeviceSynchronize(), "upload sync");
+        times.upload_ms = elapsedMs(t_upload);
+
+        const auto t_plane = Clock::now();
 
         finiteKernel<<<blocksFor(n, 256), 256>>>(d_points_, d_finite_flags_, n);
         check(cudaGetLastError(), "finite kernel");
@@ -534,7 +536,7 @@ struct Gpu
         check(cudaMemcpy(&nfinite, d_nfinite_, sizeof(int), cudaMemcpyDeviceToHost), "nfinite");
         nfinite_out = static_cast<std::size_t>(std::max(nfinite, 0));
         if (nfinite < 3) {
-            times.ransac_ms = nowMs() - t_ransac;
+            times.plane_ms = elapsedMs(t_plane);
             triangles.clear();
             return CudaMeshStatus::NotEnoughFinite;
         }
@@ -579,7 +581,7 @@ struct Gpu
             iterations += batch;
         }
         if (best_count <= 0) {
-            times.ransac_ms = nowMs() - t_ransac;
+            times.plane_ms = elapsedMs(t_plane);
             triangles.clear();
             return CudaMeshStatus::NoPlane;
         }
@@ -608,9 +610,9 @@ struct Gpu
         applyInliers<<<blocksFor(n, 256), 256>>>(d_points_, d_opt_, threshold, n);
         check(cudaGetLastError(), "apply inliers");
         check(cudaDeviceSynchronize(), "ransac sync");
-        times.ransac_ms = nowMs() - t_ransac;
+        times.plane_ms = elapsedMs(t_plane);
 
-        const long t_mesh = nowMs();
+        const auto t_mesh = Clock::now();
         int cols = 0;
         int rows = 0;
         if (width > kStride && height > kStride) {
@@ -642,6 +644,10 @@ struct Gpu
                 throw std::runtime_error("CUDA compact returned an invalid triangle count");
             }
         }
+        times.mesh_ms = elapsedMs(t_mesh);
+
+        // Host buffer resize and D2H copy: the GPU counterpart of the CPU convert stage.
+        const auto t_download = Clock::now();
         triangles.resize(static_cast<std::size_t>(tri_count) * 21);
         if (tri_count > 0) {
             check(cudaMemcpy(
@@ -649,7 +655,7 @@ struct Gpu
                       static_cast<std::size_t>(tri_count) * sizeof(Triangle), cudaMemcpyDeviceToHost),
                   "download mesh");
         }
-        times.mesh_ms = nowMs() - t_mesh;
+        times.download_ms = elapsedMs(t_download);
         if (tri_count == 0) {
             return CudaMeshStatus::EmptyMesh;
         }
