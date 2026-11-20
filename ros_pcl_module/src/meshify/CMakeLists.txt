@@ -44,15 +44,28 @@ endforeach()
 find_package(CUDAToolkit QUIET)
 set(MESHIFY_CUDA_NODE OFF)
 if(CUDAToolkit_FOUND)
-  # nvcc from CUDA 12.0–12.3 cannot parse GCC 13 headers.
-  if(NOT CMAKE_CUDA_HOST_COMPILER
-     AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
-     AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 13
-     AND CUDAToolkit_VERSION VERSION_LESS 12.4)
-    find_program(_meshify_gcc12 NAMES g++-12)
-    if(_meshify_gcc12)
-      set(CMAKE_CUDA_HOST_COMPILER "${_meshify_gcc12}" CACHE FILEPATH "Host compiler for nvcc")
+  # Pick an older GCC as nvcc host compiler when the default one is too new:
+  #   CUDA < 11.6: <functional> of GCC 11+ fails ("parameter packs not expanded"), use g++-10
+  #   CUDA 12.0-12.3: cannot parse GCC 13 headers, use g++-12
+  # Set CMAKE_CUDA_HOST_COMPILER yourself to override.
+  set(_meshify_host_gcc "")
+  if(NOT CMAKE_CUDA_HOST_COMPILER AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if(CUDAToolkit_VERSION VERSION_LESS 11.6 AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 11)
+      set(_meshify_host_gcc g++-10)
+    elseif(CUDAToolkit_VERSION VERSION_LESS 12.4 AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 13)
+      set(_meshify_host_gcc g++-12)
+    endif()
+  endif()
+  if(_meshify_host_gcc)
+    find_program(_meshify_host_gcc_path NAMES ${_meshify_host_gcc})
+    if(_meshify_host_gcc_path)
+      # CMake 3.22 reads the host compiler from CUDAHOSTCXX when it detects the CUDA compiler.
+      set(ENV{CUDAHOSTCXX} "${_meshify_host_gcc_path}")
+      set(CMAKE_CUDA_HOST_COMPILER "${_meshify_host_gcc_path}" CACHE FILEPATH "Host compiler for nvcc")
       message(STATUS "meshify: using ${CMAKE_CUDA_HOST_COMPILER} as the CUDA host compiler")
+    else()
+      message(WARNING "meshify: CUDA ${CUDAToolkit_VERSION} needs ${_meshify_host_gcc} as host compiler, "
+                      "install it or set CMAKE_CUDA_HOST_COMPILER")
     endif()
   endif()
   include(CheckLanguage)
