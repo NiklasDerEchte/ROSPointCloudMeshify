@@ -138,8 +138,8 @@ private:
         RCLCPP_INFO(this->get_logger(), "seq=%llu Create organized triangulation mesh", seq);
         RCLCPP_INFO(this->get_logger(), "seq=%llu Organized mesh created in %.3f ms", seq, frame_.mesh_ms);
 
-        RCLCPP_INFO(this->get_logger(), "seq=%llu Download from GPU in %.3f ms (%zu vertices)",
-            seq, frame_.download_ms, vertex_array_.data.size() / 7);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu Float32MultiArray payload in %.3f ms (%zu vertices)",
+            seq, frame_.payload_ms, vertex_array_.data.size() / 7);
         if (vertex_array_.data.empty()) {
             RCLCPP_WARN(this->get_logger(), "seq=%llu Triangulation failed: no polygons created, skip publish", seq);
             frame_.status = "empty_mesh";
@@ -170,7 +170,7 @@ private:
         frame_.upload_ms = times.upload_ms;
         frame_.plane_ms = times.plane_ms;
         frame_.mesh_ms = times.mesh_ms;
-        frame_.download_ms = times.download_ms;
+        frame_.payload_ms = times.payload_ms;
     }
 
     // ----------------------------------------------------------------------- [Unpack PointCloud2]

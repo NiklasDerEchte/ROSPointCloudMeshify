@@ -4,9 +4,10 @@
 // and float_array_pcl_node (pcl). All write the same columns so one script can compare runs.
 //
 // All durations are steady_clock milliseconds. A stage a backend does not have stays 0:
-//   cpu, pcl: convert_ms (PolygonMesh -> payload)
-//   gpu:      upload_ms (host -> device), download_ms (device -> host payload)
-//   pcl:      normals_ms
+//   gpu: upload_ms (host -> device)
+//   pcl: normals_ms
+// payload_ms is the step from the finished mesh to the Float32MultiArray data in host memory:
+// PolygonMesh -> floats on the CPU, the device -> host copy on the GPU.
 // stamp_sec/stamp_nanosec are header.stamp and match rows of the same frame across runs.
 //
 // status: ok, not_organized, not_enough_finite, no_plane, empty_mesh, error,
@@ -32,8 +33,7 @@ struct FrameTimes
     double plane_ms{0.0};
     double normals_ms{0.0};
     double mesh_ms{0.0};
-    double download_ms{0.0};
-    double convert_ms{0.0};
+    double payload_ms{0.0};
     double publish_ms{0.0};
     double total_ms{0.0};
     std::size_t bytes{0};
@@ -58,7 +58,7 @@ inline double elapsedMs(std::chrono::steady_clock::time_point t0)
 inline const char * frameCsvHeader()
 {
     return "backend,seq,stamp_sec,stamp_nanosec,"
-           "unpack_ms,upload_ms,plane_ms,normals_ms,mesh_ms,download_ms,convert_ms,publish_ms,"
+           "unpack_ms,upload_ms,plane_ms,normals_ms,mesh_ms,payload_ms,publish_ms,"
            "total_ms,bytes,triangles,status\n";
 }
 
@@ -107,8 +107,7 @@ inline void writeFrameCsv(std::ofstream & csv, const char * backend, const Frame
         << t.plane_ms << ','
         << t.normals_ms << ','
         << t.mesh_ms << ','
-        << t.download_ms << ','
-        << t.convert_ms << ','
+        << t.payload_ms << ','
         << t.publish_ms << ','
         << t.total_ms << ','
         << t.bytes << ','

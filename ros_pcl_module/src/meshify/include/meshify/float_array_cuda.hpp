@@ -11,13 +11,13 @@ namespace meshify
 ///   upload_ms:   host->device copy of the organized cloud
 ///   plane_ms:    finite filter, RANSAC, coefficient refinement, inliers -> NaN
 ///   mesh_ms:     mesh kernel and triangle compaction (incl. triangle count read)
-///   download_ms: device->host copy of the triangle payload
+///   payload_ms:  device->host copy of the triangle payload
 struct CudaMeshTimes
 {
     double upload_ms;
     double plane_ms;
     double mesh_ms;
-    double download_ms;
+    double payload_ms;
 };
 
 enum class CudaMeshStatus

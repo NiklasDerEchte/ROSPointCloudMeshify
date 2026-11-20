@@ -324,7 +324,7 @@ private:
     // Clouds without color are drawn green.
     template <typename PointT>
     void convertMeshToFloatArray(const pcl::PolygonMesh & mesh) {
-        const auto t_convert = std::chrono::steady_clock::now();
+        const auto t_payload = std::chrono::steady_clock::now();
         pcl::PointCloud<PointT> cloud;
         pcl::fromPCLPointCloud2(mesh.cloud, cloud);
 
@@ -358,9 +358,9 @@ private:
                 d += 7;
             }
         }
-        frame_.convert_ms = elapsedMs(t_convert);
-        RCLCPP_INFO(this->get_logger(), "seq=%llu Mesh converted to Float32MultiArray in %.3f ms (%zu vertices)",
-            static_cast<unsigned long long>(frame_seq_), frame_.convert_ms, vertex_array_.data.size() / 7);
+        frame_.payload_ms = elapsedMs(t_payload);
+        RCLCPP_INFO(this->get_logger(), "seq=%llu Float32MultiArray payload in %.3f ms (%zu vertices)",
+            static_cast<unsigned long long>(frame_seq_), frame_.payload_ms, vertex_array_.data.size() / 7);
     }
 
     // ----------------------------------------------------------------------- [Members]

@@ -646,8 +646,8 @@ struct Gpu
         }
         times.mesh_ms = elapsedMs(t_mesh);
 
-        // Host buffer resize and D2H copy: the GPU counterpart of the CPU convert stage.
-        const auto t_download = Clock::now();
+        // Payload stage: host buffer resize and D2H copy of the finished triangles.
+        const auto t_payload = Clock::now();
         triangles.resize(static_cast<std::size_t>(tri_count) * 21);
         if (tri_count > 0) {
             check(cudaMemcpy(
@@ -655,7 +655,7 @@ struct Gpu
                       static_cast<std::size_t>(tri_count) * sizeof(Triangle), cudaMemcpyDeviceToHost),
                   "download mesh");
         }
-        times.download_ms = elapsedMs(t_download);
+        times.payload_ms = elapsedMs(t_payload);
         if (tri_count == 0) {
             return CudaMeshStatus::EmptyMesh;
         }
