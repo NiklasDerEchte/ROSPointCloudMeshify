@@ -4,7 +4,7 @@
 // and float_array_pcl_node (pcl). All write the same columns so one script can compare runs.
 //
 // All durations are steady_clock milliseconds. A stage a backend does not have stays 0:
-//   cpu, pcl: copy_ms (working copy before RANSAC), convert_ms (mesh -> payload)
+//   cpu, pcl: convert_ms (PolygonMesh -> payload)
 //   gpu:      upload_ms (host -> device), download_ms (device -> host payload)
 //   pcl:      normals_ms
 // stamp_sec/stamp_nanosec are header.stamp and match rows of the same frame across runs.
@@ -29,7 +29,6 @@ struct FrameTimes
     uint32_t stamp_nanosec{0};
     double unpack_ms{0.0};
     double upload_ms{0.0};
-    double copy_ms{0.0};
     double plane_ms{0.0};
     double normals_ms{0.0};
     double mesh_ms{0.0};
@@ -59,7 +58,7 @@ inline double elapsedMs(std::chrono::steady_clock::time_point t0)
 inline const char * frameCsvHeader()
 {
     return "backend,seq,stamp_sec,stamp_nanosec,"
-           "unpack_ms,upload_ms,copy_ms,plane_ms,normals_ms,mesh_ms,download_ms,convert_ms,publish_ms,"
+           "unpack_ms,upload_ms,plane_ms,normals_ms,mesh_ms,download_ms,convert_ms,publish_ms,"
            "total_ms,bytes,triangles,status\n";
 }
 
@@ -105,7 +104,6 @@ inline void writeFrameCsv(std::ofstream & csv, const char * backend, const Frame
         << t.stamp_nanosec << ','
         << t.unpack_ms << ','
         << t.upload_ms << ','
-        << t.copy_ms << ','
         << t.plane_ms << ','
         << t.normals_ms << ','
         << t.mesh_ms << ','

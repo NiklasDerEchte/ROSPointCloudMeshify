@@ -153,14 +153,14 @@ private:
     // RANSAC plane on the finite points. The plane inliers are set to NaN, so the cloud stays
     // organized. Returns nullptr if there is no plane.
     template <typename PointT>
-    typename pcl::PointCloud<PointT>::Ptr planeSegmentation(const typename pcl::PointCloud<PointT>::Ptr & cloud_in) {
+    typename pcl::PointCloud<PointT>::Ptr planeSegmentation(const typename pcl::PointCloud<PointT>::Ptr & cloud) {
         const unsigned long long seq = frame_seq_;
 
-        // Working copy, its own stage: the GPU segments its device buffer in place.
-        const auto t_copy = std::chrono::steady_clock::now();
-        typename pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>(*cloud_in));
-        frame_.copy_ms = elapsedMs(t_copy);
-        RCLCPP_INFO(this->get_logger(), "seq=%llu Copy point cloud in %.3f ms", seq, frame_.copy_ms);
+        // Segments `cloud` in place, like the GPU segments its device buffer: the unpacked
+        // input is not needed afterwards, so there is no working copy.
+        const std::size_t npoints = cloud->size();
+        const unsigned width = cloud->width;
+        const unsigned height = cloud->height;
 
         const auto t_plane = std::chrono::steady_clock::now();
         pcl::IndicesPtr finite(new pcl::Indices());
@@ -173,7 +173,7 @@ private:
         }
         if (finite->size() < 3) {
             frame_.plane_ms = elapsedMs(t_plane);
-            logRansacInput(finite->size(), cloud->size(), cloud->width, cloud->height);
+            logRansacInput(finite->size(), npoints, width, height);
             RCLCPP_WARN(this->get_logger(), "seq=%llu Not enough finite points for plane segmentation", seq);
             frame_.status = "not_enough_finite";
             return nullptr;
@@ -193,7 +193,7 @@ private:
         seg.segment(*inliers, *coefficients);
         if (inliers->indices.empty()) {
             frame_.plane_ms = elapsedMs(t_plane);
-            logRansacInput(finite->size(), cloud->size(), cloud->width, cloud->height);
+            logRansacInput(finite->size(), npoints, width, height);
             RCLCPP_WARN(this->get_logger(), "seq=%llu No plane found in the point cloud", seq);
             frame_.status = "no_plane";
             return nullptr;
@@ -206,7 +206,7 @@ private:
             cloud->points[idx].z = nan;
         }
         frame_.plane_ms = elapsedMs(t_plane);
-        logRansacInput(finite->size(), cloud_in->size(), cloud_in->width, cloud_in->height);
+        logRansacInput(finite->size(), npoints, width, height);
         RCLCPP_INFO(this->get_logger(), "seq=%llu Plane segmentation in %.3f ms", seq, frame_.plane_ms);
         return cloud;
     }
