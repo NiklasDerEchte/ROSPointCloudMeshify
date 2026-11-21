@@ -1,13 +1,7 @@
+.*/
+
 meshify_ws/build/
 meshify_ws/install/
 meshify_ws/log/
 
-ros_zivid_driver/build/
-ros_zivid_driver/install/
-ros_zivid_driver/log/
-
 meshify_ws/src/ROS-TCP-Endpoint/
-
-build/
-.vscode/
-.claude/
