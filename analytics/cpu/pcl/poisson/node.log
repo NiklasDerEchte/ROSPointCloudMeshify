@@ -1,0 +1,994 @@
+[INFO] [1795215115.337646804] [float_array_pcl_node]: Node initialized, publishing Float32MultiArray on /object_mesh/vertices
+[INFO] [1795215115.337826574] [float_array_pcl_node]: CSV frame log: pcl_poisson.csv
+[INFO] [1795215115.337847814] [float_array_pcl_node]: mode=poisson queue_depth=100
+[INFO] [1795215120.627968084] [float_array_pcl_node]: seq=1 Received PointCloud2 message
+[INFO] [1795215120.628035930] [float_array_pcl_node]: seq=1 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215120.807437526] [float_array_pcl_node]: seq=1 Unpack point cloud in 179.388 ms
+[INFO] [1795215121.126272946] [float_array_pcl_node]: seq=1 Plane RANSAC on 1391048/2332800 finite points (1944 x 1200)
+[INFO] [1795215121.126360039] [float_array_pcl_node]: seq=1 Plane segmentation in 318.768 ms
+[INFO] [1795215122.056651087] [float_array_pcl_node]: seq=1 Normals estimated in 928.762 ms
+[INFO] [1795215122.060321096] [float_array_pcl_node]: seq=1 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215123.103626583] [float_array_pcl_node]: seq=1 Poisson mesh created in 1043.272 ms
+[INFO] [1795215123.110275228] [float_array_pcl_node]: seq=1 Float32MultiArray payload in 6.109 ms (97575 vertices)
+[INFO] [1795215123.110841532] [float_array_pcl_node]: seq=1 Publish 683025 floats (97575 vertices) in 0.352 ms
+[INFO] [1795215123.121020636] [float_array_pcl_node]: seq=1 bytes 2732100 triangles 32525
+[INFO] [1795215123.121290693] [float_array_pcl_node]: seq=1 Total in 2493.052 ms
+[INFO] [1795215123.121337268] [float_array_pcl_node]: seq=1 --- frame done ---
+[INFO] [1795215123.141524001] [float_array_pcl_node]: seq=2 Received PointCloud2 message
+[INFO] [1795215123.141580172] [float_array_pcl_node]: seq=2 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215123.316596857] [float_array_pcl_node]: seq=2 Unpack point cloud in 175.004 ms
+[INFO] [1795215123.586289430] [float_array_pcl_node]: seq=2 Plane RANSAC on 1390626/2332800 finite points (1944 x 1200)
+[INFO] [1795215123.586350740] [float_array_pcl_node]: seq=2 Plane segmentation in 269.631 ms
+[INFO] [1795215124.503432666] [float_array_pcl_node]: seq=2 Normals estimated in 915.722 ms
+[INFO] [1795215124.505940847] [float_array_pcl_node]: seq=2 Create Poisson mesh
+Vertex pair not in list 2	[7] (31 44 89)
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215125.514078963] [float_array_pcl_node]: seq=2 Poisson mesh created in 1008.102 ms
+[INFO] [1795215125.517962557] [float_array_pcl_node]: seq=2 Float32MultiArray payload in 3.547 ms (94545 vertices)
+[INFO] [1795215125.518337389] [float_array_pcl_node]: seq=2 Publish 661815 floats (94545 vertices) in 0.224 ms
+[INFO] [1795215125.528324767] [float_array_pcl_node]: seq=2 bytes 2647260 triangles 31515
+[INFO] [1795215125.528360700] [float_array_pcl_node]: seq=2 Total in 2386.803 ms
+[INFO] [1795215125.528395101] [float_array_pcl_node]: seq=2 --- frame done ---
+[INFO] [1795215125.547923282] [float_array_pcl_node]: seq=3 Received PointCloud2 message
+[INFO] [1795215125.547978547] [float_array_pcl_node]: seq=3 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215125.724160010] [float_array_pcl_node]: seq=3 Unpack point cloud in 176.170 ms
+[INFO] [1795215125.990590791] [float_array_pcl_node]: seq=3 Plane RANSAC on 1390776/2332800 finite points (1944 x 1200)
+[INFO] [1795215125.990643925] [float_array_pcl_node]: seq=3 Plane segmentation in 266.368 ms
+[INFO] [1795215126.914819001] [float_array_pcl_node]: seq=3 Normals estimated in 923.032 ms
+[INFO] [1795215126.917290050] [float_array_pcl_node]: seq=3 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215127.917817328] [float_array_pcl_node]: seq=3 Poisson mesh created in 1000.486 ms
+[INFO] [1795215127.921728967] [float_array_pcl_node]: seq=3 Float32MultiArray payload in 3.520 ms (92847 vertices)
+[INFO] [1795215127.922160431] [float_array_pcl_node]: seq=3 Publish 649929 floats (92847 vertices) in 0.222 ms
+[INFO] [1795215127.931946629] [float_array_pcl_node]: seq=3 bytes 2599716 triangles 30949
+[INFO] [1795215127.931996836] [float_array_pcl_node]: seq=3 Total in 2384.023 ms
+[INFO] [1795215127.932037614] [float_array_pcl_node]: seq=3 --- frame done ---
+[INFO] [1795215127.952592647] [float_array_pcl_node]: seq=4 Received PointCloud2 message
+[INFO] [1795215127.952649190] [float_array_pcl_node]: seq=4 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215128.130232363] [float_array_pcl_node]: seq=4 Unpack point cloud in 177.571 ms
+[INFO] [1795215128.397745763] [float_array_pcl_node]: seq=4 Plane RANSAC on 1390860/2332800 finite points (1944 x 1200)
+[INFO] [1795215128.397808211] [float_array_pcl_node]: seq=4 Plane segmentation in 267.443 ms
+[INFO] [1795215129.332871243] [float_array_pcl_node]: seq=4 Normals estimated in 933.595 ms
+[INFO] [1795215129.335243621] [float_array_pcl_node]: seq=4 Create Poisson mesh
+Vertex pair not in list 2	[7] (71 70 36)
+Vertex pair not in list 2	[7] (29 52 77)
+Vertex pair not in list 2	[7] (20 34 98)
+Vertex pair not in list 2	[7] (83 43 90)
+Vertex pair not in list 2	[6] (16 22 43)
+Vertex pair not in list 2	[6] (26 19 47)
+Vertex pair not in list 2	[5] (16 21 9)
+Vertex pair not in list 2	[7] (8 41 93)
+Vertex pair not in list 2	[7] (29 45 82)
+Vertex pair not in list 2	[7] (27 35 95)
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215130.368179746] [float_array_pcl_node]: seq=4 Poisson mesh created in 1032.908 ms
+[INFO] [1795215130.372516787] [float_array_pcl_node]: seq=4 Float32MultiArray payload in 3.973 ms (100575 vertices)
+[INFO] [1795215130.373137518] [float_array_pcl_node]: seq=4 Publish 704025 floats (100575 vertices) in 0.463 ms
+[INFO] [1795215130.384358086] [float_array_pcl_node]: seq=4 bytes 2816100 triangles 33525
+[INFO] [1795215130.384443054] [float_array_pcl_node]: seq=4 Total in 2431.767 ms
+[INFO] [1795215130.384475455] [float_array_pcl_node]: seq=4 --- frame done ---
+[INFO] [1795215130.405084018] [float_array_pcl_node]: seq=5 Received PointCloud2 message
+[INFO] [1795215130.405140257] [float_array_pcl_node]: seq=5 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215130.582088998] [float_array_pcl_node]: seq=5 Unpack point cloud in 176.936 ms
+[INFO] [1795215130.849131204] [float_array_pcl_node]: seq=5 Plane RANSAC on 1390903/2332800 finite points (1944 x 1200)
+[INFO] [1795215130.849189856] [float_array_pcl_node]: seq=5 Plane segmentation in 266.979 ms
+[INFO] [1795215131.773273126] [float_array_pcl_node]: seq=5 Normals estimated in 921.892 ms
+[INFO] [1795215131.775753997] [float_array_pcl_node]: seq=5 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215132.799834051] [float_array_pcl_node]: seq=5 Poisson mesh created in 1024.049 ms
+[INFO] [1795215132.804092768] [float_array_pcl_node]: seq=5 Float32MultiArray payload in 3.945 ms (97884 vertices)
+[INFO] [1795215132.804595668] [float_array_pcl_node]: seq=5 Publish 685188 floats (97884 vertices) in 0.276 ms
+[INFO] [1795215132.815135437] [float_array_pcl_node]: seq=5 bytes 2740752 triangles 32628
+[INFO] [1795215132.815203521] [float_array_pcl_node]: seq=5 Total in 2410.052 ms
+[INFO] [1795215132.815234777] [float_array_pcl_node]: seq=5 --- frame done ---
+[INFO] [1795215132.836259579] [float_array_pcl_node]: seq=6 Received PointCloud2 message
+[INFO] [1795215132.836326507] [float_array_pcl_node]: seq=6 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215133.019548338] [float_array_pcl_node]: seq=6 Unpack point cloud in 183.168 ms
+[INFO] [1795215133.457550931] [float_array_pcl_node]: seq=6 Plane RANSAC on 1390823/2332800 finite points (1944 x 1200)
+[INFO] [1795215133.457618538] [float_array_pcl_node]: seq=6 Plane segmentation in 437.918 ms
+[INFO] [1795215134.384851851] [float_array_pcl_node]: seq=6 Normals estimated in 925.044 ms
+[INFO] [1795215134.387338638] [float_array_pcl_node]: seq=6 Create Poisson mesh
+Vertex pair not in list 2	[7] (34 54 73)
+Vertex pair not in list 2	[7] (20 35 100)
+Vertex pair not in list 2	[7] (29 34 102)
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215135.411745933] [float_array_pcl_node]: seq=6 Poisson mesh created in 1024.369 ms
+[INFO] [1795215135.415642610] [float_array_pcl_node]: seq=6 Float32MultiArray payload in 3.575 ms (99351 vertices)
+[INFO] [1795215135.416038812] [float_array_pcl_node]: seq=6 Publish 695457 floats (99351 vertices) in 0.253 ms
+[INFO] [1795215135.428218038] [float_array_pcl_node]: seq=6 bytes 2781828 triangles 33117
+[INFO] [1795215135.428293591] [float_array_pcl_node]: seq=6 Total in 2591.959 ms
+[INFO] [1795215135.428342620] [float_array_pcl_node]: seq=6 --- frame done ---
+[INFO] [1795215135.448823880] [float_array_pcl_node]: seq=7 Received PointCloud2 message
+[INFO] [1795215135.448883625] [float_array_pcl_node]: seq=7 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215135.623789487] [float_array_pcl_node]: seq=7 Unpack point cloud in 174.890 ms
+[INFO] [1795215135.880824218] [float_array_pcl_node]: seq=7 Plane RANSAC on 1390911/2332800 finite points (1944 x 1200)
+[INFO] [1795215135.880889195] [float_array_pcl_node]: seq=7 Plane segmentation in 256.965 ms
+[INFO] [1795215136.792772089] [float_array_pcl_node]: seq=7 Normals estimated in 909.971 ms
+[INFO] [1795215136.795152287] [float_array_pcl_node]: seq=7 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215137.805544489] [float_array_pcl_node]: seq=7 Poisson mesh created in 1010.355 ms
+[INFO] [1795215137.809247934] [float_array_pcl_node]: seq=7 Float32MultiArray payload in 3.378 ms (95331 vertices)
+[INFO] [1795215137.809633302] [float_array_pcl_node]: seq=7 Publish 667317 floats (95331 vertices) in 0.228 ms
+[INFO] [1795215137.819614955] [float_array_pcl_node]: seq=7 bytes 2669268 triangles 31777
+[INFO] [1795215137.819662041] [float_array_pcl_node]: seq=7 Total in 2370.792 ms
+[INFO] [1795215137.819744550] [float_array_pcl_node]: seq=7 --- frame done ---
+[INFO] [1795215137.840381487] [float_array_pcl_node]: seq=8 Received PointCloud2 message
+[INFO] [1795215137.840440971] [float_array_pcl_node]: seq=8 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215138.014538239] [float_array_pcl_node]: seq=8 Unpack point cloud in 174.077 ms
+[INFO] [1795215138.270905858] [float_array_pcl_node]: seq=8 Plane RANSAC on 1390540/2332800 finite points (1944 x 1200)
+[INFO] [1795215138.270976813] [float_array_pcl_node]: seq=8 Plane segmentation in 256.293 ms
+[INFO] [1795215139.203364593] [float_array_pcl_node]: seq=8 Normals estimated in 930.222 ms
+[INFO] [1795215139.205789639] [float_array_pcl_node]: seq=8 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215140.205035736] [float_array_pcl_node]: seq=8 Poisson mesh created in 999.208 ms
+[INFO] [1795215140.208935910] [float_array_pcl_node]: seq=8 Float32MultiArray payload in 3.559 ms (97128 vertices)
+[INFO] [1795215140.209347825] [float_array_pcl_node]: seq=8 Publish 679896 floats (97128 vertices) in 0.252 ms
+[INFO] [1795215140.220343674] [float_array_pcl_node]: seq=8 bytes 2719584 triangles 32376
+[INFO] [1795215140.220416287] [float_array_pcl_node]: seq=8 Total in 2379.962 ms
+[INFO] [1795215140.220455384] [float_array_pcl_node]: seq=8 --- frame done ---
+[INFO] [1795215140.240916030] [float_array_pcl_node]: seq=9 Received PointCloud2 message
+[INFO] [1795215140.240969090] [float_array_pcl_node]: seq=9 Handle XYZ-RGB(A) PointCloud
+Vertex pair not in list 2	[7] (83 41 92)
+Vertex pair not in list 2	[7] (93 77 28)
+Vertex pair not in list 2	[7] (72 79 32)
+Vertex pair not in list 2	[7] (24 51 70)
+Vertex pair not in list 2	[7] (29 49 78)
+Vertex pair not in list 2	[7] (25 45 80)
+Vertex pair not in list 2	[7] (34 53 73)
+Vertex pair not in list 2	[7] (20 33 99)
+Vertex pair not in list 2	[7] (82 42 93)
+Vertex pair not in list 2	[7] (81 42 94)
+Vertex pair not in list 2	[7] (31 54 74)
+Vertex pair not in list 2	[7] (25 48 80)
+Vertex pair not in list 2	[7] (22 33 99)
+[INFO] [1795215140.413866896] [float_array_pcl_node]: seq=9 Unpack point cloud in 172.886 ms
+[INFO] [1795215140.670504277] [float_array_pcl_node]: seq=9 Plane RANSAC on 1390940/2332800 finite points (1944 x 1200)
+[INFO] [1795215140.670622630] [float_array_pcl_node]: seq=9 Plane segmentation in 256.577 ms
+[INFO] [1795215141.621360438] [float_array_pcl_node]: seq=9 Normals estimated in 948.140 ms
+[INFO] [1795215141.623791686] [float_array_pcl_node]: seq=9 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215142.639850236] [float_array_pcl_node]: seq=9 Poisson mesh created in 1016.025 ms
+[INFO] [1795215142.643497534] [float_array_pcl_node]: seq=9 Float32MultiArray payload in 3.329 ms (93018 vertices)
+[INFO] [1795215142.643881565] [float_array_pcl_node]: seq=9 Publish 651126 floats (93018 vertices) in 0.229 ms
+[INFO] [1795215142.655179465] [float_array_pcl_node]: seq=9 bytes 2604504 triangles 31006
+[INFO] [1795215142.655236698] [float_array_pcl_node]: seq=9 Total in 2414.264 ms
+[INFO] [1795215142.655283821] [float_array_pcl_node]: seq=9 --- frame done ---
+[INFO] [1795215142.677221806] [float_array_pcl_node]: seq=10 Received PointCloud2 message
+[INFO] [1795215142.677277454] [float_array_pcl_node]: seq=10 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215142.859967079] [float_array_pcl_node]: seq=10 Unpack point cloud in 182.677 ms
+[INFO] [1795215143.128994510] [float_array_pcl_node]: seq=10 Plane RANSAC on 1390546/2332800 finite points (1944 x 1200)
+[INFO] [1795215143.129061863] [float_array_pcl_node]: seq=10 Plane segmentation in 268.960 ms
+[INFO] [1795215144.053545800] [float_array_pcl_node]: seq=10 Normals estimated in 922.003 ms
+[INFO] [1795215144.056159424] [float_array_pcl_node]: seq=10 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215145.126949579] [float_array_pcl_node]: seq=10 Poisson mesh created in 1070.752 ms
+[INFO] [1795215145.130886696] [float_array_pcl_node]: seq=10 Float32MultiArray payload in 3.596 ms (95904 vertices)
+[INFO] [1795215145.131276980] [float_array_pcl_node]: seq=10 Publish 671328 floats (95904 vertices) in 0.221 ms
+[INFO] [1795215145.141976807] [float_array_pcl_node]: seq=10 bytes 2685312 triangles 31968
+[INFO] [1795215145.142043143] [float_array_pcl_node]: seq=10 Total in 2464.756 ms
+[INFO] [1795215145.142077350] [float_array_pcl_node]: seq=10 --- frame done ---
+[INFO] [1795215145.163501311] [float_array_pcl_node]: seq=11 Received PointCloud2 message
+[INFO] [1795215145.163573804] [float_array_pcl_node]: seq=11 Handle XYZ-RGB(A) PointCloud
+Vertex pair not in list 2	[7] (22 33 99)
+Vertex pair not in list 2	[6] (18 29 32)
+[INFO] [1795215145.347929836] [float_array_pcl_node]: seq=11 Unpack point cloud in 184.343 ms
+[INFO] [1795215145.623766432] [float_array_pcl_node]: seq=11 Plane RANSAC on 1391156/2332800 finite points (1944 x 1200)
+[INFO] [1795215145.623825231] [float_array_pcl_node]: seq=11 Plane segmentation in 275.766 ms
+[INFO] [1795215146.601789672] [float_array_pcl_node]: seq=11 Normals estimated in 975.729 ms
+[INFO] [1795215146.604255585] [float_array_pcl_node]: seq=11 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215147.709668461] [float_array_pcl_node]: seq=11 Poisson mesh created in 1105.376 ms
+[INFO] [1795215147.713735727] [float_array_pcl_node]: seq=11 Float32MultiArray payload in 3.744 ms (100095 vertices)
+[INFO] [1795215147.714141764] [float_array_pcl_node]: seq=11 Publish 700665 floats (100095 vertices) in 0.249 ms
+[INFO] [1795215147.726745811] [float_array_pcl_node]: seq=11 bytes 2802660 triangles 33365
+[INFO] [1795215147.726808514] [float_array_pcl_node]: seq=11 Total in 2563.244 ms
+[INFO] [1795215147.726839003] [float_array_pcl_node]: seq=11 --- frame done ---
+[INFO] [1795215147.748512608] [float_array_pcl_node]: seq=12 Received PointCloud2 message
+[INFO] [1795215147.748590463] [float_array_pcl_node]: seq=12 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215147.935017394] [float_array_pcl_node]: seq=12 Unpack point cloud in 186.407 ms
+[INFO] [1795215148.233754901] [float_array_pcl_node]: seq=12 Plane RANSAC on 1390697/2332800 finite points (1944 x 1200)
+[INFO] [1795215148.233816752] [float_array_pcl_node]: seq=12 Plane segmentation in 298.666 ms
+[INFO] [1795215149.156322084] [float_array_pcl_node]: seq=12 Normals estimated in 920.168 ms
+[INFO] [1795215149.158758343] [float_array_pcl_node]: seq=12 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215150.175430465] [float_array_pcl_node]: seq=12 Poisson mesh created in 1016.646 ms
+[INFO] [1795215150.179133813] [float_array_pcl_node]: seq=12 Float32MultiArray payload in 3.366 ms (94257 vertices)
+[INFO] [1795215150.179495502] [float_array_pcl_node]: seq=12 Publish 659799 floats (94257 vertices) in 0.223 ms
+[INFO] [1795215150.190848528] [float_array_pcl_node]: seq=12 bytes 2639196 triangles 31419
+[INFO] [1795215150.190914817] [float_array_pcl_node]: seq=12 Total in 2442.337 ms
+[INFO] [1795215150.190948133] [float_array_pcl_node]: seq=12 --- frame done ---
+[INFO] [1795215150.212074356] [float_array_pcl_node]: seq=13 Received PointCloud2 message
+[INFO] [1795215150.212127824] [float_array_pcl_node]: seq=13 Handle XYZ-RGB(A) PointCloud
+Vertex pair not in list 2	[7] (23 51 70)
+Vertex pair not in list 2	[7] (27 44 85)
+Vertex pair not in list 2	[7] (19 36 100)
+Vertex pair not in list 2	[7] (31 33 104)
+[INFO] [1795215150.392592479] [float_array_pcl_node]: seq=13 Unpack point cloud in 180.451 ms
+[INFO] [1795215150.654142495] [float_array_pcl_node]: seq=13 Plane RANSAC on 1390905/2332800 finite points (1944 x 1200)
+[INFO] [1795215150.654203918] [float_array_pcl_node]: seq=13 Plane segmentation in 261.486 ms
+[INFO] [1795215151.573210731] [float_array_pcl_node]: seq=13 Normals estimated in 916.615 ms
+[INFO] [1795215151.575742628] [float_array_pcl_node]: seq=13 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215152.568754376] [float_array_pcl_node]: seq=13 Poisson mesh created in 992.977 ms
+[INFO] [1795215152.572668230] [float_array_pcl_node]: seq=13 Float32MultiArray payload in 3.578 ms (95394 vertices)
+[INFO] [1795215152.573086453] [float_array_pcl_node]: seq=13 Publish 667758 floats (95394 vertices) in 0.234 ms
+[INFO] [1795215152.583107189] [float_array_pcl_node]: seq=13 bytes 2671032 triangles 31798
+[INFO] [1795215152.583136698] [float_array_pcl_node]: seq=13 Total in 2371.035 ms
+[INFO] [1795215152.583166193] [float_array_pcl_node]: seq=13 --- frame done ---
+[INFO] [1795215152.603714759] [float_array_pcl_node]: seq=14 Received PointCloud2 message
+[INFO] [1795215152.603776179] [float_array_pcl_node]: seq=14 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215152.782284808] [float_array_pcl_node]: seq=14 Unpack point cloud in 178.497 ms
+[INFO] [1795215153.108022093] [float_array_pcl_node]: seq=14 Plane RANSAC on 1390864/2332800 finite points (1944 x 1200)
+[INFO] [1795215153.108088420] [float_array_pcl_node]: seq=14 Plane segmentation in 325.675 ms
+[INFO] [1795215154.029143734] [float_array_pcl_node]: seq=14 Normals estimated in 918.663 ms
+[INFO] [1795215154.031613789] [float_array_pcl_node]: seq=14 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215155.051723006] [float_array_pcl_node]: seq=14 Poisson mesh created in 1020.081 ms
+[INFO] [1795215155.055933760] [float_array_pcl_node]: seq=14 Float32MultiArray payload in 3.886 ms (97764 vertices)
+[INFO] [1795215155.056481418] [float_array_pcl_node]: seq=14 Publish 684348 floats (97764 vertices) in 0.308 ms
+[INFO] [1795215155.068160954] [float_array_pcl_node]: seq=14 bytes 2737392 triangles 32588
+[INFO] [1795215155.068206051] [float_array_pcl_node]: seq=14 Total in 2464.447 ms
+[INFO] [1795215155.068243343] [float_array_pcl_node]: seq=14 --- frame done ---
+[INFO] [1795215155.089808024] [float_array_pcl_node]: seq=15 Received PointCloud2 message
+[INFO] [1795215155.089863026] [float_array_pcl_node]: seq=15 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215155.269617085] [float_array_pcl_node]: seq=15 Unpack point cloud in 179.741 ms
+Vertex pair not in list 2	[7] (30 54 74)
+Vertex pair not in list 2	[7] (31 49 79)
+Vertex pair not in list 2	[7] (29 46 82)
+Vertex pair not in list 2	[7] (73 43 94)
+Vertex pair not in list 2	[6] (17 27 36)
+Vertex pair not in list 2	[7] (6 36 90)
+Vertex pair not in list 2	[7] (72 40 93)
+[INFO] [1795215155.534094456] [float_array_pcl_node]: seq=15 Plane RANSAC on 1390833/2332800 finite points (1944 x 1200)
+[INFO] [1795215155.534157719] [float_array_pcl_node]: seq=15 Plane segmentation in 264.414 ms
+[INFO] [1795215156.452041407] [float_array_pcl_node]: seq=15 Normals estimated in 915.086 ms
+[INFO] [1795215156.454460113] [float_array_pcl_node]: seq=15 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215157.488715698] [float_array_pcl_node]: seq=15 Poisson mesh created in 1034.229 ms
+[INFO] [1795215157.492609849] [float_array_pcl_node]: seq=15 Float32MultiArray payload in 3.550 ms (96987 vertices)
+[INFO] [1795215157.492977126] [float_array_pcl_node]: seq=15 Publish 678909 floats (96987 vertices) in 0.225 ms
+[INFO] [1795215157.503065252] [float_array_pcl_node]: seq=15 bytes 2715636 triangles 32329
+[INFO] [1795215157.503103678] [float_array_pcl_node]: seq=15 Total in 2413.259 ms
+[INFO] [1795215157.503133885] [float_array_pcl_node]: seq=15 --- frame done ---
+[INFO] [1795215157.524135380] [float_array_pcl_node]: seq=16 Received PointCloud2 message
+[INFO] [1795215157.524190920] [float_array_pcl_node]: seq=16 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215157.700003027] [float_array_pcl_node]: seq=16 Unpack point cloud in 175.799 ms
+[INFO] [1795215157.967720613] [float_array_pcl_node]: seq=16 Plane RANSAC on 1391272/2332800 finite points (1944 x 1200)
+[INFO] [1795215157.967784698] [float_array_pcl_node]: seq=16 Plane segmentation in 267.654 ms
+[INFO] [1795215158.893916458] [float_array_pcl_node]: seq=16 Normals estimated in 923.738 ms
+[INFO] [1795215158.896321507] [float_array_pcl_node]: seq=16 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215159.972328339] [float_array_pcl_node]: seq=16 Poisson mesh created in 1075.978 ms
+[INFO] [1795215159.977447483] [float_array_pcl_node]: seq=16 Float32MultiArray payload in 4.715 ms (97728 vertices)
+[INFO] [1795215159.977894068] [float_array_pcl_node]: seq=16 Publish 684096 floats (97728 vertices) in 0.245 ms
+[INFO] [1795215159.991103601] [float_array_pcl_node]: seq=16 bytes 2736384 triangles 32576
+[INFO] [1795215159.991163523] [float_array_pcl_node]: seq=16 Total in 2466.968 ms
+[INFO] [1795215159.991195981] [float_array_pcl_node]: seq=16 --- frame done ---
+[INFO] [1795215160.011892897] [float_array_pcl_node]: seq=17 Received PointCloud2 message
+[INFO] [1795215160.011947511] [float_array_pcl_node]: seq=17 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215160.187292138] [float_array_pcl_node]: seq=17 Unpack point cloud in 175.332 ms
+Vertex pair not in list 2	[7] (22 33 99)
+Vertex pair not in list 2	[7] (23 34 99)
+Vertex pair not in list 2	[6] (15 23 44)
+Vertex pair not in list 2	[7] (29 49 78)
+Vertex pair not in list 2	[7] (31 48 78)
+Vertex pair not in list 2	[7] (29 47 85)
+Vertex pair not in list 2	[7] (32 45 85)
+Vertex pair not in list 2	[6] (13 33 30)
+Vertex pair not in list 2	[5] (2 11 20)
+[INFO] [1795215160.460512508] [float_array_pcl_node]: seq=17 Plane RANSAC on 1391048/2332800 finite points (1944 x 1200)
+[INFO] [1795215160.460573059] [float_array_pcl_node]: seq=17 Plane segmentation in 273.135 ms
+[INFO] [1795215161.402357138] [float_array_pcl_node]: seq=17 Normals estimated in 938.813 ms
+[INFO] [1795215161.404747322] [float_array_pcl_node]: seq=17 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215162.442944290] [float_array_pcl_node]: seq=17 Poisson mesh created in 1038.167 ms
+[INFO] [1795215162.446875361] [float_array_pcl_node]: seq=17 Float32MultiArray payload in 3.621 ms (98292 vertices)
+[INFO] [1795215162.447250670] [float_array_pcl_node]: seq=17 Publish 688044 floats (98292 vertices) in 0.229 ms
+[INFO] [1795215162.458653423] [float_array_pcl_node]: seq=17 bytes 2752176 triangles 32764
+[INFO] [1795215162.458710026] [float_array_pcl_node]: seq=17 Total in 2446.761 ms
+[INFO] [1795215162.458742766] [float_array_pcl_node]: seq=17 --- frame done ---
+[INFO] [1795215162.479307379] [float_array_pcl_node]: seq=18 Received PointCloud2 message
+[INFO] [1795215162.479364759] [float_array_pcl_node]: seq=18 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215162.657527746] [float_array_pcl_node]: seq=18 Unpack point cloud in 178.149 ms
+[INFO] [1795215162.924569038] [float_array_pcl_node]: seq=18 Plane RANSAC on 1391276/2332800 finite points (1944 x 1200)
+[INFO] [1795215162.924634277] [float_array_pcl_node]: seq=18 Plane segmentation in 266.970 ms
+[INFO] [1795215163.862548597] [float_array_pcl_node]: seq=18 Normals estimated in 935.239 ms
+[INFO] [1795215163.865060098] [float_array_pcl_node]: seq=18 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215164.899525074] [float_array_pcl_node]: seq=18 Poisson mesh created in 1034.435 ms
+[INFO] [1795215164.903500836] [float_array_pcl_node]: seq=18 Float32MultiArray payload in 3.658 ms (99639 vertices)
+[INFO] [1795215164.904122884] [float_array_pcl_node]: seq=18 Publish 697473 floats (99639 vertices) in 0.376 ms
+[INFO] [1795215164.915211745] [float_array_pcl_node]: seq=18 bytes 2789892 triangles 33213
+[INFO] [1795215164.915271865] [float_array_pcl_node]: seq=18 Total in 2435.903 ms
+[INFO] [1795215164.915313336] [float_array_pcl_node]: seq=18 --- frame done ---
+[INFO] [1795215164.936219426] [float_array_pcl_node]: seq=19 Received PointCloud2 message
+[INFO] [1795215164.936272676] [float_array_pcl_node]: seq=19 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215165.116014840] [float_array_pcl_node]: seq=19 Unpack point cloud in 179.730 ms
+Vertex pair not in list 2	[7] (34 53 74)
+Vertex pair not in list 2	[6] (12 33 31)
+Vertex pair not in list 2	[6] (8 21 42)
+Vertex pair not in list 2	[6] (17 25 39)
+Vertex pair not in list 2	[6] (30 20 46)
+Vertex pair not in list 2	[6] (30 21 49)
+Vertex pair not in list 2	[7] (26 40 87)
+Vertex pair not in list 2	[7] (24 43 88)
+Vertex pair not in list 2	[7] (19 33 99)
+Vertex pair not in list 2	[6] (17 25 40)
+[INFO] [1795215165.378865738] [float_array_pcl_node]: seq=19 Plane RANSAC on 1390957/2332800 finite points (1944 x 1200)
+[INFO] [1795215165.378925014] [float_array_pcl_node]: seq=19 Plane segmentation in 262.787 ms
+[INFO] [1795215166.296318983] [float_array_pcl_node]: seq=19 Normals estimated in 914.964 ms
+[INFO] [1795215166.298856046] [float_array_pcl_node]: seq=19 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215167.320186265] [float_array_pcl_node]: seq=19 Poisson mesh created in 1021.299 ms
+[INFO] [1795215167.324065643] [float_array_pcl_node]: seq=19 Float32MultiArray payload in 3.552 ms (96027 vertices)
+[INFO] [1795215167.324446062] [float_array_pcl_node]: seq=19 Publish 672189 floats (96027 vertices) in 0.230 ms
+[INFO] [1795215167.337016306] [float_array_pcl_node]: seq=19 bytes 2688756 triangles 32009
+[INFO] [1795215167.337071274] [float_array_pcl_node]: seq=19 Total in 2400.798 ms
+[INFO] [1795215167.337106540] [float_array_pcl_node]: seq=19 --- frame done ---
+[INFO] [1795215167.358430035] [float_array_pcl_node]: seq=20 Received PointCloud2 message
+[INFO] [1795215167.358485887] [float_array_pcl_node]: seq=20 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215167.534991595] [float_array_pcl_node]: seq=20 Unpack point cloud in 176.486 ms
+[INFO] [1795215167.814114854] [float_array_pcl_node]: seq=20 Plane RANSAC on 1391377/2332800 finite points (1944 x 1200)
+[INFO] [1795215167.814174882] [float_array_pcl_node]: seq=20 Plane segmentation in 279.061 ms
+[INFO] [1795215168.766430985] [float_array_pcl_node]: seq=20 Normals estimated in 949.462 ms
+[INFO] [1795215168.768911310] [float_array_pcl_node]: seq=20 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215169.801267373] [float_array_pcl_node]: seq=20 Poisson mesh created in 1032.325 ms
+[INFO] [1795215169.805534017] [float_array_pcl_node]: seq=20 Float32MultiArray payload in 3.941 ms (97971 vertices)
+[INFO] [1795215169.805991943] [float_array_pcl_node]: seq=20 Publish 685797 floats (97971 vertices) in 0.282 ms
+[INFO] [1795215169.816844574] [float_array_pcl_node]: seq=20 bytes 2743188 triangles 32657
+[INFO] [1795215169.816876609] [float_array_pcl_node]: seq=20 Total in 2458.417 ms
+[INFO] [1795215169.816903946] [float_array_pcl_node]: seq=20 --- frame done ---
+[INFO] [1795215169.837811027] [float_array_pcl_node]: seq=21 Received PointCloud2 message
+[INFO] [1795215169.837867484] [float_array_pcl_node]: seq=21 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215170.019272281] [float_array_pcl_node]: seq=21 Unpack point cloud in 181.392 ms
+[INFO] [1795215170.283947551] [float_array_pcl_node]: seq=21 Plane RANSAC on 1390830/2332800 finite points (1944 x 1200)
+[INFO] [1795215170.284006183] [float_array_pcl_node]: seq=21 Plane segmentation in 264.610 ms
+Vertex pair not in list 2	[7] (73 79 29)
+Vertex pair not in list 2	[7] (33 69 53)
+Vertex pair not in list 2	[7] (29 45 81)
+Vertex pair not in list 2	[7] (28 44 85)
+Vertex pair not in list 2	[6] (8 19 48)
+Vertex pair not in list 2	[5] (14 11 25)
+[INFO] [1795215171.201045516] [float_array_pcl_node]: seq=21 Normals estimated in 915.570 ms
+[INFO] [1795215171.203561081] [float_array_pcl_node]: seq=21 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215172.192697324] [float_array_pcl_node]: seq=21 Poisson mesh created in 989.108 ms
+[INFO] [1795215172.196449301] [float_array_pcl_node]: seq=21 Float32MultiArray payload in 3.430 ms (96339 vertices)
+[INFO] [1795215172.196841759] [float_array_pcl_node]: seq=21 Publish 674373 floats (96339 vertices) in 0.255 ms
+[INFO] [1795215172.207976613] [float_array_pcl_node]: seq=21 bytes 2697492 triangles 32113
+[INFO] [1795215172.208039183] [float_array_pcl_node]: seq=21 Total in 2370.166 ms
+[INFO] [1795215172.208074069] [float_array_pcl_node]: seq=21 --- frame done ---
+[INFO] [1795215172.228703497] [float_array_pcl_node]: seq=22 Received PointCloud2 message
+[INFO] [1795215172.228756714] [float_array_pcl_node]: seq=22 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215172.404429516] [float_array_pcl_node]: seq=22 Unpack point cloud in 175.661 ms
+[INFO] [1795215172.667622197] [float_array_pcl_node]: seq=22 Plane RANSAC on 1391125/2332800 finite points (1944 x 1200)
+[INFO] [1795215172.667701665] [float_array_pcl_node]: seq=22 Plane segmentation in 263.122 ms
+[INFO] [1795215173.601829359] [float_array_pcl_node]: seq=22 Normals estimated in 931.200 ms
+[INFO] [1795215173.604223014] [float_array_pcl_node]: seq=22 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215174.682858095] [float_array_pcl_node]: seq=22 Poisson mesh created in 1078.605 ms
+[INFO] [1795215174.687523729] [float_array_pcl_node]: seq=22 Float32MultiArray payload in 4.314 ms (100212 vertices)
+[INFO] [1795215174.688159969] [float_array_pcl_node]: seq=22 Publish 701484 floats (100212 vertices) in 0.409 ms
+[INFO] [1795215174.701136610] [float_array_pcl_node]: seq=22 bytes 2805936 triangles 33404
+[INFO] [1795215174.701205658] [float_array_pcl_node]: seq=22 Total in 2472.433 ms
+[INFO] [1795215174.701281336] [float_array_pcl_node]: seq=22 --- frame done ---
+[INFO] [1795215174.723451248] [float_array_pcl_node]: seq=23 Received PointCloud2 message
+[INFO] [1795215174.723508801] [float_array_pcl_node]: seq=23 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215174.904861727] [float_array_pcl_node]: seq=23 Unpack point cloud in 181.338 ms
+[INFO] [1795215175.191309339] [float_array_pcl_node]: seq=23 Plane RANSAC on 1393119/2332800 finite points (1944 x 1200)
+[INFO] [1795215175.191379826] [float_array_pcl_node]: seq=23 Plane segmentation in 286.358 ms
+Vertex pair not in list 2	[7] (35 65 54)
+Vertex pair not in list 2	[7] (27 44 82)
+Vertex pair not in list 2	[7] (57 41 94)
+Vertex pair not in list 2	[6] (17 26 37)
+Vertex pair not in list 2	[6] (17 24 39)
+Vertex pair not in list 2	[6] (38 19 48)
+Vertex pair not in list 2	[7] (9 40 94)
+Vertex pair not in list 2	[7] (30 44 84)
+Vertex pair not in list 2	[7] (79 41 95)
+Vertex pair not in list 2	[6] (18 27 36)
+Vertex pair not in list 2	[6] (28 19 49)
+[INFO] [1795215176.136805377] [float_array_pcl_node]: seq=23 Normals estimated in 942.618 ms
+[INFO] [1795215176.139931975] [float_array_pcl_node]: seq=23 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215177.221079339] [float_array_pcl_node]: seq=23 Poisson mesh created in 1081.104 ms
+[INFO] [1795215177.225167649] [float_array_pcl_node]: seq=23 Float32MultiArray payload in 3.724 ms (100509 vertices)
+[INFO] [1795215177.225589048] [float_array_pcl_node]: seq=23 Publish 703563 floats (100509 vertices) in 0.248 ms
+[INFO] [1795215177.236576421] [float_array_pcl_node]: seq=23 bytes 2814252 triangles 33503
+[INFO] [1795215177.236631673] [float_array_pcl_node]: seq=23 Total in 2513.126 ms
+[INFO] [1795215177.236671631] [float_array_pcl_node]: seq=23 --- frame done ---
+[INFO] [1795215177.258258859] [float_array_pcl_node]: seq=24 Received PointCloud2 message
+[INFO] [1795215177.258317321] [float_array_pcl_node]: seq=24 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215177.437660900] [float_array_pcl_node]: seq=24 Unpack point cloud in 179.322 ms
+[INFO] [1795215177.708989471] [float_array_pcl_node]: seq=24 Plane RANSAC on 1392870/2332800 finite points (1944 x 1200)
+[INFO] [1795215177.709051338] [float_array_pcl_node]: seq=24 Plane segmentation in 271.262 ms
+[INFO] [1795215178.643069516] [float_array_pcl_node]: seq=24 Normals estimated in 931.225 ms
+[INFO] [1795215178.645559114] [float_array_pcl_node]: seq=24 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215179.695016618] [float_array_pcl_node]: seq=24 Poisson mesh created in 1049.428 ms
+[INFO] [1795215179.698935604] [float_array_pcl_node]: seq=24 Float32MultiArray payload in 3.595 ms (97869 vertices)
+[INFO] [1795215179.699347657] [float_array_pcl_node]: seq=24 Publish 685083 floats (97869 vertices) in 0.264 ms
+[INFO] [1795215179.711868673] [float_array_pcl_node]: seq=24 bytes 2740332 triangles 32623
+[INFO] [1795215179.711921771] [float_array_pcl_node]: seq=24 Total in 2453.610 ms
+[INFO] [1795215179.711965714] [float_array_pcl_node]: seq=24 --- frame done ---
+[INFO] [1795215179.732915969] [float_array_pcl_node]: seq=25 Received PointCloud2 message
+[INFO] [1795215179.732969145] [float_array_pcl_node]: seq=25 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215179.908809113] [float_array_pcl_node]: seq=25 Unpack point cloud in 175.826 ms
+[INFO] [1795215180.185241826] [float_array_pcl_node]: seq=25 Plane RANSAC on 1392577/2332800 finite points (1944 x 1200)
+[INFO] [1795215180.185302718] [float_array_pcl_node]: seq=25 Plane segmentation in 276.367 ms
+Vertex pair not in list 2	[7] (22 48 77)
+Vertex pair not in list 2	[6] (16 14 53)
+Vertex pair not in list 2	[7] (35 65 57)
+Vertex pair not in list 2	[7] (9 40 94)
+[INFO] [1795215181.113768510] [float_array_pcl_node]: seq=25 Normals estimated in 925.333 ms
+[INFO] [1795215181.116571846] [float_array_pcl_node]: seq=25 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215182.139588842] [float_array_pcl_node]: seq=25 Poisson mesh created in 1022.911 ms
+[INFO] [1795215182.143586054] [float_array_pcl_node]: seq=25 Float32MultiArray payload in 3.639 ms (98442 vertices)
+[INFO] [1795215182.143963518] [float_array_pcl_node]: seq=25 Publish 689094 floats (98442 vertices) in 0.230 ms
+[INFO] [1795215182.156339711] [float_array_pcl_node]: seq=25 bytes 2756376 triangles 32814
+[INFO] [1795215182.156414112] [float_array_pcl_node]: seq=25 Total in 2423.425 ms
+[INFO] [1795215182.156447357] [float_array_pcl_node]: seq=25 --- frame done ---
+[INFO] [1795215182.177375970] [float_array_pcl_node]: seq=26 Received PointCloud2 message
+[INFO] [1795215182.177449659] [float_array_pcl_node]: seq=26 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215182.352819089] [float_array_pcl_node]: seq=26 Unpack point cloud in 175.356 ms
+[INFO] [1795215182.627208444] [float_array_pcl_node]: seq=26 Plane RANSAC on 1392179/2332800 finite points (1944 x 1200)
+[INFO] [1795215182.627270675] [float_array_pcl_node]: seq=26 Plane segmentation in 274.326 ms
+[INFO] [1795215183.557769923] [float_array_pcl_node]: seq=26 Normals estimated in 927.600 ms
+[INFO] [1795215183.560191405] [float_array_pcl_node]: seq=26 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215184.575810633] [float_array_pcl_node]: seq=26 Poisson mesh created in 1015.589 ms
+[INFO] [1795215184.579701826] [float_array_pcl_node]: seq=26 Float32MultiArray payload in 3.569 ms (98520 vertices)
+[INFO] [1795215184.580077746] [float_array_pcl_node]: seq=26 Publish 689640 floats (98520 vertices) in 0.236 ms
+[INFO] [1795215184.592615655] [float_array_pcl_node]: seq=26 bytes 2758560 triangles 32840
+[INFO] [1795215184.592679691] [float_array_pcl_node]: seq=26 Total in 2415.240 ms
+[INFO] [1795215184.592709879] [float_array_pcl_node]: seq=26 --- frame done ---
+[INFO] [1795215184.613459415] [float_array_pcl_node]: seq=27 Received PointCloud2 message
+[INFO] [1795215184.613528322] [float_array_pcl_node]: seq=27 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215184.793337715] [float_array_pcl_node]: seq=27 Unpack point cloud in 179.796 ms
+[INFO] [1795215185.071900738] [float_array_pcl_node]: seq=27 Plane RANSAC on 1392147/2332800 finite points (1944 x 1200)
+[INFO] [1795215185.071964809] [float_array_pcl_node]: seq=27 Plane segmentation in 278.491 ms
+Vertex pair not in list 2	[7] (65 55 61)
+Vertex pair not in list 2	[7] (72 39 94)
+Vertex pair not in list 2	[7] (72 42 94)
+Vertex pair not in list 2	[6] (32 19 45)
+Vertex pair not in list 2	[6] (44 20 47)
+Vertex pair not in list 2	[7] (9 40 94)
+Vertex pair not in list 2	[7] (27 44 83)
+Vertex pair not in list 2	[7] (26 45 83)
+Vertex pair not in list 2	[7] (28 47 82)
+Vertex pair not in list 2	[7] (20 33 99)
+Vertex pair not in list 2	[5] (24 19 8)
+Vertex pair not in list 2	[5] (17 9 25)
+[INFO] [1795215186.007817720] [float_array_pcl_node]: seq=27 Normals estimated in 932.784 ms
+[INFO] [1795215186.010284656] [float_array_pcl_node]: seq=27 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215187.059260256] [float_array_pcl_node]: seq=27 Poisson mesh created in 1048.944 ms
+[INFO] [1795215187.063272472] [float_array_pcl_node]: seq=27 Float32MultiArray payload in 3.630 ms (98730 vertices)
+[INFO] [1795215187.063779112] [float_array_pcl_node]: seq=27 Publish 691110 floats (98730 vertices) in 0.278 ms
+[INFO] [1795215187.076858839] [float_array_pcl_node]: seq=27 bytes 2764440 triangles 32910
+[INFO] [1795215187.076912330] [float_array_pcl_node]: seq=27 Total in 2463.400 ms
+[INFO] [1795215187.076942942] [float_array_pcl_node]: seq=27 --- frame done ---
+[INFO] [1795215187.098043904] [float_array_pcl_node]: seq=28 Received PointCloud2 message
+[INFO] [1795215187.098101271] [float_array_pcl_node]: seq=28 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215187.275753459] [float_array_pcl_node]: seq=28 Unpack point cloud in 177.639 ms
+[INFO] [1795215187.572037787] [float_array_pcl_node]: seq=28 Plane RANSAC on 1392304/2332800 finite points (1944 x 1200)
+[INFO] [1795215187.572097749] [float_array_pcl_node]: seq=28 Plane segmentation in 296.227 ms
+[INFO] [1795215188.562468325] [float_array_pcl_node]: seq=28 Normals estimated in 987.968 ms
+[INFO] [1795215188.564866933] [float_array_pcl_node]: seq=28 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215189.623569555] [float_array_pcl_node]: seq=28 Poisson mesh created in 1058.674 ms
+[INFO] [1795215189.627502113] [float_array_pcl_node]: seq=28 Float32MultiArray payload in 3.606 ms (98760 vertices)
+[INFO] [1795215189.627880725] [float_array_pcl_node]: seq=28 Publish 691320 floats (98760 vertices) in 0.230 ms
+[INFO] [1795215189.639538492] [float_array_pcl_node]: seq=28 bytes 2765280 triangles 32920
+[INFO] [1795215189.639586430] [float_array_pcl_node]: seq=28 Total in 2541.496 ms
+[INFO] [1795215189.639618223] [float_array_pcl_node]: seq=28 --- frame done ---
+[INFO] [1795215189.661100973] [float_array_pcl_node]: seq=29 Received PointCloud2 message
+[INFO] [1795215189.661155299] [float_array_pcl_node]: seq=29 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215189.839430749] [float_array_pcl_node]: seq=29 Unpack point cloud in 178.263 ms
+[INFO] [1795215190.106719494] [float_array_pcl_node]: seq=29 Plane RANSAC on 1394395/2332800 finite points (1944 x 1200)
+[INFO] [1795215190.106782399] [float_array_pcl_node]: seq=29 Plane segmentation in 267.221 ms
+Vertex pair not in list 2	[7] (13 37 96)
+Vertex pair not in list 2	[7] (72 39 95)
+Vertex pair not in list 2	[6] (8 19 46)
+Vertex pair not in list 2	[6] (42 23 45)
+Vertex pair not in list 2	[5] (21 8 26)
+[INFO] [1795215191.040659133] [float_array_pcl_node]: seq=29 Normals estimated in 931.956 ms
+[INFO] [1795215191.043650797] [float_array_pcl_node]: seq=29 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215192.092224813] [float_array_pcl_node]: seq=29 Poisson mesh created in 1048.480 ms
+[INFO] [1795215192.096223412] [float_array_pcl_node]: seq=29 Float32MultiArray payload in 3.675 ms (99942 vertices)
+[INFO] [1795215192.096670315] [float_array_pcl_node]: seq=29 Publish 699594 floats (99942 vertices) in 0.228 ms
+[INFO] [1795215192.108252248] [float_array_pcl_node]: seq=29 bytes 2798376 triangles 33314
+[INFO] [1795215192.108298392] [float_array_pcl_node]: seq=29 Total in 2447.152 ms
+[INFO] [1795215192.108357230] [float_array_pcl_node]: seq=29 --- frame done ---
+[INFO] [1795215192.129988469] [float_array_pcl_node]: seq=30 Received PointCloud2 message
+[INFO] [1795215192.130048865] [float_array_pcl_node]: seq=30 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215192.307130985] [float_array_pcl_node]: seq=30 Unpack point cloud in 177.059 ms
+[INFO] [1795215192.580832734] [float_array_pcl_node]: seq=30 Plane RANSAC on 1199931/2332800 finite points (1944 x 1200)
+[INFO] [1795215192.580891634] [float_array_pcl_node]: seq=30 Plane segmentation in 273.634 ms
+[INFO] [1795215193.863316066] [float_array_pcl_node]: seq=30 Normals estimated in 1280.437 ms
+[INFO] [1795215193.866802207] [float_array_pcl_node]: seq=30 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215195.288651039] [float_array_pcl_node]: seq=30 Poisson mesh created in 1421.811 ms
+[INFO] [1795215195.294659751] [float_array_pcl_node]: seq=30 Float32MultiArray payload in 5.564 ms (135798 vertices)
+[INFO] [1795215195.295407938] [float_array_pcl_node]: seq=30 Publish 950586 floats (135798 vertices) in 0.545 ms
+[INFO] [1795215195.309309159] [float_array_pcl_node]: seq=30 bytes 3802344 triangles 45266
+[INFO] [1795215195.309369636] [float_array_pcl_node]: seq=30 Total in 3179.320 ms
+[INFO] [1795215195.309424345] [float_array_pcl_node]: seq=30 --- frame done ---
+Vertex pair not in list 2	[7] (8 40 94)
+Vertex pair not in list 2	[7] (85 42 91)
+Vertex pair not in list 2	[6] (6 21 45)
+Vertex pair not in list 2	[6] (17 26 39)
+Vertex pair not in list 2	[6] (32 20 45)
+Vertex pair not in list 2	[5] (17 11 25)
+Vertex pair not in list 2	[7] (14 35 94)
+Vertex pair not in list 2	[7] (39 49 79)
+Vertex pair not in list 2	[6] (31 39 18)
+Vertex pair not in list 2	[6] (33 30 34)
+Vertex pair not in list 2	[6] (39 21 42)
+Vertex pair not in list 2	[6] (43 22 41)
+Vertex pair not in list 2	[5] (18 13 23)
+[INFO] [1795215195.330961767] [float_array_pcl_node]: seq=31 Received PointCloud2 message
+[INFO] [1795215195.331008661] [float_array_pcl_node]: seq=31 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215195.513701758] [float_array_pcl_node]: seq=31 Unpack point cloud in 182.681 ms
+[INFO] [1795215195.778652017] [float_array_pcl_node]: seq=31 Plane RANSAC on 1384724/2332800 finite points (1944 x 1200)
+[INFO] [1795215195.778724849] [float_array_pcl_node]: seq=31 Plane segmentation in 264.884 ms
+[INFO] [1795215196.763980875] [float_array_pcl_node]: seq=31 Normals estimated in 982.472 ms
+[INFO] [1795215196.766492610] [float_array_pcl_node]: seq=31 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215197.792126970] [float_array_pcl_node]: seq=31 Poisson mesh created in 1025.596 ms
+[INFO] [1795215197.796086879] [float_array_pcl_node]: seq=31 Float32MultiArray payload in 3.544 ms (93750 vertices)
+[INFO] [1795215197.796490934] [float_array_pcl_node]: seq=31 Publish 656250 floats (93750 vertices) in 0.248 ms
+[INFO] [1795215197.808701662] [float_array_pcl_node]: seq=31 bytes 2625000 triangles 31250
+[INFO] [1795215197.808771013] [float_array_pcl_node]: seq=31 Total in 2477.734 ms
+[INFO] [1795215197.808804968] [float_array_pcl_node]: seq=31 --- frame done ---
+[INFO] [1795215197.829170918] [float_array_pcl_node]: seq=32 Received PointCloud2 message
+[INFO] [1795215197.829228073] [float_array_pcl_node]: seq=32 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215198.005915313] [float_array_pcl_node]: seq=32 Unpack point cloud in 176.674 ms
+[INFO] [1795215198.294305778] [float_array_pcl_node]: seq=32 Plane RANSAC on 1384083/2332800 finite points (1944 x 1200)
+[INFO] [1795215198.294372535] [float_array_pcl_node]: seq=32 Plane segmentation in 288.266 ms
+[INFO] [1795215199.278141023] [float_array_pcl_node]: seq=32 Normals estimated in 981.153 ms
+[INFO] [1795215199.280660210] [float_array_pcl_node]: seq=32 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215200.298654833] [float_array_pcl_node]: seq=32 Poisson mesh created in 1017.964 ms
+[INFO] [1795215200.302597292] [float_array_pcl_node]: seq=32 Float32MultiArray payload in 3.577 ms (94773 vertices)
+[INFO] [1795215200.302984025] [float_array_pcl_node]: seq=32 Publish 663411 floats (94773 vertices) in 0.213 ms
+[INFO] [1795215200.315407427] [float_array_pcl_node]: seq=32 bytes 2653644 triangles 31591
+[INFO] [1795215200.315469760] [float_array_pcl_node]: seq=32 Total in 2486.238 ms
+[INFO] [1795215200.315518579] [float_array_pcl_node]: seq=32 --- frame done ---
+Vertex pair not in list 2	[7] (24 41 90)
+Vertex pair not in list 2	[7] (83 39 92)
+Vertex pair not in list 2	[5] (12 7 27)
+Vertex pair not in list 2	[7] (10 40 94)
+Vertex pair not in list 2	[7] (29 41 89)
+Vertex pair not in list 2	[7] (34 53 74)
+Vertex pair not in list 2	[5] (17 11 25)
+[INFO] [1795215200.337172271] [float_array_pcl_node]: seq=33 Received PointCloud2 message
+[INFO] [1795215200.337231159] [float_array_pcl_node]: seq=33 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215200.513818197] [float_array_pcl_node]: seq=33 Unpack point cloud in 176.567 ms
+[INFO] [1795215200.792087469] [float_array_pcl_node]: seq=33 Plane RANSAC on 1384226/2332800 finite points (1944 x 1200)
+[INFO] [1795215200.792158444] [float_array_pcl_node]: seq=33 Plane segmentation in 278.199 ms
+[INFO] [1795215201.722793237] [float_array_pcl_node]: seq=33 Normals estimated in 928.232 ms
+[INFO] [1795215201.725410966] [float_array_pcl_node]: seq=33 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215202.734882938] [float_array_pcl_node]: seq=33 Poisson mesh created in 1009.425 ms
+[INFO] [1795215202.738700347] [float_array_pcl_node]: seq=33 Float32MultiArray payload in 3.480 ms (96642 vertices)
+[INFO] [1795215202.739093923] [float_array_pcl_node]: seq=33 Publish 676494 floats (96642 vertices) in 0.239 ms
+[INFO] [1795215202.750780754] [float_array_pcl_node]: seq=33 bytes 2705976 triangles 32214
+[INFO] [1795215202.750891403] [float_array_pcl_node]: seq=33 Total in 2413.609 ms
+[INFO] [1795215202.750955428] [float_array_pcl_node]: seq=33 --- frame done ---
+[INFO] [1795215202.771238107] [float_array_pcl_node]: seq=34 Received PointCloud2 message
+[INFO] [1795215202.771297776] [float_array_pcl_node]: seq=34 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215202.950034098] [float_array_pcl_node]: seq=34 Unpack point cloud in 178.719 ms
+[INFO] [1795215203.322095187] [float_array_pcl_node]: seq=34 Plane RANSAC on 1385911/2332800 finite points (1944 x 1200)
+[INFO] [1795215203.322169083] [float_array_pcl_node]: seq=34 Plane segmentation in 371.990 ms
+[INFO] [1795215204.264841821] [float_array_pcl_node]: seq=34 Normals estimated in 940.043 ms
+[INFO] [1795215204.267455872] [float_array_pcl_node]: seq=34 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215205.325302943] [float_array_pcl_node]: seq=34 Poisson mesh created in 1057.791 ms
+Vertex pair not in list 2	[7] (21 38 93)
+Vertex pair not in list 2	[7] (29 49 75)
+Vertex pair not in list 2	[7] (69 41 93)
+Vertex pair not in list 2	[5] (17 12 23)
+[INFO] [1795215205.329310001] [float_array_pcl_node]: seq=34 Float32MultiArray payload in 3.630 ms (99954 vertices)
+[INFO] [1795215205.329704719] [float_array_pcl_node]: seq=34 Publish 699678 floats (99954 vertices) in 0.240 ms
+[INFO] [1795215205.342000313] [float_array_pcl_node]: seq=34 bytes 2798712 triangles 33318
+[INFO] [1795215205.342090984] [float_array_pcl_node]: seq=34 Total in 2570.763 ms
+[INFO] [1795215205.342123338] [float_array_pcl_node]: seq=34 --- frame done ---
+[INFO] [1795215205.362908915] [float_array_pcl_node]: seq=35 Received PointCloud2 message
+[INFO] [1795215205.362966669] [float_array_pcl_node]: seq=35 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215205.542059170] [float_array_pcl_node]: seq=35 Unpack point cloud in 179.076 ms
+[INFO] [1795215205.816465126] [float_array_pcl_node]: seq=35 Plane RANSAC on 1386099/2332800 finite points (1944 x 1200)
+[INFO] [1795215205.816589178] [float_array_pcl_node]: seq=35 Plane segmentation in 274.333 ms
+[INFO] [1795215206.783605747] [float_array_pcl_node]: seq=35 Normals estimated in 964.016 ms
+[INFO] [1795215206.786745972] [float_array_pcl_node]: seq=35 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215207.846485799] [float_array_pcl_node]: seq=35 Poisson mesh created in 1059.685 ms
+[INFO] [1795215207.850329553] [float_array_pcl_node]: seq=35 Float32MultiArray payload in 3.492 ms (96777 vertices)
+[INFO] [1795215207.850870363] [float_array_pcl_node]: seq=35 Publish 677439 floats (96777 vertices) in 0.332 ms
+[INFO] [1795215207.862954491] [float_array_pcl_node]: seq=35 bytes 2709756 triangles 32259
+[INFO] [1795215207.863032999] [float_array_pcl_node]: seq=35 Total in 2500.045 ms
+[INFO] [1795215207.863067225] [float_array_pcl_node]: seq=35 --- frame done ---
+[INFO] [1795215207.884436853] [float_array_pcl_node]: seq=36 Received PointCloud2 message
+[INFO] [1795215207.884514405] [float_array_pcl_node]: seq=36 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215208.063679351] [float_array_pcl_node]: seq=36 Unpack point cloud in 179.148 ms
+[INFO] [1795215208.401057458] [float_array_pcl_node]: seq=36 Plane RANSAC on 1385863/2332800 finite points (1944 x 1200)
+[INFO] [1795215208.401119562] [float_array_pcl_node]: seq=36 Plane segmentation in 337.298 ms
+[INFO] [1795215209.359057564] [float_array_pcl_node]: seq=36 Normals estimated in 954.933 ms
+[INFO] [1795215209.361557880] [float_array_pcl_node]: seq=36 Create Poisson mesh
+Vertex pair not in list 2	[7] (62 79 39)
+Vertex pair not in list 2	[7] (33 51 78)
+Vertex pair not in list 2	[7] (22 33 100)
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215210.365204637] [float_array_pcl_node]: seq=36 Poisson mesh created in 1003.614 ms
+[INFO] [1795215210.369255891] [float_array_pcl_node]: seq=36 Float32MultiArray payload in 3.604 ms (96594 vertices)
+[INFO] [1795215210.369661715] [float_array_pcl_node]: seq=36 Publish 676158 floats (96594 vertices) in 0.221 ms
+[INFO] [1795215210.381950738] [float_array_pcl_node]: seq=36 bytes 2704632 triangles 32198
+[INFO] [1795215210.382004427] [float_array_pcl_node]: seq=36 Total in 2497.516 ms
+[INFO] [1795215210.382034667] [float_array_pcl_node]: seq=36 --- frame done ---
+[INFO] [1795215210.402737375] [float_array_pcl_node]: seq=37 Received PointCloud2 message
+[INFO] [1795215210.402793567] [float_array_pcl_node]: seq=37 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215210.575526034] [float_array_pcl_node]: seq=37 Unpack point cloud in 172.720 ms
+[INFO] [1795215210.844472648] [float_array_pcl_node]: seq=37 Plane RANSAC on 1385725/2332800 finite points (1944 x 1200)
+[INFO] [1795215210.844529179] [float_array_pcl_node]: seq=37 Plane segmentation in 268.883 ms
+[INFO] [1795215211.784190025] [float_array_pcl_node]: seq=37 Normals estimated in 936.689 ms
+[INFO] [1795215211.786728802] [float_array_pcl_node]: seq=37 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215212.801201779] [float_array_pcl_node]: seq=37 Poisson mesh created in 1014.441 ms
+[INFO] [1795215212.805156233] [float_array_pcl_node]: seq=37 Float32MultiArray payload in 3.566 ms (97353 vertices)
+[INFO] [1795215212.805550749] [float_array_pcl_node]: seq=37 Publish 681471 floats (97353 vertices) in 0.254 ms
+[INFO] [1795215212.818242156] [float_array_pcl_node]: seq=37 bytes 2725884 triangles 32451
+[INFO] [1795215212.818310816] [float_array_pcl_node]: seq=37 Total in 2415.505 ms
+[INFO] [1795215212.818340654] [float_array_pcl_node]: seq=37 --- frame done ---
+[INFO] [1795215212.838484288] [float_array_pcl_node]: seq=38 Received PointCloud2 message
+[INFO] [1795215212.838536020] [float_array_pcl_node]: seq=38 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215213.016324684] [float_array_pcl_node]: seq=38 Unpack point cloud in 177.776 ms
+[INFO] [1795215213.290746877] [float_array_pcl_node]: seq=38 Plane RANSAC on 1385612/2332800 finite points (1944 x 1200)
+[INFO] [1795215213.290809139] [float_array_pcl_node]: seq=38 Plane segmentation in 274.318 ms
+[INFO] [1795215214.224488962] [float_array_pcl_node]: seq=38 Normals estimated in 930.741 ms
+[INFO] [1795215214.226941159] [float_array_pcl_node]: seq=38 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215215.247150320] [float_array_pcl_node]: seq=38 Poisson mesh created in 1020.184 ms
+[INFO] [1795215215.251166265] [float_array_pcl_node]: seq=38 Float32MultiArray payload in 3.682 ms (96555 vertices)
+[INFO] [1795215215.251567450] [float_array_pcl_node]: seq=38 Publish 675885 floats (96555 vertices) in 0.236 ms
+[INFO] [1795215215.263799864] [float_array_pcl_node]: seq=38 bytes 2703540 triangles 32185
+[INFO] [1795215215.263846957] [float_array_pcl_node]: seq=38 Total in 2425.316 ms
+[INFO] [1795215215.263885574] [float_array_pcl_node]: seq=38 --- frame done ---
+[INFO] [1795215215.284818756] [float_array_pcl_node]: seq=39 Received PointCloud2 message
+[INFO] [1795215215.284874281] [float_array_pcl_node]: seq=39 Handle XYZ-RGB(A) PointCloud
+Vertex pair not in list 2	[7] (37 67 54)
+Vertex pair not in list 2	[7] (29 50 78)
+Vertex pair not in list 2	[7] (32 57 69)
+Vertex pair not in list 2	[7] (33 51 78)
+Vertex pair not in list 2	[7] (60 39 97)
+Vertex pair not in list 2	[6] (10 34 29)
+Vertex pair not in list 2	[7] (36 66 53)
+Vertex pair not in list 2	[7] (9 40 94)
+Vertex pair not in list 2	[7] (28 40 89)
+Vertex pair not in list 2	[7] (32 55 72)
+Vertex pair not in list 2	[6] (17 24 39)
+Vertex pair not in list 2	[6] (16 22 44)
+Vertex pair not in list 2	[5] (20 8 26)
+[INFO] [1795215215.457837755] [float_array_pcl_node]: seq=39 Unpack point cloud in 172.952 ms
+[INFO] [1795215215.727899799] [float_array_pcl_node]: seq=39 Plane RANSAC on 1385526/2332800 finite points (1944 x 1200)
+[INFO] [1795215215.727960421] [float_array_pcl_node]: seq=39 Plane segmentation in 269.998 ms
+[INFO] [1795215216.662345388] [float_array_pcl_node]: seq=39 Normals estimated in 931.424 ms
+[INFO] [1795215216.664773622] [float_array_pcl_node]: seq=39 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215217.672044285] [float_array_pcl_node]: seq=39 Poisson mesh created in 1007.243 ms
+[INFO] [1795215217.676361582] [float_array_pcl_node]: seq=39 Float32MultiArray payload in 3.992 ms (98793 vertices)
+[INFO] [1795215217.676747153] [float_array_pcl_node]: seq=39 Publish 691551 floats (98793 vertices) in 0.223 ms
+[INFO] [1795215217.689049706] [float_array_pcl_node]: seq=39 bytes 2766204 triangles 32931
+[INFO] [1795215217.689104685] [float_array_pcl_node]: seq=39 Total in 2404.233 ms
+[INFO] [1795215217.689133862] [float_array_pcl_node]: seq=39 --- frame done ---
+[INFO] [1795215217.709807345] [float_array_pcl_node]: seq=40 Received PointCloud2 message
+[INFO] [1795215217.709862903] [float_array_pcl_node]: seq=40 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215217.883945315] [float_array_pcl_node]: seq=40 Unpack point cloud in 174.070 ms
+[INFO] [1795215218.158326671] [float_array_pcl_node]: seq=40 Plane RANSAC on 1385772/2332800 finite points (1944 x 1200)
+[INFO] [1795215218.158434684] [float_array_pcl_node]: seq=40 Plane segmentation in 274.318 ms
+[INFO] [1795215219.098171768] [float_array_pcl_node]: seq=40 Normals estimated in 936.753 ms
+[INFO] [1795215219.100761184] [float_array_pcl_node]: seq=40 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215220.106759101] [float_array_pcl_node]: seq=40 Poisson mesh created in 1005.960 ms
+[INFO] [1795215220.110540551] [float_array_pcl_node]: seq=40 Float32MultiArray payload in 3.425 ms (94818 vertices)
+[INFO] [1795215220.110899808] [float_array_pcl_node]: seq=40 Publish 663726 floats (94818 vertices) in 0.217 ms
+[INFO] [1795215220.123175602] [float_array_pcl_node]: seq=40 bytes 2654904 triangles 31606
+[INFO] [1795215220.123231787] [float_array_pcl_node]: seq=40 Total in 2413.368 ms
+[INFO] [1795215220.123284057] [float_array_pcl_node]: seq=40 --- frame done ---
+[INFO] [1795215220.143821242] [float_array_pcl_node]: seq=41 Received PointCloud2 message
+[INFO] [1795215220.143876589] [float_array_pcl_node]: seq=41 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215220.317660490] [float_array_pcl_node]: seq=41 Unpack point cloud in 173.771 ms
+Vertex pair not in list 2	[6] (17 25 40)
+Vertex pair not in list 2	[7] (29 49 77)
+Vertex pair not in list 2	[7] (84 40 94)
+[INFO] [1795215220.588504654] [float_array_pcl_node]: seq=41 Plane RANSAC on 1386353/2332800 finite points (1944 x 1200)
+[INFO] [1795215220.588563843] [float_array_pcl_node]: seq=41 Plane segmentation in 270.771 ms
+[INFO] [1795215221.523775798] [float_array_pcl_node]: seq=41 Normals estimated in 931.946 ms
+[INFO] [1795215221.526234012] [float_array_pcl_node]: seq=41 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215222.541617993] [float_array_pcl_node]: seq=41 Poisson mesh created in 1015.354 ms
+[INFO] [1795215222.545720285] [float_array_pcl_node]: seq=41 Float32MultiArray payload in 3.716 ms (97941 vertices)
+[INFO] [1795215222.546146992] [float_array_pcl_node]: seq=41 Publish 685587 floats (97941 vertices) in 0.259 ms
+[INFO] [1795215222.558562586] [float_array_pcl_node]: seq=41 bytes 2742348 triangles 32647
+[INFO] [1795215222.558626940] [float_array_pcl_node]: seq=41 Total in 2414.742 ms
+[INFO] [1795215222.558671150] [float_array_pcl_node]: seq=41 --- frame done ---
+[INFO] [1795215222.580602743] [float_array_pcl_node]: seq=42 Received PointCloud2 message
+[INFO] [1795215222.580665011] [float_array_pcl_node]: seq=42 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215222.764087430] [float_array_pcl_node]: seq=42 Unpack point cloud in 183.399 ms
+[INFO] [1795215223.036802959] [float_array_pcl_node]: seq=42 Plane RANSAC on 1386039/2332800 finite points (1944 x 1200)
+[INFO] [1795215223.036865075] [float_array_pcl_node]: seq=42 Plane segmentation in 272.652 ms
+[INFO] [1795215223.987067910] [float_array_pcl_node]: seq=42 Normals estimated in 947.381 ms
+[INFO] [1795215223.989770871] [float_array_pcl_node]: seq=42 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215225.025286406] [float_array_pcl_node]: seq=42 Poisson mesh created in 1035.440 ms
+[INFO] [1795215225.029174044] [float_array_pcl_node]: seq=42 Float32MultiArray payload in 3.493 ms (97770 vertices)
+[INFO] [1795215225.029593767] [float_array_pcl_node]: seq=42 Publish 684390 floats (97770 vertices) in 0.235 ms
+[INFO] [1795215225.042623990] [float_array_pcl_node]: seq=42 bytes 2737560 triangles 32590
+[INFO] [1795215225.042697188] [float_array_pcl_node]: seq=42 Total in 2462.021 ms
+[INFO] [1795215225.042728574] [float_array_pcl_node]: seq=42 --- frame done ---
+[INFO] [1795215225.063381574] [float_array_pcl_node]: seq=43 Received PointCloud2 message
+[INFO] [1795215225.063470418] [float_array_pcl_node]: seq=43 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215225.236126614] [float_array_pcl_node]: seq=43 Unpack point cloud in 172.643 ms
+Vertex pair not in list 2	[7] (61 79 39)
+Vertex pair not in list 2	[7] (93 77 28)
+Vertex pair not in list 2	[7] (74 41 93)
+Vertex pair not in list 2	[7] (84 39 94)
+Vertex pair not in list 2	[7] (76 39 94)
+Vertex pair not in list 2	[6] (6 21 44)
+[INFO] [1795215225.506315205] [float_array_pcl_node]: seq=43 Plane RANSAC on 1386416/2332800 finite points (1944 x 1200)
+[INFO] [1795215225.506381516] [float_array_pcl_node]: seq=43 Plane segmentation in 270.127 ms
+[INFO] [1795215226.452746589] [float_array_pcl_node]: seq=43 Normals estimated in 943.547 ms
+[INFO] [1795215226.455213627] [float_array_pcl_node]: seq=43 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215227.514581480] [float_array_pcl_node]: seq=43 Poisson mesh created in 1059.338 ms
+[INFO] [1795215227.518677906] [float_array_pcl_node]: seq=43 Float32MultiArray payload in 3.774 ms (100263 vertices)
+[INFO] [1795215227.519084240] [float_array_pcl_node]: seq=43 Publish 701841 floats (100263 vertices) in 0.241 ms
+[INFO] [1795215227.531573232] [float_array_pcl_node]: seq=43 bytes 2807364 triangles 33421
+[INFO] [1795215227.531641397] [float_array_pcl_node]: seq=43 Total in 2468.192 ms
+[INFO] [1795215227.531685634] [float_array_pcl_node]: seq=43 --- frame done ---
+[INFO] [1795215227.553132046] [float_array_pcl_node]: seq=44 Received PointCloud2 message
+[INFO] [1795215227.553186757] [float_array_pcl_node]: seq=44 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215227.725886671] [float_array_pcl_node]: seq=44 Unpack point cloud in 172.688 ms
+[INFO] [1795215227.994060564] [float_array_pcl_node]: seq=44 Plane RANSAC on 1386625/2332800 finite points (1944 x 1200)
+[INFO] [1795215227.994119670] [float_array_pcl_node]: seq=44 Plane segmentation in 268.112 ms
+[INFO] [1795215228.938030499] [float_array_pcl_node]: seq=44 Normals estimated in 941.185 ms
+[INFO] [1795215228.940591398] [float_array_pcl_node]: seq=44 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215229.956980406] [float_array_pcl_node]: seq=44 Poisson mesh created in 1016.349 ms
+[INFO] [1795215229.963051364] [float_array_pcl_node]: seq=44 Float32MultiArray payload in 5.517 ms (97062 vertices)
+[INFO] [1795215229.963493381] [float_array_pcl_node]: seq=44 Publish 679434 floats (97062 vertices) in 0.245 ms
+[INFO] [1795215229.976146440] [float_array_pcl_node]: seq=44 bytes 2717736 triangles 32354
+[INFO] [1795215229.976219759] [float_array_pcl_node]: seq=44 Total in 2423.014 ms
+[INFO] [1795215229.976268751] [float_array_pcl_node]: seq=44 --- frame done ---
+[INFO] [1795215229.996512101] [float_array_pcl_node]: seq=45 Received PointCloud2 message
+[INFO] [1795215229.996566985] [float_array_pcl_node]: seq=45 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215230.172009210] [float_array_pcl_node]: seq=45 Unpack point cloud in 175.431 ms
+Vertex pair not in list 2	[7] (74 80 29)
+Vertex pair not in list 2	[7] (77 43 95)
+Vertex pair not in list 2	[6] (31 37 20)
+Vertex pair not in list 2	[5] (12 7 27)
+[INFO] [1795215230.443449448] [float_array_pcl_node]: seq=45 Plane RANSAC on 1386168/2332800 finite points (1944 x 1200)
+[INFO] [1795215230.443507422] [float_array_pcl_node]: seq=45 Plane segmentation in 271.372 ms
+[INFO] [1795215231.384586902] [float_array_pcl_node]: seq=45 Normals estimated in 938.047 ms
+[INFO] [1795215231.387124602] [float_array_pcl_node]: seq=45 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215232.406575036] [float_array_pcl_node]: seq=45 Poisson mesh created in 1019.419 ms
+[INFO] [1795215232.410702730] [float_array_pcl_node]: seq=45 Float32MultiArray payload in 3.804 ms (97794 vertices)
+[INFO] [1795215232.411071144] [float_array_pcl_node]: seq=45 Publish 684558 floats (97794 vertices) in 0.221 ms
+[INFO] [1795215232.422555535] [float_array_pcl_node]: seq=45 bytes 2738232 triangles 32598
+[INFO] [1795215232.422598501] [float_array_pcl_node]: seq=45 Total in 2426.045 ms
+[INFO] [1795215232.422627569] [float_array_pcl_node]: seq=45 --- frame done ---
+[INFO] [1795215232.443354262] [float_array_pcl_node]: seq=46 Received PointCloud2 message
+[INFO] [1795215232.443447667] [float_array_pcl_node]: seq=46 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215232.620424650] [float_array_pcl_node]: seq=46 Unpack point cloud in 176.964 ms
+[INFO] [1795215232.888717548] [float_array_pcl_node]: seq=46 Plane RANSAC on 1386069/2332800 finite points (1944 x 1200)
+[INFO] [1795215232.888778536] [float_array_pcl_node]: seq=46 Plane segmentation in 268.230 ms
+[INFO] [1795215233.865719835] [float_array_pcl_node]: seq=46 Normals estimated in 973.917 ms
+[INFO] [1795215233.868381648] [float_array_pcl_node]: seq=46 Create Poisson mesh
+Failed to find match for field 'rgb'.
+Failed to find match for field 'normal_x'.
+Failed to find match for field 'normal_y'.
+Failed to find match for field 'normal_z'.
+Failed to find match for field 'curvature'.
+[INFO] [1795215234.944584886] [float_array_pcl_node]: seq=46 Poisson mesh created in 1076.121 ms
+[INFO] [1795215234.948829717] [float_array_pcl_node]: seq=46 Float32MultiArray payload in 3.900 ms (100551 vertices)
+[INFO] [1795215234.949322721] [float_array_pcl_node]: seq=46 Publish 703857 floats (100551 vertices) in 0.264 ms
+[INFO] [1795215234.961614650] [float_array_pcl_node]: seq=46 bytes 2815428 triangles 33517
+[INFO] [1795215234.961714155] [float_array_pcl_node]: seq=46 Total in 2518.262 ms
+[INFO] [1795215234.961765959] [float_array_pcl_node]: seq=46 --- frame done ---
+Vertex pair not in list 2	[7] (8 41 92)
+Vertex pair not in list 2	[7] (30 48 82)
+Vertex pair not in list 2	[7] (14 35 97)
+Vertex pair not in list 2	[7] (21 37 99)
+Vertex pair not in list 2	[7] (81 38 92)
+Vertex pair not in list 2	[7] (22 43 87)
+Vertex pair not in list 2	[7] (25 41 86)
+Vertex pair not in list 2	[7] (59 41 95)
+Vertex pair not in list 2	[7] (22 33 100)
+Vertex pair not in list 2	[7] (28 33 103)
+Vertex pair not in list 2	[6] (27 37 19)
+Vertex pair not in list 2	[6] (28 22 48)
+[INFO] [1795215241.048696881] [rclcpp]: signal_handler(SIGINT/SIGTERM)

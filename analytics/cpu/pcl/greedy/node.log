@@ -1,0 +1,786 @@
+[INFO] [1795214802.064577606] [float_array_pcl_node]: Node initialized, publishing Float32MultiArray on /object_mesh/vertices
+[INFO] [1795214802.064721596] [float_array_pcl_node]: CSV frame log: pcl_greedy.csv
+[INFO] [1795214802.064734745] [float_array_pcl_node]: mode=greedy queue_depth=100
+[INFO] [1795214807.262596244] [float_array_pcl_node]: seq=1 Received PointCloud2 message
+[INFO] [1795214807.262664411] [float_array_pcl_node]: seq=1 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214807.447513875] [float_array_pcl_node]: seq=1 Unpack point cloud in 184.832 ms
+[INFO] [1795214807.719491683] [float_array_pcl_node]: seq=1 Plane RANSAC on 1391048/2332800 finite points (1944 x 1200)
+[INFO] [1795214807.719556760] [float_array_pcl_node]: seq=1 Plane segmentation in 271.863 ms
+[INFO] [1795214808.963685540] [float_array_pcl_node]: seq=1 Normals estimated in 1242.532 ms
+[INFO] [1795214808.985192069] [float_array_pcl_node]: seq=1 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=161576 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=165464 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 19
+Number of neighborhood size increase requests for source: 34
+[INFO] [1795214813.474743643] [float_array_pcl_node]: seq=1 Greedy mesh created in 4489.488 ms
+[INFO] [1795214813.701988130] [float_array_pcl_node]: seq=1 Float32MultiArray payload in 210.215 ms (1697697 vertices)
+[INFO] [1795214813.724301053] [float_array_pcl_node]: seq=1 Publish 11883879 floats (1697697 vertices) in 5.627 ms
+[INFO] [1795214813.798035063] [float_array_pcl_node]: seq=1 bytes 47535516 triangles 565899
+[INFO] [1795214813.798092358] [float_array_pcl_node]: seq=1 Total in 6535.438 ms
+[INFO] [1795214813.798133731] [float_array_pcl_node]: seq=1 --- frame done ---
+[INFO] [1795214813.824323757] [float_array_pcl_node]: seq=2 Received PointCloud2 message
+[INFO] [1795214813.824380086] [float_array_pcl_node]: seq=2 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214813.997818730] [float_array_pcl_node]: seq=2 Unpack point cloud in 173.425 ms
+[INFO] [1795214814.215528760] [float_array_pcl_node]: seq=2 Plane RANSAC on 1390626/2332800 finite points (1944 x 1200)
+[INFO] [1795214814.215592680] [float_array_pcl_node]: seq=2 Plane segmentation in 217.644 ms
+[INFO] [1795214815.468710222] [float_array_pcl_node]: seq=2 Normals estimated in 1253.089 ms
+[INFO] [1795214815.489097861] [float_array_pcl_node]: seq=2 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=169440 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=218130 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 16
+Number of neighborhood size increase requests for source: 38
+[INFO] [1795214820.070904459] [float_array_pcl_node]: seq=2 Greedy mesh created in 4581.741 ms
+[INFO] [1795214820.300927541] [float_array_pcl_node]: seq=2 Float32MultiArray payload in 208.911 ms (1694511 vertices)
+[INFO] [1795214820.321434878] [float_array_pcl_node]: seq=2 Publish 11861577 floats (1694511 vertices) in 3.739 ms
+[INFO] [1795214820.396529558] [float_array_pcl_node]: seq=2 bytes 47446308 triangles 564837
+[INFO] [1795214820.396585066] [float_array_pcl_node]: seq=2 Total in 6572.206 ms
+[INFO] [1795214820.396614466] [float_array_pcl_node]: seq=2 --- frame done ---
+[INFO] [1795214820.409560416] [float_array_pcl_node]: seq=3 Received PointCloud2 message
+[INFO] [1795214820.409638338] [float_array_pcl_node]: seq=3 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214820.571413421] [float_array_pcl_node]: seq=3 Unpack point cloud in 161.757 ms
+[INFO] [1795214820.792316215] [float_array_pcl_node]: seq=3 Plane RANSAC on 1390776/2332800 finite points (1944 x 1200)
+[INFO] [1795214820.792368600] [float_array_pcl_node]: seq=3 Plane segmentation in 220.839 ms
+[INFO] [1795214822.058894888] [float_array_pcl_node]: seq=3 Normals estimated in 1266.496 ms
+[INFO] [1795214822.079824355] [float_array_pcl_node]: seq=3 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=155611 to be BOUNDARY!
+Not enough neighbors are considered: source of R=171106 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 9
+Number of neighborhood size increase requests for source: 53
+[INFO] [1795214826.545339738] [float_array_pcl_node]: seq=3 Greedy mesh created in 4465.447 ms
+[INFO] [1795214826.767755770] [float_array_pcl_node]: seq=3 Float32MultiArray payload in 205.159 ms (1694274 vertices)
+[INFO] [1795214826.790910463] [float_array_pcl_node]: seq=3 Publish 11859918 floats (1694274 vertices) in 3.525 ms
+[INFO] [1795214826.864904080] [float_array_pcl_node]: seq=3 bytes 47439672 triangles 564758
+[INFO] [1795214826.864959159] [float_array_pcl_node]: seq=3 Total in 6455.343 ms
+[INFO] [1795214826.864989232] [float_array_pcl_node]: seq=3 --- frame done ---
+[INFO] [1795214826.876054313] [float_array_pcl_node]: seq=4 Received PointCloud2 message
+[INFO] [1795214826.876108667] [float_array_pcl_node]: seq=4 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214827.033976188] [float_array_pcl_node]: seq=4 Unpack point cloud in 157.856 ms
+[INFO] [1795214827.251684187] [float_array_pcl_node]: seq=4 Plane RANSAC on 1390860/2332800 finite points (1944 x 1200)
+[INFO] [1795214827.251744246] [float_array_pcl_node]: seq=4 Plane segmentation in 217.638 ms
+[INFO] [1795214828.474795273] [float_array_pcl_node]: seq=4 Normals estimated in 1223.023 ms
+[INFO] [1795214828.495709100] [float_array_pcl_node]: seq=4 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=208347 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=425962 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 8
+Number of neighborhood size increase requests for source: 40
+[INFO] [1795214832.856106981] [float_array_pcl_node]: seq=4 Greedy mesh created in 4360.333 ms
+[INFO] [1795214833.080664353] [float_array_pcl_node]: seq=4 Float32MultiArray payload in 207.568 ms (1692915 vertices)
+[INFO] [1795214833.104431774] [float_array_pcl_node]: seq=4 Publish 11850405 floats (1692915 vertices) in 3.690 ms
+[INFO] [1795214833.179194724] [float_array_pcl_node]: seq=4 bytes 47401620 triangles 564305
+[INFO] [1795214833.179250810] [float_array_pcl_node]: seq=4 Total in 6303.140 ms
+[INFO] [1795214833.179280224] [float_array_pcl_node]: seq=4 --- frame done ---
+[INFO] [1795214833.191104925] [float_array_pcl_node]: seq=5 Received PointCloud2 message
+[INFO] [1795214833.191159767] [float_array_pcl_node]: seq=5 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214833.365254689] [float_array_pcl_node]: seq=5 Unpack point cloud in 174.084 ms
+[INFO] [1795214833.585266542] [float_array_pcl_node]: seq=5 Plane RANSAC on 1390903/2332800 finite points (1944 x 1200)
+[INFO] [1795214833.585332252] [float_array_pcl_node]: seq=5 Plane segmentation in 219.941 ms
+[INFO] [1795214834.810635536] [float_array_pcl_node]: seq=5 Normals estimated in 1225.264 ms
+[INFO] [1795214834.831366666] [float_array_pcl_node]: seq=5 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=202506 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=216136 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 15
+Number of neighborhood size increase requests for source: 41
+[INFO] [1795214839.212729411] [float_array_pcl_node]: seq=5 Greedy mesh created in 4381.272 ms
+[INFO] [1795214839.436499761] [float_array_pcl_node]: seq=5 Float32MultiArray payload in 206.401 ms (1695267 vertices)
+[INFO] [1795214839.460100367] [float_array_pcl_node]: seq=5 Publish 11866869 floats (1695267 vertices) in 3.670 ms
+[INFO] [1795214839.533765702] [float_array_pcl_node]: seq=5 bytes 47467476 triangles 565089
+[INFO] [1795214839.533822380] [float_array_pcl_node]: seq=5 Total in 6342.660 ms
+[INFO] [1795214839.533870519] [float_array_pcl_node]: seq=5 --- frame done ---
+[INFO] [1795214839.545451818] [float_array_pcl_node]: seq=6 Received PointCloud2 message
+[INFO] [1795214839.545505513] [float_array_pcl_node]: seq=6 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214839.702817737] [float_array_pcl_node]: seq=6 Unpack point cloud in 157.300 ms
+[INFO] [1795214840.087002501] [float_array_pcl_node]: seq=6 Plane RANSAC on 1390823/2332800 finite points (1944 x 1200)
+[INFO] [1795214840.087068458] [float_array_pcl_node]: seq=6 Plane segmentation in 384.117 ms
+[INFO] [1795214841.307774752] [float_array_pcl_node]: seq=6 Normals estimated in 1220.678 ms
+[INFO] [1795214841.328570185] [float_array_pcl_node]: seq=6 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=149797 to be BOUNDARY!
+Not enough neighbors are considered: source of R=153685 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 23
+Number of neighborhood size increase requests for source: 23
+[INFO] [1795214845.847689426] [float_array_pcl_node]: seq=6 Greedy mesh created in 4519.034 ms
+[INFO] [1795214846.078238630] [float_array_pcl_node]: seq=6 Float32MultiArray payload in 213.075 ms (1693602 vertices)
+[INFO] [1795214846.104471886] [float_array_pcl_node]: seq=6 Publish 11855214 floats (1693602 vertices) in 5.042 ms
+[INFO] [1795214846.180140549] [float_array_pcl_node]: seq=6 bytes 47420856 triangles 564534
+[INFO] [1795214846.180200000] [float_array_pcl_node]: seq=6 Total in 6634.688 ms
+[INFO] [1795214846.180234526] [float_array_pcl_node]: seq=6 --- frame done ---
+[INFO] [1795214846.191908261] [float_array_pcl_node]: seq=7 Received PointCloud2 message
+[INFO] [1795214846.191966348] [float_array_pcl_node]: seq=7 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214846.355442993] [float_array_pcl_node]: seq=7 Unpack point cloud in 163.465 ms
+[INFO] [1795214846.574687064] [float_array_pcl_node]: seq=7 Plane RANSAC on 1390911/2332800 finite points (1944 x 1200)
+[INFO] [1795214846.574750339] [float_array_pcl_node]: seq=7 Plane segmentation in 219.173 ms
+[INFO] [1795214847.842052503] [float_array_pcl_node]: seq=7 Normals estimated in 1267.273 ms
+[INFO] [1795214847.863575694] [float_array_pcl_node]: seq=7 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=167288 to be BOUNDARY!
+Not enough neighbors are considered: source of R=198389 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 12
+Number of neighborhood size increase requests for source: 36
+[INFO] [1795214852.400255987] [float_array_pcl_node]: seq=7 Greedy mesh created in 4536.603 ms
+[INFO] [1795214852.641292944] [float_array_pcl_node]: seq=7 Float32MultiArray payload in 223.166 ms (1695450 vertices)
+[INFO] [1795214852.666612611] [float_array_pcl_node]: seq=7 Publish 11868150 floats (1695450 vertices) in 3.676 ms
+[INFO] [1795214852.742643233] [float_array_pcl_node]: seq=7 bytes 47472600 triangles 565150
+[INFO] [1795214852.742700555] [float_array_pcl_node]: seq=7 Total in 6550.735 ms
+[INFO] [1795214852.742729526] [float_array_pcl_node]: seq=7 --- frame done ---
+[INFO] [1795214852.754811015] [float_array_pcl_node]: seq=8 Received PointCloud2 message
+[INFO] [1795214852.754867345] [float_array_pcl_node]: seq=8 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214852.916666390] [float_array_pcl_node]: seq=8 Unpack point cloud in 161.785 ms
+[INFO] [1795214853.136731260] [float_array_pcl_node]: seq=8 Plane RANSAC on 1390540/2332800 finite points (1944 x 1200)
+[INFO] [1795214853.136794032] [float_array_pcl_node]: seq=8 Plane segmentation in 219.993 ms
+[INFO] [1795214854.395606235] [float_array_pcl_node]: seq=8 Normals estimated in 1258.775 ms
+[INFO] [1795214854.416854723] [float_array_pcl_node]: seq=8 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=177269 to be BOUNDARY!
+Not enough neighbors are considered: source of R=273240 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 20
+Number of neighborhood size increase requests for source: 38
+[INFO] [1795214858.921648944] [float_array_pcl_node]: seq=8 Greedy mesh created in 4504.712 ms
+[INFO] [1795214859.160040535] [float_array_pcl_node]: seq=8 Float32MultiArray payload in 221.041 ms (1694730 vertices)
+[INFO] [1795214859.184616200] [float_array_pcl_node]: seq=8 Publish 11863110 floats (1694730 vertices) in 4.027 ms
+[INFO] [1795214859.259378198] [float_array_pcl_node]: seq=8 bytes 47452440 triangles 564910
+[INFO] [1795214859.259442422] [float_array_pcl_node]: seq=8 Total in 6504.567 ms
+[INFO] [1795214859.259485476] [float_array_pcl_node]: seq=8 --- frame done ---
+[INFO] [1795214859.271341094] [float_array_pcl_node]: seq=9 Received PointCloud2 message
+[INFO] [1795214859.271424273] [float_array_pcl_node]: seq=9 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214859.431923733] [float_array_pcl_node]: seq=9 Unpack point cloud in 160.474 ms
+[INFO] [1795214859.654552465] [float_array_pcl_node]: seq=9 Plane RANSAC on 1390940/2332800 finite points (1944 x 1200)
+[INFO] [1795214859.654614609] [float_array_pcl_node]: seq=9 Plane segmentation in 222.553 ms
+[INFO] [1795214860.896521588] [float_array_pcl_node]: seq=9 Normals estimated in 1241.871 ms
+[INFO] [1795214860.917116857] [float_array_pcl_node]: seq=9 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=277123 to be BOUNDARY!
+Not enough neighbors are considered: source of R=275174 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 4
+Number of neighborhood size increase requests for source: 29
+[INFO] [1795214865.481200538] [float_array_pcl_node]: seq=9 Greedy mesh created in 4564.010 ms
+[INFO] [1795214865.713229604] [float_array_pcl_node]: seq=9 Float32MultiArray payload in 214.953 ms (1694688 vertices)
+[INFO] [1795214865.738553165] [float_array_pcl_node]: seq=9 Publish 11862816 floats (1694688 vertices) in 3.812 ms
+[INFO] [1795214865.813869403] [float_array_pcl_node]: seq=9 bytes 47451264 triangles 564896
+[INFO] [1795214865.813927568] [float_array_pcl_node]: seq=9 Total in 6542.528 ms
+[INFO] [1795214865.813960184] [float_array_pcl_node]: seq=9 --- frame done ---
+[INFO] [1795214865.825470811] [float_array_pcl_node]: seq=10 Received PointCloud2 message
+[INFO] [1795214865.825532562] [float_array_pcl_node]: seq=10 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214866.006232563] [float_array_pcl_node]: seq=10 Unpack point cloud in 180.687 ms
+[INFO] [1795214866.227999451] [float_array_pcl_node]: seq=10 Plane RANSAC on 1390546/2332800 finite points (1944 x 1200)
+[INFO] [1795214866.228062604] [float_array_pcl_node]: seq=10 Plane segmentation in 221.696 ms
+[INFO] [1795214867.488994656] [float_array_pcl_node]: seq=10 Normals estimated in 1260.902 ms
+[INFO] [1795214867.509658453] [float_array_pcl_node]: seq=10 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=167493 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=214193 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 22
+Number of neighborhood size increase requests for source: 35
+[INFO] [1795214871.893912948] [float_array_pcl_node]: seq=10 Greedy mesh created in 4384.200 ms
+[INFO] [1795214872.122465279] [float_array_pcl_node]: seq=10 Float32MultiArray payload in 211.431 ms (1694184 vertices)
+[INFO] [1795214872.146876332] [float_array_pcl_node]: seq=10 Publish 11859288 floats (1694184 vertices) in 4.319 ms
+[INFO] [1795214872.224114059] [float_array_pcl_node]: seq=10 bytes 47437152 triangles 564728
+[INFO] [1795214872.224171310] [float_array_pcl_node]: seq=10 Total in 6398.644 ms
+[INFO] [1795214872.224205219] [float_array_pcl_node]: seq=10 --- frame done ---
+[INFO] [1795214872.236057388] [float_array_pcl_node]: seq=11 Received PointCloud2 message
+[INFO] [1795214872.236122907] [float_array_pcl_node]: seq=11 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214872.396999382] [float_array_pcl_node]: seq=11 Unpack point cloud in 160.864 ms
+[INFO] [1795214872.617719535] [float_array_pcl_node]: seq=11 Plane RANSAC on 1391156/2332800 finite points (1944 x 1200)
+[INFO] [1795214872.617803059] [float_array_pcl_node]: seq=11 Plane segmentation in 220.621 ms
+[INFO] [1795214873.857034692] [float_array_pcl_node]: seq=11 Normals estimated in 1239.199 ms
+[INFO] [1795214873.878518184] [float_array_pcl_node]: seq=11 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=159627 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=165463 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 21
+Number of neighborhood size increase requests for source: 49
+[INFO] [1795214878.389585698] [float_array_pcl_node]: seq=11 Greedy mesh created in 4510.995 ms
+[INFO] [1795214878.616117855] [float_array_pcl_node]: seq=11 Float32MultiArray payload in 209.027 ms (1696434 vertices)
+[INFO] [1795214878.640229163] [float_array_pcl_node]: seq=11 Publish 11875038 floats (1696434 vertices) in 3.768 ms
+[INFO] [1795214878.720072023] [float_array_pcl_node]: seq=11 bytes 47500152 triangles 565478
+[INFO] [1795214878.720132848] [float_array_pcl_node]: seq=11 Total in 6484.014 ms
+[INFO] [1795214878.720164282] [float_array_pcl_node]: seq=11 --- frame done ---
+[INFO] [1795214878.732456984] [float_array_pcl_node]: seq=12 Received PointCloud2 message
+[INFO] [1795214878.732509117] [float_array_pcl_node]: seq=12 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214878.893684201] [float_array_pcl_node]: seq=12 Unpack point cloud in 161.163 ms
+[INFO] [1795214879.141479539] [float_array_pcl_node]: seq=12 Plane RANSAC on 1390697/2332800 finite points (1944 x 1200)
+[INFO] [1795214879.141582612] [float_array_pcl_node]: seq=12 Plane segmentation in 247.720 ms
+[INFO] [1795214880.356925958] [float_array_pcl_node]: seq=12 Normals estimated in 1215.315 ms
+[INFO] [1795214880.377964191] [float_array_pcl_node]: seq=12 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=161576 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=210346 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 14
+Number of neighborhood size increase requests for source: 23
+[INFO] [1795214884.813690067] [float_array_pcl_node]: seq=12 Greedy mesh created in 4435.666 ms
+[INFO] [1795214885.037453833] [float_array_pcl_node]: seq=12 Float32MultiArray payload in 206.680 ms (1694391 vertices)
+[INFO] [1795214885.061335600] [float_array_pcl_node]: seq=12 Publish 11860737 floats (1694391 vertices) in 3.668 ms
+[INFO] [1795214885.137235081] [float_array_pcl_node]: seq=12 bytes 47442948 triangles 564797
+[INFO] [1795214885.137281787] [float_array_pcl_node]: seq=12 Total in 6404.778 ms
+[INFO] [1795214885.137311157] [float_array_pcl_node]: seq=12 --- frame done ---
+[INFO] [1795214885.148822812] [float_array_pcl_node]: seq=13 Received PointCloud2 message
+[INFO] [1795214885.148874926] [float_array_pcl_node]: seq=13 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214885.308117013] [float_array_pcl_node]: seq=13 Unpack point cloud in 159.230 ms
+[INFO] [1795214885.535752372] [float_array_pcl_node]: seq=13 Plane RANSAC on 1390905/2332800 finite points (1944 x 1200)
+[INFO] [1795214885.535819769] [float_array_pcl_node]: seq=13 Plane segmentation in 227.562 ms
+[INFO] [1795214886.794387548] [float_array_pcl_node]: seq=13 Normals estimated in 1258.538 ms
+[INFO] [1795214886.816528337] [float_array_pcl_node]: seq=13 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=208402 to be BOUNDARY!
+Not enough neighbors are considered: source of R=173049 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 18
+Number of neighborhood size increase requests for source: 24
+[INFO] [1795214891.371855281] [float_array_pcl_node]: seq=13 Greedy mesh created in 4555.269 ms
+[INFO] [1795214891.598538818] [float_array_pcl_node]: seq=13 Float32MultiArray payload in 209.245 ms (1694412 vertices)
+[INFO] [1795214891.622205649] [float_array_pcl_node]: seq=13 Publish 11860884 floats (1694412 vertices) in 3.536 ms
+[INFO] [1795214891.700373329] [float_array_pcl_node]: seq=13 bytes 47443536 triangles 564804
+[INFO] [1795214891.700467786] [float_array_pcl_node]: seq=13 Total in 6551.551 ms
+[INFO] [1795214891.700500006] [float_array_pcl_node]: seq=13 --- frame done ---
+[INFO] [1795214891.711375959] [float_array_pcl_node]: seq=14 Received PointCloud2 message
+[INFO] [1795214891.711432060] [float_array_pcl_node]: seq=14 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214891.871691780] [float_array_pcl_node]: seq=14 Unpack point cloud in 160.248 ms
+[INFO] [1795214892.148036813] [float_array_pcl_node]: seq=14 Plane RANSAC on 1390864/2332800 finite points (1944 x 1200)
+[INFO] [1795214892.148100792] [float_array_pcl_node]: seq=14 Plane segmentation in 276.276 ms
+[INFO] [1795214893.388675356] [float_array_pcl_node]: seq=14 Normals estimated in 1240.546 ms
+[INFO] [1795214893.409645805] [float_array_pcl_node]: seq=14 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=177008 to be BOUNDARY!
+Not enough neighbors are considered: source of R=216143 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 13
+Number of neighborhood size increase requests for source: 59
+[INFO] [1795214897.827219654] [float_array_pcl_node]: seq=14 Greedy mesh created in 4417.520 ms
+[INFO] [1795214898.051862001] [float_array_pcl_node]: seq=14 Float32MultiArray payload in 207.244 ms (1694475 vertices)
+[INFO] [1795214898.075759639] [float_array_pcl_node]: seq=14 Publish 11861325 floats (1694475 vertices) in 3.690 ms
+[INFO] [1795214898.152701298] [float_array_pcl_node]: seq=14 bytes 47445300 triangles 564825
+[INFO] [1795214898.152759447] [float_array_pcl_node]: seq=14 Total in 6441.326 ms
+[INFO] [1795214898.152792166] [float_array_pcl_node]: seq=14 --- frame done ---
+[INFO] [1795214898.164411135] [float_array_pcl_node]: seq=15 Received PointCloud2 message
+[INFO] [1795214898.164480489] [float_array_pcl_node]: seq=15 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214898.339642498] [float_array_pcl_node]: seq=15 Unpack point cloud in 175.149 ms
+[INFO] [1795214898.555801647] [float_array_pcl_node]: seq=15 Plane RANSAC on 1390833/2332800 finite points (1944 x 1200)
+[INFO] [1795214898.555866428] [float_array_pcl_node]: seq=15 Plane segmentation in 216.092 ms
+[INFO] [1795214899.774851501] [float_array_pcl_node]: seq=15 Normals estimated in 1218.955 ms
+[INFO] [1795214899.795673574] [float_array_pcl_node]: seq=15 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=177020 to be BOUNDARY!
+Not enough neighbors are considered: source of R=175269 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 15
+Number of neighborhood size increase requests for source: 26
+[INFO] [1795214904.206035530] [float_array_pcl_node]: seq=15 Greedy mesh created in 4410.304 ms
+[INFO] [1795214904.428849600] [float_array_pcl_node]: seq=15 Float32MultiArray payload in 205.607 ms (1694235 vertices)
+[INFO] [1795214904.453982293] [float_array_pcl_node]: seq=15 Publish 11859645 floats (1694235 vertices) in 4.707 ms
+[INFO] [1795214904.533082118] [float_array_pcl_node]: seq=15 bytes 47438580 triangles 564745
+[INFO] [1795214904.533146125] [float_array_pcl_node]: seq=15 Total in 6368.692 ms
+[INFO] [1795214904.533210650] [float_array_pcl_node]: seq=15 --- frame done ---
+[INFO] [1795214904.546024924] [float_array_pcl_node]: seq=16 Received PointCloud2 message
+[INFO] [1795214904.546114451] [float_array_pcl_node]: seq=16 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214904.723649674] [float_array_pcl_node]: seq=16 Unpack point cloud in 177.483 ms
+[INFO] [1795214904.944500292] [float_array_pcl_node]: seq=16 Plane RANSAC on 1391272/2332800 finite points (1944 x 1200)
+[INFO] [1795214904.944567826] [float_array_pcl_node]: seq=16 Plane segmentation in 220.779 ms
+[INFO] [1795214906.191409919] [float_array_pcl_node]: seq=16 Normals estimated in 1246.812 ms
+[INFO] [1795214906.212612133] [float_array_pcl_node]: seq=16 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=183034 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=198323 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 20
+Number of neighborhood size increase requests for source: 61
+[INFO] [1795214910.690456133] [float_array_pcl_node]: seq=16 Greedy mesh created in 4477.764 ms
+[INFO] [1795214910.917049858] [float_array_pcl_node]: seq=16 Float32MultiArray payload in 209.413 ms (1694346 vertices)
+[INFO] [1795214910.940555443] [float_array_pcl_node]: seq=16 Publish 11860422 floats (1694346 vertices) in 3.569 ms
+[INFO] [1795214911.021293710] [float_array_pcl_node]: seq=16 bytes 47441688 triangles 564782
+[INFO] [1795214911.021375408] [float_array_pcl_node]: seq=16 Total in 6475.268 ms
+[INFO] [1795214911.021426094] [float_array_pcl_node]: seq=16 --- frame done ---
+[INFO] [1795214911.033172213] [float_array_pcl_node]: seq=17 Received PointCloud2 message
+[INFO] [1795214911.033227901] [float_array_pcl_node]: seq=17 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214911.211599678] [float_array_pcl_node]: seq=17 Unpack point cloud in 178.358 ms
+[INFO] [1795214911.433586711] [float_array_pcl_node]: seq=17 Plane RANSAC on 1391048/2332800 finite points (1944 x 1200)
+[INFO] [1795214911.433671848] [float_array_pcl_node]: seq=17 Plane segmentation in 221.919 ms
+[INFO] [1795214912.670337844] [float_array_pcl_node]: seq=17 Normals estimated in 1236.634 ms
+[INFO] [1795214912.690604211] [float_array_pcl_node]: seq=17 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=181061 to be BOUNDARY!
+Not enough neighbors are considered: source of R=394704 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 12
+Number of neighborhood size increase requests for source: 20
+[INFO] [1795214917.101537224] [float_array_pcl_node]: seq=17 Greedy mesh created in 4410.883 ms
+[INFO] [1795214917.334027847] [float_array_pcl_node]: seq=17 Float32MultiArray payload in 214.368 ms (1695714 vertices)
+[INFO] [1795214917.358282779] [float_array_pcl_node]: seq=17 Publish 11869998 floats (1695714 vertices) in 3.495 ms
+[INFO] [1795214917.435920154] [float_array_pcl_node]: seq=17 bytes 47479992 triangles 565238
+[INFO] [1795214917.435976795] [float_array_pcl_node]: seq=17 Total in 6402.749 ms
+[INFO] [1795214917.436009209] [float_array_pcl_node]: seq=17 --- frame done ---
+[INFO] [1795214917.446770956] [float_array_pcl_node]: seq=18 Received PointCloud2 message
+[INFO] [1795214917.446827003] [float_array_pcl_node]: seq=18 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214917.621156663] [float_array_pcl_node]: seq=18 Unpack point cloud in 174.317 ms
+[INFO] [1795214917.839501319] [float_array_pcl_node]: seq=18 Plane RANSAC on 1391276/2332800 finite points (1944 x 1200)
+[INFO] [1795214917.839568760] [float_array_pcl_node]: seq=18 Plane segmentation in 218.280 ms
+[INFO] [1795214919.080311084] [float_array_pcl_node]: seq=18 Normals estimated in 1240.711 ms
+[INFO] [1795214919.102294866] [float_array_pcl_node]: seq=18 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=173042 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=171107 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 18
+Number of neighborhood size increase requests for source: 46
+[INFO] [1795214923.534695792] [float_array_pcl_node]: seq=18 Greedy mesh created in 4432.342 ms
+[INFO] [1795214923.763238867] [float_array_pcl_node]: seq=18 Float32MultiArray payload in 210.875 ms (1693464 vertices)
+[INFO] [1795214923.787756833] [float_array_pcl_node]: seq=18 Publish 11854248 floats (1693464 vertices) in 4.126 ms
+[INFO] [1795214923.864490588] [float_array_pcl_node]: seq=18 bytes 47416992 triangles 564488
+[INFO] [1795214923.864551166] [float_array_pcl_node]: seq=18 Total in 6417.720 ms
+[INFO] [1795214923.864591268] [float_array_pcl_node]: seq=18 --- frame done ---
+[INFO] [1795214923.876258130] [float_array_pcl_node]: seq=19 Received PointCloud2 message
+[INFO] [1795214923.876322862] [float_array_pcl_node]: seq=19 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214924.035064917] [float_array_pcl_node]: seq=19 Unpack point cloud in 158.720 ms
+[INFO] [1795214924.254283071] [float_array_pcl_node]: seq=19 Plane RANSAC on 1390957/2332800 finite points (1944 x 1200)
+[INFO] [1795214924.254346515] [float_array_pcl_node]: seq=19 Plane segmentation in 219.133 ms
+[INFO] [1795214925.489908352] [float_array_pcl_node]: seq=19 Normals estimated in 1235.526 ms
+[INFO] [1795214925.510663915] [float_array_pcl_node]: seq=19 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=194429 to be BOUNDARY!
+Not enough neighbors are considered: source of R=369530 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 11
+Number of neighborhood size increase requests for source: 33
+[INFO] [1795214929.892560695] [float_array_pcl_node]: seq=19 Greedy mesh created in 4381.837 ms
+[INFO] [1795214930.119550984] [float_array_pcl_node]: seq=19 Float32MultiArray payload in 208.473 ms (1696629 vertices)
+[INFO] [1795214930.142799056] [float_array_pcl_node]: seq=19 Publish 11876403 floats (1696629 vertices) in 3.595 ms
+[INFO] [1795214930.218128382] [float_array_pcl_node]: seq=19 bytes 47505612 triangles 565543
+[INFO] [1795214930.218189407] [float_array_pcl_node]: seq=19 Total in 6341.870 ms
+[INFO] [1795214930.218233177] [float_array_pcl_node]: seq=19 --- frame done ---
+[INFO] [1795214930.229161308] [float_array_pcl_node]: seq=20 Received PointCloud2 message
+[INFO] [1795214930.229222469] [float_array_pcl_node]: seq=20 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214930.387736803] [float_array_pcl_node]: seq=20 Unpack point cloud in 158.495 ms
+[INFO] [1795214930.606318763] [float_array_pcl_node]: seq=20 Plane RANSAC on 1391377/2332800 finite points (1944 x 1200)
+[INFO] [1795214930.606390124] [float_array_pcl_node]: seq=20 Plane segmentation in 218.508 ms
+[INFO] [1795214931.839433388] [float_array_pcl_node]: seq=20 Normals estimated in 1233.002 ms
+[INFO] [1795214931.860463381] [float_array_pcl_node]: seq=20 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=169169 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=223584 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 19
+Number of neighborhood size increase requests for source: 45
+[INFO] [1795214936.383255799] [float_array_pcl_node]: seq=20 Greedy mesh created in 4522.729 ms
+[INFO] [1795214936.611205715] [float_array_pcl_node]: seq=20 Float32MultiArray payload in 210.104 ms (1694427 vertices)
+[INFO] [1795214936.636214188] [float_array_pcl_node]: seq=20 Publish 11860989 floats (1694427 vertices) in 4.687 ms
+[INFO] [1795214936.715223294] [float_array_pcl_node]: seq=20 bytes 47443956 triangles 564809
+[INFO] [1795214936.715293648] [float_array_pcl_node]: seq=20 Total in 6486.060 ms
+[INFO] [1795214936.715335918] [float_array_pcl_node]: seq=20 --- frame done ---
+[INFO] [1795214936.727671998] [float_array_pcl_node]: seq=21 Received PointCloud2 message
+[INFO] [1795214936.727735878] [float_array_pcl_node]: seq=21 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214936.889450419] [float_array_pcl_node]: seq=21 Unpack point cloud in 161.696 ms
+[INFO] [1795214937.110502303] [float_array_pcl_node]: seq=21 Plane RANSAC on 1390830/2332800 finite points (1944 x 1200)
+[INFO] [1795214937.110573480] [float_array_pcl_node]: seq=21 Plane segmentation in 220.968 ms
+[INFO] [1795214938.370086820] [float_array_pcl_node]: seq=21 Normals estimated in 1259.483 ms
+[INFO] [1795214938.391318342] [float_array_pcl_node]: seq=21 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=161571 to be BOUNDARY!
+Not enough neighbors are considered: source of R=237226 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 26
+Number of neighborhood size increase requests for source: 45
+[INFO] [1795214942.831346896] [float_array_pcl_node]: seq=21 Greedy mesh created in 4439.958 ms
+[INFO] [1795214943.061384516] [float_array_pcl_node]: seq=21 Float32MultiArray payload in 212.319 ms (1695309 vertices)
+[INFO] [1795214943.087284493] [float_array_pcl_node]: seq=21 Publish 11867163 floats (1695309 vertices) in 5.758 ms
+[INFO] [1795214943.164485392] [float_array_pcl_node]: seq=21 bytes 47468652 triangles 565103
+[INFO] [1795214943.164543631] [float_array_pcl_node]: seq=21 Total in 6436.813 ms
+[INFO] [1795214943.164577457] [float_array_pcl_node]: seq=21 --- frame done ---
+[INFO] [1795214943.176298848] [float_array_pcl_node]: seq=22 Received PointCloud2 message
+[INFO] [1795214943.176362844] [float_array_pcl_node]: seq=22 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214943.347143964] [float_array_pcl_node]: seq=22 Unpack point cloud in 170.743 ms
+[INFO] [1795214943.566159472] [float_array_pcl_node]: seq=22 Plane RANSAC on 1391125/2332800 finite points (1944 x 1200)
+[INFO] [1795214943.566236575] [float_array_pcl_node]: seq=22 Plane segmentation in 218.944 ms
+[INFO] [1795214944.801722123] [float_array_pcl_node]: seq=22 Normals estimated in 1235.425 ms
+[INFO] [1795214944.822005208] [float_array_pcl_node]: seq=22 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=169244 to be BOUNDARY!
+Not enough neighbors are considered: source of R=273260 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 20
+Number of neighborhood size increase requests for source: 32
+[INFO] [1795214949.201110337] [float_array_pcl_node]: seq=22 Greedy mesh created in 4379.048 ms
+[INFO] [1795214949.423941467] [float_array_pcl_node]: seq=22 Float32MultiArray payload in 205.644 ms (1694673 vertices)
+[INFO] [1795214949.447304235] [float_array_pcl_node]: seq=22 Publish 11862711 floats (1694673 vertices) in 3.513 ms
+[INFO] [1795214949.524451268] [float_array_pcl_node]: seq=22 bytes 47450844 triangles 564891
+[INFO] [1795214949.524507560] [float_array_pcl_node]: seq=22 Total in 6348.152 ms
+[INFO] [1795214949.524539643] [float_array_pcl_node]: seq=22 --- frame done ---
+[INFO] [1795214949.536545236] [float_array_pcl_node]: seq=23 Received PointCloud2 message
+[INFO] [1795214949.536597395] [float_array_pcl_node]: seq=23 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214949.693686561] [float_array_pcl_node]: seq=23 Unpack point cloud in 157.077 ms
+[INFO] [1795214949.910463170] [float_array_pcl_node]: seq=23 Plane RANSAC on 1393119/2332800 finite points (1944 x 1200)
+[INFO] [1795214949.910525370] [float_array_pcl_node]: seq=23 Plane segmentation in 216.710 ms
+[INFO] [1795214951.142429598] [float_array_pcl_node]: seq=23 Normals estimated in 1231.877 ms
+[INFO] [1795214951.163365004] [float_array_pcl_node]: seq=23 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=171190 to be BOUNDARY!
+Not enough neighbors are considered: source of R=165467 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 21
+Number of neighborhood size increase requests for source: 50
+[INFO] [1795214955.581174415] [float_array_pcl_node]: seq=23 Greedy mesh created in 4417.746 ms
+[INFO] [1795214955.828264818] [float_array_pcl_node]: seq=23 Float32MultiArray payload in 229.466 ms (1699299 vertices)
+[INFO] [1795214955.853067403] [float_array_pcl_node]: seq=23 Publish 11895093 floats (1699299 vertices) in 4.829 ms
+[INFO] [1795214955.927940257] [float_array_pcl_node]: seq=23 bytes 47580372 triangles 566433
+[INFO] [1795214955.927997823] [float_array_pcl_node]: seq=23 Total in 6391.394 ms
+[INFO] [1795214955.928029438] [float_array_pcl_node]: seq=23 --- frame done ---
+[INFO] [1795214955.939304667] [float_array_pcl_node]: seq=24 Received PointCloud2 message
+[INFO] [1795214955.939370195] [float_array_pcl_node]: seq=24 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214956.073128607] [float_array_pcl_node]: seq=24 Unpack point cloud in 133.745 ms
+[INFO] [1795214956.293800889] [float_array_pcl_node]: seq=24 Plane RANSAC on 1392870/2332800 finite points (1944 x 1200)
+[INFO] [1795214956.293863906] [float_array_pcl_node]: seq=24 Plane segmentation in 220.605 ms
+[INFO] [1795214957.536361428] [float_array_pcl_node]: seq=24 Normals estimated in 1242.468 ms
+[INFO] [1795214957.557258626] [float_array_pcl_node]: seq=24 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=174987 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=177282 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 29
+Number of neighborhood size increase requests for source: 31
+[INFO] [1795214962.125976322] [float_array_pcl_node]: seq=24 Greedy mesh created in 4568.657 ms
+[INFO] [1795214962.355992511] [float_array_pcl_node]: seq=24 Float32MultiArray payload in 212.240 ms (1698654 vertices)
+[INFO] [1795214962.380678265] [float_array_pcl_node]: seq=24 Publish 11890578 floats (1698654 vertices) in 3.785 ms
+[INFO] [1795214962.463356920] [float_array_pcl_node]: seq=24 bytes 47562312 triangles 566218
+[INFO] [1795214962.463420170] [float_array_pcl_node]: seq=24 Total in 6524.048 ms
+[INFO] [1795214962.463454437] [float_array_pcl_node]: seq=24 --- frame done ---
+[INFO] [1795214962.469237745] [float_array_pcl_node]: seq=25 Received PointCloud2 message
+[INFO] [1795214962.469293806] [float_array_pcl_node]: seq=25 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214962.630882537] [float_array_pcl_node]: seq=25 Unpack point cloud in 161.576 ms
+[INFO] [1795214962.855043514] [float_array_pcl_node]: seq=25 Plane RANSAC on 1392577/2332800 finite points (1944 x 1200)
+[INFO] [1795214962.855110485] [float_array_pcl_node]: seq=25 Plane segmentation in 224.091 ms
+[INFO] [1795214964.079682854] [float_array_pcl_node]: seq=25 Normals estimated in 1224.544 ms
+[INFO] [1795214964.096850038] [float_array_pcl_node]: seq=25 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=183135 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=222016 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 16
+Number of neighborhood size increase requests for source: 31
+[INFO] [1795214968.656244541] [float_array_pcl_node]: seq=25 Greedy mesh created in 4559.330 ms
+[INFO] [1795214968.884702957] [float_array_pcl_node]: seq=25 Float32MultiArray payload in 210.875 ms (1696563 vertices)
+[INFO] [1795214968.908484578] [float_array_pcl_node]: seq=25 Publish 11875941 floats (1696563 vertices) in 3.652 ms
+[INFO] [1795214968.986484107] [float_array_pcl_node]: seq=25 bytes 47503764 triangles 565521
+[INFO] [1795214968.986542781] [float_array_pcl_node]: seq=25 Total in 6517.246 ms
+[INFO] [1795214968.986592506] [float_array_pcl_node]: seq=25 --- frame done ---
+[INFO] [1795214968.998427980] [float_array_pcl_node]: seq=26 Received PointCloud2 message
+[INFO] [1795214968.998482708] [float_array_pcl_node]: seq=26 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214969.161101215] [float_array_pcl_node]: seq=26 Unpack point cloud in 162.605 ms
+[INFO] [1795214969.383476234] [float_array_pcl_node]: seq=26 Plane RANSAC on 1392179/2332800 finite points (1944 x 1200)
+[INFO] [1795214969.383550578] [float_array_pcl_node]: seq=26 Plane segmentation in 222.302 ms
+[INFO] [1795214970.621827897] [float_array_pcl_node]: seq=26 Normals estimated in 1238.242 ms
+[INFO] [1795214970.642816019] [float_array_pcl_node]: seq=26 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=208297 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=206120 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 14
+Number of neighborhood size increase requests for source: 31
+[INFO] [1795214975.065064239] [float_array_pcl_node]: seq=26 Greedy mesh created in 4422.190 ms
+[INFO] [1795214975.290456887] [float_array_pcl_node]: seq=26 Float32MultiArray payload in 207.721 ms (1697784 vertices)
+[INFO] [1795214975.313741210] [float_array_pcl_node]: seq=26 Publish 11884488 floats (1697784 vertices) in 3.425 ms
+[INFO] [1795214975.390191670] [float_array_pcl_node]: seq=26 bytes 47537952 triangles 565928
+[INFO] [1795214975.390252098] [float_array_pcl_node]: seq=26 Total in 6391.763 ms
+[INFO] [1795214975.390297815] [float_array_pcl_node]: seq=26 --- frame done ---
+[INFO] [1795214975.402619597] [float_array_pcl_node]: seq=27 Received PointCloud2 message
+[INFO] [1795214975.402677474] [float_array_pcl_node]: seq=27 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214975.559403336] [float_array_pcl_node]: seq=27 Unpack point cloud in 156.707 ms
+[INFO] [1795214975.776228321] [float_array_pcl_node]: seq=27 Plane RANSAC on 1392147/2332800 finite points (1944 x 1200)
+[INFO] [1795214975.776296381] [float_array_pcl_node]: seq=27 Plane segmentation in 216.756 ms
+[INFO] [1795214977.005920476] [float_array_pcl_node]: seq=27 Normals estimated in 1229.582 ms
+[INFO] [1795214977.027169656] [float_array_pcl_node]: seq=27 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=182849 to be BOUNDARY!
+Not enough neighbors are considered: source of R=159719 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 17
+Number of neighborhood size increase requests for source: 29
+[INFO] [1795214981.467680950] [float_array_pcl_node]: seq=27 Greedy mesh created in 4440.447 ms
+[INFO] [1795214981.694137078] [float_array_pcl_node]: seq=27 Float32MultiArray payload in 209.000 ms (1698615 vertices)
+[INFO] [1795214981.719850876] [float_array_pcl_node]: seq=27 Publish 11890305 floats (1698615 vertices) in 4.636 ms
+[INFO] [1795214981.794577717] [float_array_pcl_node]: seq=27 bytes 47561220 triangles 566205
+[INFO] [1795214981.794635734] [float_array_pcl_node]: seq=27 Total in 6391.957 ms
+[INFO] [1795214981.794674625] [float_array_pcl_node]: seq=27 --- frame done ---
+[INFO] [1795214981.806195017] [float_array_pcl_node]: seq=28 Received PointCloud2 message
+[INFO] [1795214981.806258224] [float_array_pcl_node]: seq=28 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214981.969863532] [float_array_pcl_node]: seq=28 Unpack point cloud in 163.585 ms
+[INFO] [1795214982.205524420] [float_array_pcl_node]: seq=28 Plane RANSAC on 1392304/2332800 finite points (1944 x 1200)
+[INFO] [1795214982.205593870] [float_array_pcl_node]: seq=28 Plane segmentation in 235.589 ms
+[INFO] [1795214983.471645697] [float_array_pcl_node]: seq=28 Normals estimated in 1266.015 ms
+[INFO] [1795214983.492427049] [float_array_pcl_node]: seq=28 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=181083 to be BOUNDARY!
+Not enough neighbors are considered: source of R=282922 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 22
+Number of neighborhood size increase requests for source: 58
+[INFO] [1795214987.883112703] [float_array_pcl_node]: seq=28 Greedy mesh created in 4390.625 ms
+[INFO] [1795214988.112115733] [float_array_pcl_node]: seq=28 Float32MultiArray payload in 211.946 ms (1698894 vertices)
+[INFO] [1795214988.137273273] [float_array_pcl_node]: seq=28 Publish 11892258 floats (1698894 vertices) in 4.927 ms
+[INFO] [1795214988.213782055] [float_array_pcl_node]: seq=28 bytes 47569032 triangles 566298
+[INFO] [1795214988.213845172] [float_array_pcl_node]: seq=28 Total in 6407.587 ms
+[INFO] [1795214988.213885715] [float_array_pcl_node]: seq=28 --- frame done ---
+[INFO] [1795214988.225517461] [float_array_pcl_node]: seq=29 Received PointCloud2 message
+[INFO] [1795214988.225583052] [float_array_pcl_node]: seq=29 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214988.385959091] [float_array_pcl_node]: seq=29 Unpack point cloud in 160.357 ms
+[INFO] [1795214988.608414267] [float_array_pcl_node]: seq=29 Plane RANSAC on 1394395/2332800 finite points (1944 x 1200)
+[INFO] [1795214988.608481438] [float_array_pcl_node]: seq=29 Plane segmentation in 222.377 ms
+[INFO] [1795214989.852538838] [float_array_pcl_node]: seq=29 Normals estimated in 1244.022 ms
+[INFO] [1795214989.873154328] [float_array_pcl_node]: seq=29 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=167473 to be BOUNDARY!
+Not enough neighbors are considered: source of R=165551 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 26
+Number of neighborhood size increase requests for source: 63
+[INFO] [1795214994.368995532] [float_array_pcl_node]: seq=29 Greedy mesh created in 4495.780 ms
+[INFO] [1795214994.601624899] [float_array_pcl_node]: seq=29 Float32MultiArray payload in 215.437 ms (1703886 vertices)
+[INFO] [1795214994.625205146] [float_array_pcl_node]: seq=29 Publish 11927202 floats (1703886 vertices) in 3.657 ms
+[INFO] [1795214994.701721493] [float_array_pcl_node]: seq=29 bytes 47708808 triangles 567962
+[INFO] [1795214994.701784494] [float_array_pcl_node]: seq=29 Total in 6476.204 ms
+[INFO] [1795214994.701826018] [float_array_pcl_node]: seq=29 --- frame done ---
+[INFO] [1795214994.713264300] [float_array_pcl_node]: seq=30 Received PointCloud2 message
+[INFO] [1795214994.713328742] [float_array_pcl_node]: seq=30 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795214994.879429493] [float_array_pcl_node]: seq=30 Unpack point cloud in 166.080 ms
+[INFO] [1795214995.104497122] [float_array_pcl_node]: seq=30 Plane RANSAC on 1199931/2332800 finite points (1944 x 1200)
+[INFO] [1795214995.104571944] [float_array_pcl_node]: seq=30 Plane segmentation in 224.996 ms
+[INFO] [1795214996.704489629] [float_array_pcl_node]: seq=30 Normals estimated in 1599.879 ms
+[INFO] [1795214996.726417890] [float_array_pcl_node]: seq=30 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=155623 to be BOUNDARY!
+Not enough neighbors are considered: source of R=229792 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 136
+Number of neighborhood size increase requests for source: 148
+[INFO] [1795215003.284843606] [float_array_pcl_node]: seq=30 Greedy mesh created in 6558.369 ms
+[INFO] [1795215003.544468527] [float_array_pcl_node]: seq=30 Float32MultiArray payload in 241.552 ms (2272716 vertices)
+[INFO] [1795215003.573971872] [float_array_pcl_node]: seq=30 Publish 15909012 floats (2272716 vertices) in 6.211 ms
+[INFO] [1795215003.666734432] [float_array_pcl_node]: seq=30 bytes 63636048 triangles 757572
+[INFO] [1795215003.666837786] [float_array_pcl_node]: seq=30 Total in 8953.468 ms
+[INFO] [1795215003.666920776] [float_array_pcl_node]: seq=30 --- frame done ---
+[INFO] [1795215003.681467494] [float_array_pcl_node]: seq=31 Received PointCloud2 message
+[INFO] [1795215003.681526815] [float_array_pcl_node]: seq=31 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215003.844293680] [float_array_pcl_node]: seq=31 Unpack point cloud in 162.747 ms
+[INFO] [1795215004.065064789] [float_array_pcl_node]: seq=31 Plane RANSAC on 1384724/2332800 finite points (1944 x 1200)
+[INFO] [1795215004.065151170] [float_array_pcl_node]: seq=31 Plane segmentation in 220.687 ms
+[INFO] [1795215005.315782129] [float_array_pcl_node]: seq=31 Normals estimated in 1250.571 ms
+[INFO] [1795215005.336574678] [float_array_pcl_node]: seq=31 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=175219 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=181058 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 19
+Number of neighborhood size increase requests for source: 57
+[INFO] [1795215009.889841646] [float_array_pcl_node]: seq=31 Greedy mesh created in 4553.208 ms
+[INFO] [1795215010.121580093] [float_array_pcl_node]: seq=31 Float32MultiArray payload in 214.568 ms (1757166 vertices)
+[INFO] [1795215010.146293155] [float_array_pcl_node]: seq=31 Publish 12300162 floats (1757166 vertices) in 3.527 ms
+[INFO] [1795215010.225237862] [float_array_pcl_node]: seq=31 bytes 49200648 triangles 585722
+[INFO] [1795215010.225293021] [float_array_pcl_node]: seq=31 Total in 6543.771 ms
+[INFO] [1795215010.225325035] [float_array_pcl_node]: seq=31 --- frame done ---
+[INFO] [1795215010.237743163] [float_array_pcl_node]: seq=32 Received PointCloud2 message
+[INFO] [1795215010.237797593] [float_array_pcl_node]: seq=32 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215010.395799712] [float_array_pcl_node]: seq=32 Unpack point cloud in 157.990 ms
+[INFO] [1795215010.631545733] [float_array_pcl_node]: seq=32 Plane RANSAC on 1384083/2332800 finite points (1944 x 1200)
+[INFO] [1795215010.631609003] [float_array_pcl_node]: seq=32 Plane segmentation in 235.678 ms
+[INFO] [1795215011.883911178] [float_array_pcl_node]: seq=32 Normals estimated in 1252.274 ms
+[INFO] [1795215011.905634766] [float_array_pcl_node]: seq=32 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=182770 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=583388 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 9
+Number of neighborhood size increase requests for source: 29
+[INFO] [1795215016.478182618] [float_array_pcl_node]: seq=32 Greedy mesh created in 4572.489 ms
+[INFO] [1795215016.713743691] [float_array_pcl_node]: seq=32 Float32MultiArray payload in 218.282 ms (1754439 vertices)
+[INFO] [1795215016.739038860] [float_array_pcl_node]: seq=32 Publish 12281073 floats (1754439 vertices) in 3.735 ms
+[INFO] [1795215016.825793257] [float_array_pcl_node]: seq=32 bytes 49124292 triangles 584813
+[INFO] [1795215016.825851779] [float_array_pcl_node]: seq=32 Total in 6588.050 ms
+[INFO] [1795215016.825882851] [float_array_pcl_node]: seq=32 --- frame done ---
+[INFO] [1795215016.839038110] [float_array_pcl_node]: seq=33 Received PointCloud2 message
+[INFO] [1795215016.839088619] [float_array_pcl_node]: seq=33 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215016.998679633] [float_array_pcl_node]: seq=33 Unpack point cloud in 159.579 ms
+[INFO] [1795215017.233998152] [float_array_pcl_node]: seq=33 Plane RANSAC on 1384226/2332800 finite points (1944 x 1200)
+[INFO] [1795215017.234095016] [float_array_pcl_node]: seq=33 Plane segmentation in 235.245 ms
+[INFO] [1795215018.505441573] [float_array_pcl_node]: seq=33 Normals estimated in 1271.308 ms
+[INFO] [1795215018.527043209] [float_array_pcl_node]: seq=33 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=225896 to be BOUNDARY!
+Not enough neighbors are considered: source of R=210350 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 20
+Number of neighborhood size increase requests for source: 63
+[INFO] [1795215023.153240568] [float_array_pcl_node]: seq=33 Greedy mesh created in 4626.141 ms
+[INFO] [1795215023.381957548] [float_array_pcl_node]: seq=33 Float32MultiArray payload in 211.205 ms (1753074 vertices)
+[INFO] [1795215023.406538295] [float_array_pcl_node]: seq=33 Publish 12271518 floats (1753074 vertices) in 4.054 ms
+[INFO] [1795215023.483146252] [float_array_pcl_node]: seq=33 bytes 49086072 triangles 584358
+[INFO] [1795215023.483224741] [float_array_pcl_node]: seq=33 Total in 6644.108 ms
+[INFO] [1795215023.483256801] [float_array_pcl_node]: seq=33 --- frame done ---
+[INFO] [1795215023.495120463] [float_array_pcl_node]: seq=34 Received PointCloud2 message
+[INFO] [1795215023.495183997] [float_array_pcl_node]: seq=34 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215023.655164485] [float_array_pcl_node]: seq=34 Unpack point cloud in 159.969 ms
+[INFO] [1795215023.980865308] [float_array_pcl_node]: seq=34 Plane RANSAC on 1385911/2332800 finite points (1944 x 1200)
+[INFO] [1795215023.980933385] [float_array_pcl_node]: seq=34 Plane segmentation in 325.630 ms
+[INFO] [1795215025.256675544] [float_array_pcl_node]: seq=34 Normals estimated in 1275.713 ms
+[INFO] [1795215025.277687442] [float_array_pcl_node]: seq=34 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=163514 to be BOUNDARY!
+Not enough neighbors are considered: source of R=192844 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 10
+Number of neighborhood size increase requests for source: 96
+[INFO] [1795215029.995864456] [float_array_pcl_node]: seq=34 Greedy mesh created in 4718.113 ms
+[INFO] [1795215030.221718950] [float_array_pcl_node]: seq=34 Float32MultiArray payload in 208.702 ms (1753317 vertices)
+[INFO] [1795215030.245232118] [float_array_pcl_node]: seq=34 Publish 12273219 floats (1753317 vertices) in 3.629 ms
+[INFO] [1795215030.321561008] [float_array_pcl_node]: seq=34 bytes 49092876 triangles 584439
+[INFO] [1795215030.321618081] [float_array_pcl_node]: seq=34 Total in 6826.440 ms
+[INFO] [1795215030.321652668] [float_array_pcl_node]: seq=34 --- frame done ---
+[INFO] [1795215030.332786710] [float_array_pcl_node]: seq=35 Received PointCloud2 message
+[INFO] [1795215030.332838262] [float_array_pcl_node]: seq=35 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215030.495032418] [float_array_pcl_node]: seq=35 Unpack point cloud in 162.182 ms
+[INFO] [1795215030.712540245] [float_array_pcl_node]: seq=35 Plane RANSAC on 1386099/2332800 finite points (1944 x 1200)
+[INFO] [1795215030.712607452] [float_array_pcl_node]: seq=35 Plane segmentation in 217.440 ms
+[INFO] [1795215031.978768678] [float_array_pcl_node]: seq=35 Normals estimated in 1266.130 ms
+[INFO] [1795215031.999545907] [float_array_pcl_node]: seq=35 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=188958 to be BOUNDARY!
+Not enough neighbors are considered: source of R=243256 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 13
+Number of neighborhood size increase requests for source: 34
+[INFO] [1795215036.604517730] [float_array_pcl_node]: seq=35 Greedy mesh created in 4604.888 ms
+[INFO] [1795215036.833082277] [float_array_pcl_node]: seq=35 Float32MultiArray payload in 211.522 ms (1755285 vertices)
+[INFO] [1795215036.858519824] [float_array_pcl_node]: seq=35 Publish 12286995 floats (1755285 vertices) in 3.596 ms
+[INFO] [1795215036.935999895] [float_array_pcl_node]: seq=35 bytes 49147980 triangles 585095
+[INFO] [1795215036.936059987] [float_array_pcl_node]: seq=35 Total in 6603.213 ms
+[INFO] [1795215036.936095439] [float_array_pcl_node]: seq=35 --- frame done ---
+[INFO] [1795215036.947095468] [float_array_pcl_node]: seq=36 Received PointCloud2 message
+[INFO] [1795215036.947157000] [float_array_pcl_node]: seq=36 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215037.113508296] [float_array_pcl_node]: seq=36 Unpack point cloud in 166.337 ms
+[INFO] [1795215037.391860907] [float_array_pcl_node]: seq=36 Plane RANSAC on 1385863/2332800 finite points (1944 x 1200)
+[INFO] [1795215037.391926956] [float_array_pcl_node]: seq=36 Plane segmentation in 278.274 ms
+[INFO] [1795215038.640005404] [float_array_pcl_node]: seq=36 Normals estimated in 1248.037 ms
+[INFO] [1795215038.661814135] [float_array_pcl_node]: seq=36 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=186734 to be BOUNDARY!
+Not enough neighbors are considered: source of R=182845 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 18
+Number of neighborhood size increase requests for source: 65
+[INFO] [1795215043.258322490] [float_array_pcl_node]: seq=36 Greedy mesh created in 4596.450 ms
+[INFO] [1795215043.485341985] [float_array_pcl_node]: seq=36 Float32MultiArray payload in 209.795 ms (1757364 vertices)
+[INFO] [1795215043.509295672] [float_array_pcl_node]: seq=36 Publish 12301548 floats (1757364 vertices) in 3.581 ms
+[INFO] [1795215043.586311340] [float_array_pcl_node]: seq=36 bytes 49206192 triangles 585788
+[INFO] [1795215043.586412993] [float_array_pcl_node]: seq=36 Total in 6639.215 ms
+[INFO] [1795215043.586459019] [float_array_pcl_node]: seq=36 --- frame done ---
+[INFO] [1795215043.597691248] [float_array_pcl_node]: seq=37 Received PointCloud2 message
+[INFO] [1795215043.597750710] [float_array_pcl_node]: seq=37 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215043.757669292] [float_array_pcl_node]: seq=37 Unpack point cloud in 159.906 ms
+[INFO] [1795215043.975531627] [float_array_pcl_node]: seq=37 Plane RANSAC on 1385725/2332800 finite points (1944 x 1200)
+[INFO] [1795215043.975596529] [float_array_pcl_node]: seq=37 Plane segmentation in 217.793 ms
+[INFO] [1795215045.247088721] [float_array_pcl_node]: seq=37 Normals estimated in 1271.458 ms
+[INFO] [1795215045.268598039] [float_array_pcl_node]: seq=37 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=165552 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=177290 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 17
+Number of neighborhood size increase requests for source: 40
+[INFO] [1795215049.824800656] [float_array_pcl_node]: seq=37 Greedy mesh created in 4556.138 ms
+[INFO] [1795215050.053395520] [float_array_pcl_node]: seq=37 Float32MultiArray payload in 211.308 ms (1756653 vertices)
+[INFO] [1795215050.078947560] [float_array_pcl_node]: seq=37 Publish 12296571 floats (1756653 vertices) in 3.511 ms
+[INFO] [1795215050.154873704] [float_array_pcl_node]: seq=37 bytes 49186284 triangles 585551
+[INFO] [1795215050.162115209] [float_array_pcl_node]: seq=37 Total in 6557.183 ms
+[INFO] [1795215050.162233030] [float_array_pcl_node]: seq=37 --- frame done ---
+[INFO] [1795215050.168139676] [float_array_pcl_node]: seq=38 Received PointCloud2 message
+[INFO] [1795215050.168201065] [float_array_pcl_node]: seq=38 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215050.328344177] [float_array_pcl_node]: seq=38 Unpack point cloud in 160.127 ms
+[INFO] [1795215050.545132527] [float_array_pcl_node]: seq=38 Plane RANSAC on 1385612/2332800 finite points (1944 x 1200)
+[INFO] [1795215050.545198678] [float_array_pcl_node]: seq=38 Plane segmentation in 216.716 ms
+[INFO] [1795215051.813886697] [float_array_pcl_node]: seq=38 Normals estimated in 1268.654 ms
+[INFO] [1795215051.836572561] [float_array_pcl_node]: seq=38 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=178940 to be BOUNDARY!
+Not enough neighbors are considered: source of R=173273 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 21
+Number of neighborhood size increase requests for source: 55
+[INFO] [1795215056.626714646] [float_array_pcl_node]: seq=38 Greedy mesh created in 4790.081 ms
+[INFO] [1795215056.860329824] [float_array_pcl_node]: seq=38 Float32MultiArray payload in 216.243 ms (1757700 vertices)
+[INFO] [1795215056.885687670] [float_array_pcl_node]: seq=38 Publish 12303900 floats (1757700 vertices) in 4.931 ms
+[INFO] [1795215056.965641054] [float_array_pcl_node]: seq=38 bytes 49215600 triangles 585900
+[INFO] [1795215056.965698491] [float_array_pcl_node]: seq=38 Total in 6797.502 ms
+[INFO] [1795215056.965728953] [float_array_pcl_node]: seq=38 --- frame done ---
+[INFO] [1795215056.979688446] [float_array_pcl_node]: seq=39 Received PointCloud2 message
+[INFO] [1795215056.979744851] [float_array_pcl_node]: seq=39 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215057.145429144] [float_array_pcl_node]: seq=39 Unpack point cloud in 165.671 ms
+[INFO] [1795215057.364448240] [float_array_pcl_node]: seq=39 Plane RANSAC on 1385526/2332800 finite points (1944 x 1200)
+[INFO] [1795215057.364515831] [float_array_pcl_node]: seq=39 Plane segmentation in 218.943 ms
+[INFO] [1795215058.640645875] [float_array_pcl_node]: seq=39 Normals estimated in 1276.100 ms
+[INFO] [1795215058.661734647] [float_array_pcl_node]: seq=39 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=179113 to be BOUNDARY!
+Not enough neighbors are considered: source of R=280225 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 16
+Number of neighborhood size increase requests for source: 40
+[INFO] [1795215063.276889973] [float_array_pcl_node]: seq=39 Greedy mesh created in 4615.095 ms
+[INFO] [1795215063.506881401] [float_array_pcl_node]: seq=39 Float32MultiArray payload in 211.940 ms (1757766 vertices)
+[INFO] [1795215063.530204739] [float_array_pcl_node]: seq=39 Publish 12304362 floats (1757766 vertices) in 3.532 ms
+[INFO] [1795215063.608568204] [float_array_pcl_node]: seq=39 bytes 49217448 triangles 585922
+[INFO] [1795215063.608625901] [float_array_pcl_node]: seq=39 Total in 6628.880 ms
+[INFO] [1795215063.608654895] [float_array_pcl_node]: seq=39 --- frame done ---
+[INFO] [1795215063.620935903] [float_array_pcl_node]: seq=40 Received PointCloud2 message
+[INFO] [1795215063.620993740] [float_array_pcl_node]: seq=40 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215063.780443064] [float_array_pcl_node]: seq=40 Unpack point cloud in 159.437 ms
+[INFO] [1795215063.996831053] [float_array_pcl_node]: seq=40 Plane RANSAC on 1385772/2332800 finite points (1944 x 1200)
+[INFO] [1795215063.996909400] [float_array_pcl_node]: seq=40 Plane segmentation in 216.321 ms
+[INFO] [1795215065.255094619] [float_array_pcl_node]: seq=40 Normals estimated in 1258.156 ms
+[INFO] [1795215065.275389858] [float_array_pcl_node]: seq=40 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=233669 to be BOUNDARY!
+Not enough neighbors are considered: source of R=186661 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 9
+Number of neighborhood size increase requests for source: 42
+[INFO] [1795215069.890485413] [float_array_pcl_node]: seq=40 Greedy mesh created in 4615.038 ms
+[INFO] [1795215070.121165793] [float_array_pcl_node]: seq=40 Float32MultiArray payload in 212.662 ms (1756662 vertices)
+[INFO] [1795215070.144869740] [float_array_pcl_node]: seq=40 Publish 12296634 floats (1756662 vertices) in 3.531 ms
+[INFO] [1795215070.222741397] [float_array_pcl_node]: seq=40 bytes 49186536 triangles 585554
+[INFO] [1795215070.222797015] [float_array_pcl_node]: seq=40 Total in 6601.805 ms
+[INFO] [1795215070.222827209] [float_array_pcl_node]: seq=40 --- frame done ---
+[INFO] [1795215070.234054882] [float_array_pcl_node]: seq=41 Received PointCloud2 message
+[INFO] [1795215070.234110680] [float_array_pcl_node]: seq=41 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215070.397610145] [float_array_pcl_node]: seq=41 Unpack point cloud in 163.488 ms
+[INFO] [1795215070.617905639] [float_array_pcl_node]: seq=41 Plane RANSAC on 1386353/2332800 finite points (1944 x 1200)
+[INFO] [1795215070.617981985] [float_array_pcl_node]: seq=41 Plane segmentation in 220.227 ms
+[INFO] [1795215071.896750196] [float_array_pcl_node]: seq=41 Normals estimated in 1278.736 ms
+[INFO] [1795215071.917279055] [float_array_pcl_node]: seq=41 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=161456 to be BOUNDARY!
+Not enough neighbors are considered: source of R=196413 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 19
+Number of neighborhood size increase requests for source: 29
+[INFO] [1795215076.630488794] [float_array_pcl_node]: seq=41 Greedy mesh created in 4713.070 ms
+[INFO] [1795215076.859925745] [float_array_pcl_node]: seq=41 Float32MultiArray payload in 211.685 ms (1757877 vertices)
+[INFO] [1795215076.884540124] [float_array_pcl_node]: seq=41 Publish 12305139 floats (1757877 vertices) in 3.971 ms
+[INFO] [1795215076.963290666] [float_array_pcl_node]: seq=41 bytes 49220556 triangles 585959
+[INFO] [1795215076.963349092] [float_array_pcl_node]: seq=41 Total in 6729.236 ms
+[INFO] [1795215076.963384739] [float_array_pcl_node]: seq=41 --- frame done ---
+[INFO] [1795215076.975214359] [float_array_pcl_node]: seq=42 Received PointCloud2 message
+[INFO] [1795215076.975278818] [float_array_pcl_node]: seq=42 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215077.138530963] [float_array_pcl_node]: seq=42 Unpack point cloud in 163.234 ms
+[INFO] [1795215077.354821232] [float_array_pcl_node]: seq=42 Plane RANSAC on 1386039/2332800 finite points (1944 x 1200)
+[INFO] [1795215077.354887478] [float_array_pcl_node]: seq=42 Plane segmentation in 216.210 ms
+[INFO] [1795215078.624189647] [float_array_pcl_node]: seq=42 Normals estimated in 1269.271 ms
+[INFO] [1795215078.645130285] [float_array_pcl_node]: seq=42 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=177191 to be BOUNDARY!
+Not enough neighbors are considered: source of R=171105 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 11
+Number of neighborhood size increase requests for source: 36
+[INFO] [1795215083.278049158] [float_array_pcl_node]: seq=42 Greedy mesh created in 4632.859 ms
+[INFO] [1795215083.508833010] [float_array_pcl_node]: seq=42 Float32MultiArray payload in 212.523 ms (1753905 vertices)
+[INFO] [1795215083.533476852] [float_array_pcl_node]: seq=42 Publish 12277335 floats (1753905 vertices) in 4.300 ms
+[INFO] [1795215083.614667304] [float_array_pcl_node]: seq=42 bytes 49109340 triangles 584635
+[INFO] [1795215083.614728677] [float_array_pcl_node]: seq=42 Total in 6639.453 ms
+[INFO] [1795215083.614762623] [float_array_pcl_node]: seq=42 --- frame done ---
+[INFO] [1795215083.626818171] [float_array_pcl_node]: seq=43 Received PointCloud2 message
+[INFO] [1795215083.626876955] [float_array_pcl_node]: seq=43 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215083.788939566] [float_array_pcl_node]: seq=43 Unpack point cloud in 162.049 ms
+[INFO] [1795215084.009827057] [float_array_pcl_node]: seq=43 Plane RANSAC on 1386416/2332800 finite points (1944 x 1200)
+[INFO] [1795215084.009897987] [float_array_pcl_node]: seq=43 Plane segmentation in 220.817 ms
+[INFO] [1795215085.302079864] [float_array_pcl_node]: seq=43 Normals estimated in 1292.152 ms
+[INFO] [1795215085.323696279] [float_array_pcl_node]: seq=43 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=175060 to be BOUNDARY!
+Not enough neighbors are considered: source of R=186923 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 11
+Number of neighborhood size increase requests for source: 26
+[INFO] [1795215090.107454263] [float_array_pcl_node]: seq=43 Greedy mesh created in 4783.697 ms
+[INFO] [1795215090.337599233] [float_array_pcl_node]: seq=43 Float32MultiArray payload in 212.880 ms (1758312 vertices)
+[INFO] [1795215090.361607839] [float_array_pcl_node]: seq=43 Publish 12308184 floats (1758312 vertices) in 3.558 ms
+[INFO] [1795215090.441832395] [float_array_pcl_node]: seq=43 bytes 49232736 triangles 586104
+[INFO] [1795215090.441901575] [float_array_pcl_node]: seq=43 Total in 6815.014 ms
+[INFO] [1795215090.441933081] [float_array_pcl_node]: seq=43 --- frame done ---
+[INFO] [1795215090.453997869] [float_array_pcl_node]: seq=44 Received PointCloud2 message
+[INFO] [1795215090.454063597] [float_array_pcl_node]: seq=44 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215090.615079924] [float_array_pcl_node]: seq=44 Unpack point cloud in 160.996 ms
+[INFO] [1795215090.833835579] [float_array_pcl_node]: seq=44 Plane RANSAC on 1386625/2332800 finite points (1944 x 1200)
+[INFO] [1795215090.833908483] [float_array_pcl_node]: seq=44 Plane segmentation in 218.676 ms
+[INFO] [1795215092.121645960] [float_array_pcl_node]: seq=44 Normals estimated in 1287.699 ms
+[INFO] [1795215092.142735840] [float_array_pcl_node]: seq=44 Create greedy triangulation mesh
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=175076 to be BOUNDARY!
+Not enough neighbors are considered: source of R=183128 is out of range! Consider increasing nnn_...
+Number of neighborhood size increase requests for fringe neighbors: 16
+Number of neighborhood size increase requests for source: 57
+[INFO] [1795215096.725476951] [float_array_pcl_node]: seq=44 Greedy mesh created in 4582.675 ms
+[INFO] [1795215096.958973898] [float_array_pcl_node]: seq=44 Float32MultiArray payload in 215.699 ms (1759071 vertices)
+[INFO] [1795215096.983941700] [float_array_pcl_node]: seq=44 Publish 12313497 floats (1759071 vertices) in 4.617 ms
+[INFO] [1795215097.065932183] [float_array_pcl_node]: seq=44 bytes 49253988 triangles 586357
+[INFO] [1795215097.065986911] [float_array_pcl_node]: seq=44 Total in 6611.933 ms
+[INFO] [1795215097.066019517] [float_array_pcl_node]: seq=44 --- frame done ---
+[INFO] [1795215097.077648762] [float_array_pcl_node]: seq=45 Received PointCloud2 message
+[INFO] [1795215097.077708932] [float_array_pcl_node]: seq=45 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215097.235875615] [float_array_pcl_node]: seq=45 Unpack point cloud in 158.154 ms
+[INFO] [1795215097.458762435] [float_array_pcl_node]: seq=45 Plane RANSAC on 1386168/2332800 finite points (1944 x 1200)
+[INFO] [1795215097.458825551] [float_array_pcl_node]: seq=45 Plane segmentation in 222.813 ms
+[INFO] [1795215098.731395098] [float_array_pcl_node]: seq=45 Normals estimated in 1272.539 ms
+[INFO] [1795215098.752857993] [float_array_pcl_node]: seq=45 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=159662 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=194652 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 14
+Number of neighborhood size increase requests for source: 73
+[INFO] [1795215103.359199330] [float_array_pcl_node]: seq=45 Greedy mesh created in 4606.281 ms
+[INFO] [1795215103.587539585] [float_array_pcl_node]: seq=45 Float32MultiArray payload in 211.159 ms (1760637 vertices)
+[INFO] [1795215103.611053624] [float_array_pcl_node]: seq=45 Publish 12324459 floats (1760637 vertices) in 3.601 ms
+[INFO] [1795215103.690064685] [float_array_pcl_node]: seq=45 bytes 49297836 triangles 586879
+[INFO] [1795215103.690123076] [float_array_pcl_node]: seq=45 Total in 6612.416 ms
+[INFO] [1795215103.690153262] [float_array_pcl_node]: seq=45 --- frame done ---
+[INFO] [1795215103.701831797] [float_array_pcl_node]: seq=46 Received PointCloud2 message
+[INFO] [1795215103.701887896] [float_array_pcl_node]: seq=46 Handle XYZ-RGB(A) PointCloud
+[INFO] [1795215103.863414635] [float_array_pcl_node]: seq=46 Unpack point cloud in 161.514 ms
+[INFO] [1795215104.082746085] [float_array_pcl_node]: seq=46 Plane RANSAC on 1386069/2332800 finite points (1944 x 1200)
+[INFO] [1795215104.082812385] [float_array_pcl_node]: seq=46 Plane segmentation in 219.232 ms
+[INFO] [1795215105.364385922] [float_array_pcl_node]: seq=46 Normals estimated in 1281.536 ms
+[INFO] [1795215105.385470842] [float_array_pcl_node]: seq=46 Create greedy triangulation mesh
+Not enough neighbors are considered: source of R=157719 is out of range! Consider increasing nnn_...
+Not enough neighbors are considered: ffn or sfn out of range! Consider increasing nnn_... Setting R=198310 to be BOUNDARY!
+Number of neighborhood size increase requests for fringe neighbors: 12
+Number of neighborhood size increase requests for source: 35
+[INFO] [1795215109.966514822] [float_array_pcl_node]: seq=46 Greedy mesh created in 4580.968 ms
+[INFO] [1795215110.190759158] [float_array_pcl_node]: seq=46 Float32MultiArray payload in 207.129 ms (1757418 vertices)
+[INFO] [1795215110.214653026] [float_array_pcl_node]: seq=46 Publish 12301926 floats (1757418 vertices) in 3.564 ms
+[INFO] [1795215110.294394356] [float_array_pcl_node]: seq=46 bytes 49207704 triangles 585806
+[INFO] [1795215110.294452555] [float_array_pcl_node]: seq=46 Total in 6592.562 ms
+[INFO] [1795215110.294485069] [float_array_pcl_node]: seq=46 --- frame done ---
+[INFO] [1795215112.972263909] [rclcpp]: signal_handler(SIGINT/SIGTERM)
