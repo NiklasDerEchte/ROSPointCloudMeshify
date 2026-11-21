@@ -3,7 +3,7 @@
 #include <sensor_msgs/msg/point_field.hpp>
 #include <std_msgs/msg/float32_multi_array.hpp>
 
-#include "meshify/float_array_cuda.hpp"
+#include "meshify/organized_mesh_gpu.hpp"
 #include "meshify/frame_csv.hpp"
 
 #include <algorithm>
@@ -19,31 +19,31 @@
 using meshify::elapsedMs;
 
 /**
- * GPU (CUDA) mesh node, the counterpart of float_array_node in mode fast. Subscribes to an
+ * GPU (CUDA) mesh node, the counterpart of organized_mesh_cpu_node in mode fast. Subscribes to an
  * organized PointCloud2, removes the dominant plane with RANSAC, builds the organized fast
  * mesh on the GPU and publishes the triangles as a Float32MultiArray
  * (TRIANGLE_LIST, 7 floats per vertex: x, y, z, r, g, b, a).
  */
-class Float32ArrayCudaNode : public rclcpp::Node {
+class OrganizedMeshGpuNode : public rclcpp::Node {
 public:
     /// Declare parameters, create the CUDA context, open the CSV log and subscribe to /points/xyzrgba.
-    Float32ArrayCudaNode()
-        : Node("float_array_cuda_node"),
+    OrganizedMeshGpuNode()
+        : Node("organized_mesh_gpu_node"),
           distance_threshold_(declare_parameter("distance_threshold", 0.01)),
           output_topic_(declare_parameter("output_topic", "/object_mesh/vertices")),
           mode_(declare_parameter("mode", "fast")),
           enable_logging_(declare_parameter("enable_logging", true)),
-          csv_path_(declare_parameter<std::string>("csv_path", "meshify_gpu.csv")),
+          csv_path_(declare_parameter<std::string>("csv_path", "meshify_organized_gpu.csv")),
           queue_depth_(declare_parameter("queue_depth", 100))
     {
         if (mode_ != "fast") {
             throw std::invalid_argument("mode must be fast, got '" + mode_ + "'");
         }
-        meshify::initFloatArrayCuda();
+        meshify::initOrganizedMeshGpu();
 
         pointcloud_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>("/points/xyzrgba",
             static_cast<std::size_t>(std::max<int64_t>(1, queue_depth_)),
-            std::bind(&Float32ArrayCudaNode::pointCloudCallback, this, std::placeholders::_1));
+            std::bind(&OrganizedMeshGpuNode::pointCloudCallback, this, std::placeholders::_1));
         mesh_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>(output_topic_, 10);
         RCLCPP_INFO(this->get_logger(), "Node initialized, publishing Float32MultiArray on %s", output_topic_.c_str());
 
@@ -59,7 +59,7 @@ public:
     }
 
 private:
-    static constexpr const char * kBackend = "gpu";
+    static constexpr const char * kBackend = "organized_gpu";
 
     // ----------------------------------------------------------------------- [Frame]
 
@@ -106,11 +106,11 @@ private:
         }
 
         // GPU: upload, plane segmentation, mesh and download in one call.
-        meshify::CudaMeshTimes times{};
+        meshify::OrganizedMeshGpuTimes times{};
         std::size_t nfinite = 0;
-        meshify::CudaMeshStatus status = meshify::CudaMeshStatus::Ok;
+        meshify::OrganizedMeshGpuStatus status = meshify::OrganizedMeshGpuStatus::Ok;
         try {
-            status = meshify::runFloatArrayCuda(
+            status = meshify::runOrganizedMeshGpu(
                 xyzrgb_.data(), width_, height_, distance_threshold_, vertex_array_.data, times, nfinite);
         } catch (...) {
             storeGpuTimes(times);
@@ -121,13 +121,13 @@ private:
 
         RCLCPP_INFO(this->get_logger(), "seq=%llu Plane RANSAC on %zu/%zu finite points (%u x %u)",
             seq, nfinite, xyzrgb_.size() / 6, static_cast<unsigned>(width_), static_cast<unsigned>(height_));
-        if (status == meshify::CudaMeshStatus::NotEnoughFinite) {
+        if (status == meshify::OrganizedMeshGpuStatus::NotEnoughFinite) {
             RCLCPP_WARN(this->get_logger(), "seq=%llu Not enough finite points for plane segmentation", seq);
             RCLCPP_WARN(this->get_logger(), "seq=%llu Filtered PointCloud is empty", seq);
             frame_.status = "not_enough_finite";
             return;
         }
-        if (status == meshify::CudaMeshStatus::NoPlane) {
+        if (status == meshify::OrganizedMeshGpuStatus::NoPlane) {
             RCLCPP_WARN(this->get_logger(), "seq=%llu No plane found in the point cloud", seq);
             RCLCPP_WARN(this->get_logger(), "seq=%llu Filtered PointCloud is empty", seq);
             frame_.status = "no_plane";
@@ -166,7 +166,7 @@ private:
     }
 
     // Keeps the stage times measured up to a failing CUDA call as well.
-    void storeGpuTimes(const meshify::CudaMeshTimes & times) {
+    void storeGpuTimes(const meshify::OrganizedMeshGpuTimes & times) {
         frame_.upload_ms = times.upload_ms;
         frame_.plane_ms = times.plane_ms;
         frame_.mesh_ms = times.mesh_ms;
@@ -309,9 +309,9 @@ private:
 int main(int argc, char ** argv) {
     rclcpp::init(argc, argv);
     try {
-        rclcpp::spin(std::make_shared<Float32ArrayCudaNode>());
+        rclcpp::spin(std::make_shared<OrganizedMeshGpuNode>());
     } catch (const std::exception & e) {
-        RCLCPP_FATAL(rclcpp::get_logger("float_array_cuda_node"), "%s", e.what());
+        RCLCPP_FATAL(rclcpp::get_logger("organized_mesh_gpu_node"), "%s", e.what());
         rclcpp::shutdown();
         return 1;
     }

@@ -24,21 +24,21 @@
 using meshify::elapsedMs;
 
 /**
- * CPU (PCL) mesh node, the counterpart of float_array_cuda_node. Subscribes to an organized
+ * CPU (PCL) mesh node, the counterpart of organized_mesh_gpu_node. Subscribes to an organized
  * PointCloud2, removes the dominant plane with RANSAC, builds the organized fast mesh and
  * publishes the triangles as a Float32MultiArray (TRIANGLE_LIST, 7 floats per vertex:
- * x, y, z, r, g, b, a). Greedy and Poisson meshing are in float_array_pcl_node.
+ * x, y, z, r, g, b, a). Greedy and Poisson meshing are in unorganized_mesh_node.
  */
-class Float32ArrayNode : public rclcpp::Node {
+class OrganizedMeshCpuNode : public rclcpp::Node {
 public:
     /// Declare parameters, open the CSV log and subscribe to /points/xyzrgba.
-    Float32ArrayNode()
-        : Node("float_array_node"),
+    OrganizedMeshCpuNode()
+        : Node("organized_mesh_cpu_node"),
           distance_threshold_(declare_parameter("distance_threshold", 0.01)),
           output_topic_(declare_parameter("output_topic", "/object_mesh/vertices")),
           mode_(declare_parameter("mode", "fast")),
           enable_logging_(declare_parameter("enable_logging", true)),
-          csv_path_(declare_parameter<std::string>("csv_path", "meshify_cpu.csv")),
+          csv_path_(declare_parameter<std::string>("csv_path", "meshify_organized_cpu.csv")),
           queue_depth_(declare_parameter("queue_depth", 100))
     {
         if (mode_ != "fast") {
@@ -47,7 +47,7 @@ public:
 
         pointcloud_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>("/points/xyzrgba",
             static_cast<std::size_t>(std::max<int64_t>(1, queue_depth_)),
-            std::bind(&Float32ArrayNode::pointCloudCallback, this, std::placeholders::_1));
+            std::bind(&OrganizedMeshCpuNode::pointCloudCallback, this, std::placeholders::_1));
         mesh_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>(output_topic_, 10);
         RCLCPP_INFO(this->get_logger(), "Node initialized, publishing Float32MultiArray on %s", output_topic_.c_str());
 
@@ -63,7 +63,7 @@ public:
     }
 
 private:
-    static constexpr const char * kBackend = "cpu";
+    static constexpr const char * kBackend = "organized_cpu";
 
     // ----------------------------------------------------------------------- [Frame]
 
@@ -298,9 +298,9 @@ private:
 int main(int argc, char ** argv) {
     rclcpp::init(argc, argv);
     try {
-        rclcpp::spin(std::make_shared<Float32ArrayNode>());
+        rclcpp::spin(std::make_shared<OrganizedMeshCpuNode>());
     } catch (const std::exception & e) {
-        RCLCPP_FATAL(rclcpp::get_logger("float_array_node"), "%s", e.what());
+        RCLCPP_FATAL(rclcpp::get_logger("organized_mesh_cpu_node"), "%s", e.what());
         rclcpp::shutdown();
         return 1;
     }

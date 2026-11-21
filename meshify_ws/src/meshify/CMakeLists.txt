@@ -29,8 +29,8 @@ link_directories(
 )
 
 set(NODES
-  float_array_node
-  float_array_pcl_node
+  organized_mesh_cpu_node
+  unorganized_mesh_node
 )
 
 foreach(node ${NODES})
@@ -88,27 +88,27 @@ if(MESHIFY_CUDA_NODE)
       set(_meshify_cuda_archs 75;80;86)
     endif()
     set(MESHIFY_CUDA_ARCHITECTURES "${_meshify_cuda_archs}" CACHE STRING
-      "CUDA architectures for float_array_cuda_node, e.g. 86")
+      "CUDA architectures for organized_mesh_gpu_node, e.g. 86")
   endif()
-  message(STATUS "meshify: building float_array_cuda_node (toolkit ${CUDAToolkit_VERSION}, archs ${MESHIFY_CUDA_ARCHITECTURES})")
+  message(STATUS "meshify: building organized_mesh_gpu_node (toolkit ${CUDAToolkit_VERSION}, archs ${MESHIFY_CUDA_ARCHITECTURES})")
 
-  add_library(float_array_cuda STATIC src/float_array_cuda.cu)
-  set_target_properties(float_array_cuda PROPERTIES
+  add_library(organized_mesh_gpu STATIC src/organized_mesh_gpu.cu)
+  set_target_properties(organized_mesh_gpu PROPERTIES
     CUDA_STANDARD 17
     CUDA_STANDARD_REQUIRED ON
     CUDA_ARCHITECTURES "${MESHIFY_CUDA_ARCHITECTURES}"
     CUDA_SEPARABLE_COMPILATION ON
     CUDA_RESOLVE_DEVICE_SYMBOLS ON)
-  target_compile_options(float_array_cuda PRIVATE
+  target_compile_options(organized_mesh_gpu PRIVATE
     $<$<COMPILE_LANGUAGE:CUDA>:--fmad=false>)
-  target_link_libraries(float_array_cuda PUBLIC CUDA::cudart)
+  target_link_libraries(organized_mesh_gpu PUBLIC CUDA::cudart)
 
-  add_executable(float_array_cuda_node src/float_array_cuda_node.cpp)
-  ament_target_dependencies(float_array_cuda_node rclcpp sensor_msgs std_msgs)
-  target_link_libraries(float_array_cuda_node float_array_cuda OpenMP::OpenMP_CXX)
-  install(TARGETS float_array_cuda_node DESTINATION lib/${PROJECT_NAME})
+  add_executable(organized_mesh_gpu_node src/organized_mesh_gpu_node.cpp)
+  ament_target_dependencies(organized_mesh_gpu_node rclcpp sensor_msgs std_msgs)
+  target_link_libraries(organized_mesh_gpu_node organized_mesh_gpu OpenMP::OpenMP_CXX)
+  install(TARGETS organized_mesh_gpu_node DESTINATION lib/${PROJECT_NAME})
 else()
-  message(STATUS "meshify: CUDA toolkit not found, skipping float_array_cuda_node")
+  message(STATUS "meshify: CUDA toolkit not found, skipping organized_mesh_gpu_node")
 endif()
 
 if(BUILD_TESTING)

@@ -1,17 +1,18 @@
 #pragma once
 
-// Per-frame timing and CSV log shared by float_array_node (cpu), float_array_cuda_node (gpu)
-// and float_array_pcl_node (pcl). All write the same columns so one script can compare runs.
+// Per-frame timing and CSV log shared by organized_mesh_cpu_node (backend organized_cpu),
+// organized_mesh_gpu_node (organized_gpu) and unorganized_mesh_node (unorganized). All write the same
+// columns so one script can compare runs.
 //
 // All durations are steady_clock milliseconds. A stage a backend does not have stays 0:
-//   gpu: upload_ms (host -> device)
-//   pcl: normals_ms
+//   organized_gpu: upload_ms (host -> device)
+//   unorganized:   normals_ms
 // payload_ms is the step from the finished mesh to the Float32MultiArray data in host memory:
 // PolygonMesh -> floats on the CPU, the device -> host copy on the GPU.
 // stamp_sec/stamp_nanosec are header.stamp and match rows of the same frame across runs.
 //
 // status: ok, not_organized, not_enough_finite, no_plane, empty_mesh, error,
-//         empty_cloud (pcl, poisson only).
+//         empty_cloud (unorganized, poisson only).
 
 #include <chrono>
 #include <cstddef>

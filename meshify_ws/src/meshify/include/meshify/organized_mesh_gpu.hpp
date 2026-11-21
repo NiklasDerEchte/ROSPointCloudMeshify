@@ -12,7 +12,7 @@ namespace meshify
 ///   plane_ms:    finite filter, RANSAC, coefficient refinement, inliers -> NaN
 ///   mesh_ms:     mesh kernel and triangle compaction (incl. triangle count read)
 ///   payload_ms:  device->host copy of the triangle payload
-struct CudaMeshTimes
+struct OrganizedMeshGpuTimes
 {
     double upload_ms;
     double plane_ms;
@@ -20,7 +20,7 @@ struct CudaMeshTimes
     double payload_ms;
 };
 
-enum class CudaMeshStatus
+enum class OrganizedMeshGpuStatus
 {
     Ok,
     NotEnoughFinite,
@@ -29,21 +29,21 @@ enum class CudaMeshStatus
 };
 
 /// Create the CUDA context. Throws if no device is visible.
-void initFloatArrayCuda();
+void initOrganizedMeshGpu();
 
-/// Fast path of Float32ArrayNode: RANSAC plane (finite points only, threshold,
+/// Fast path of OrganizedMeshCpuNode: RANSAC plane (finite points only, threshold,
 /// 1000 iterations, probability 0.85, optimized coefficients), inliers set to
 /// NaN, then OrganizedFastMesh right-cut. xyzrgb is width*height points, 6
 /// floats each (x,y,z and r,g,b already /255). triangles is the
 /// Float32MultiArray payload, 21 floats per triangle.
 /// Throws on a CUDA error.
-CudaMeshStatus runFloatArrayCuda(
+OrganizedMeshGpuStatus runOrganizedMeshGpu(
     const float * xyzrgb,
     int width,
     int height,
     double distance_threshold,
     std::vector<float> & triangles,
-    CudaMeshTimes & times,
+    OrganizedMeshGpuTimes & times,
     std::size_t & nfinite);
 
 }  // namespace meshify
