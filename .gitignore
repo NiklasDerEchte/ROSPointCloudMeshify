@@ -6,6 +6,8 @@ ros_zivid_driver/build/
 ros_zivid_driver/install/
 ros_zivid_driver/log/
 
+ros_pcl_module/src/ROS-TCP-Endpoint/
+
 build/
 .vscode/
 .claude/
