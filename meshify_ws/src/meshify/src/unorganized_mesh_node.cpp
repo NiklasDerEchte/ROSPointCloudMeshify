@@ -33,18 +33,18 @@ using meshify::elapsedMs;
  * triangles as a Float32MultiArray (TRIANGLE_LIST, 7 floats per vertex: x, y, z, r, g, b, a).
  *
  * mode: greedy (GreedyProjectionTriangulation) or poisson. The organized fast mesh is
- * float_array_node (CPU) and float_array_cuda_node (GPU).
+ * organized_mesh_cpu_node (CPU) and organized_mesh_gpu_node (GPU).
  */
-class Float32ArrayPclNode : public rclcpp::Node {
+class UnorganizedMeshNode : public rclcpp::Node {
 public:
     /// Declare parameters, open the CSV log and subscribe to /points/xyzrgba.
-    Float32ArrayPclNode()
-        : Node("float_array_pcl_node"),
+    UnorganizedMeshNode()
+        : Node("unorganized_mesh_node"),
           distance_threshold_(declare_parameter("distance_threshold", 0.01)),
           output_topic_(declare_parameter("output_topic", "/object_mesh/vertices")),
           mode_(declare_parameter("mode", "greedy")),
           enable_logging_(declare_parameter("enable_logging", true)),
-          csv_path_(declare_parameter<std::string>("csv_path", "meshify_pcl.csv")),
+          csv_path_(declare_parameter<std::string>("csv_path", "meshify_unorganized.csv")),
           queue_depth_(declare_parameter("queue_depth", 100)),
           search_radius_(declare_parameter("search_radius", 0.1)),
           max_neighbors_(declare_parameter("max_neighbors", 150)),
@@ -56,7 +56,7 @@ public:
 
         pointcloud_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>("/points/xyzrgba",
             static_cast<std::size_t>(std::max<int64_t>(1, queue_depth_)),
-            std::bind(&Float32ArrayPclNode::pointCloudCallback, this, std::placeholders::_1));
+            std::bind(&UnorganizedMeshNode::pointCloudCallback, this, std::placeholders::_1));
         mesh_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>(output_topic_, 10);
         RCLCPP_INFO(this->get_logger(), "Node initialized, publishing Float32MultiArray on %s", output_topic_.c_str());
 
@@ -72,7 +72,7 @@ public:
     }
 
 private:
-    static constexpr const char * kBackend = "pcl";
+    static constexpr const char * kBackend = "unorganized";
 
     // ----------------------------------------------------------------------- [Frame]
 
@@ -388,9 +388,9 @@ private:
 int main(int argc, char ** argv) {
     rclcpp::init(argc, argv);
     try {
-        rclcpp::spin(std::make_shared<Float32ArrayPclNode>());
+        rclcpp::spin(std::make_shared<UnorganizedMeshNode>());
     } catch (const std::exception & e) {
-        RCLCPP_FATAL(rclcpp::get_logger("float_array_pcl_node"), "%s", e.what());
+        RCLCPP_FATAL(rclcpp::get_logger("unorganized_mesh_node"), "%s", e.what());
         rclcpp::shutdown();
         return 1;
     }

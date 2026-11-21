@@ -1,4 +1,4 @@
-#include "meshify/float_array_cuda.hpp"
+#include "meshify/organized_mesh_gpu.hpp"
 #include "meshify/frame_csv.hpp"
 
 #include <cub/device/device_reduce.cuh>
@@ -22,7 +22,7 @@ namespace meshify
 namespace
 {
 
-// Float32ArrayNode::createOrganizedTriangulationMesh calls setTrianglePixelSize(4).
+// OrganizedMeshCpuNode::createOrganizedTriangulationMesh calls setTrianglePixelSize(4).
 // PCL stores max(1, size - 1), so the walk is 3, TRIANGLE_RIGHT_CUT.
 constexpr int kStride = 3;
 constexpr float kPclDeg2Rad = 0.017453293f;
@@ -455,7 +455,7 @@ struct Gpu
         int devices = 0;
         const cudaError_t status = cudaGetDeviceCount(&devices);
         if (status != cudaSuccess || devices <= 0) {
-            throw std::runtime_error("float_array_cuda_node: no CUDA device is visible");
+            throw std::runtime_error("organized_mesh_gpu_node: no CUDA device is visible");
         }
         check(cudaSetDevice(0), "cudaSetDevice");
         check(cudaFree(nullptr), "CUDA context init");
@@ -495,9 +495,9 @@ struct Gpu
     Gpu(const Gpu &) = delete;
     Gpu & operator=(const Gpu &) = delete;
 
-    CudaMeshStatus run(
+    OrganizedMeshGpuStatus run(
         const float * xyzrgb, int width, int height, double threshold,
-        std::vector<float> & triangles, CudaMeshTimes & times, std::size_t & nfinite_out)
+        std::vector<float> & triangles, OrganizedMeshGpuTimes & times, std::size_t & nfinite_out)
     {
         if (xyzrgb == nullptr || width < 2 || height < 2) {
             throw std::runtime_error("organized cloud needs width>=2 and height>=2");
@@ -507,7 +507,7 @@ struct Gpu
             throw std::runtime_error("point cloud is larger than the CUDA index type");
         }
         const int n = static_cast<int>(n64);
-        times = CudaMeshTimes{};
+        times = OrganizedMeshGpuTimes{};
         nfinite_out = 0;
 
         // Pageable cudaMemcpy may return before the DMA is done: sync so the
@@ -538,7 +538,7 @@ struct Gpu
         if (nfinite < 3) {
             times.plane_ms = elapsedMs(t_plane);
             triangles.clear();
-            return CudaMeshStatus::NotEnoughFinite;
+            return OrganizedMeshGpuStatus::NotEnoughFinite;
         }
 
         int best_count = 0;
@@ -583,7 +583,7 @@ struct Gpu
         if (best_count <= 0) {
             times.plane_ms = elapsedMs(t_plane);
             triangles.clear();
-            return CudaMeshStatus::NoPlane;
+            return OrganizedMeshGpuStatus::NoPlane;
         }
 
         check(cudaMemcpy(d_coeff_, best_c, 4 * sizeof(float), cudaMemcpyHostToDevice), "best coeff");
@@ -657,9 +657,9 @@ struct Gpu
         }
         times.payload_ms = elapsedMs(t_payload);
         if (tri_count == 0) {
-            return CudaMeshStatus::EmptyMesh;
+            return OrganizedMeshGpuStatus::EmptyMesh;
         }
-        return CudaMeshStatus::Ok;
+        return OrganizedMeshGpuStatus::Ok;
     }
 
     void ensureTemp(std::size_t bytes)
@@ -740,14 +740,14 @@ Gpu & gpu()
 
 }  // namespace
 
-void initFloatArrayCuda()
+void initOrganizedMeshGpu()
 {
     gpu();
 }
 
-CudaMeshStatus runFloatArrayCuda(
+OrganizedMeshGpuStatus runOrganizedMeshGpu(
     const float * xyzrgb, int width, int height, double distance_threshold,
-    std::vector<float> & triangles, CudaMeshTimes & times, std::size_t & nfinite)
+    std::vector<float> & triangles, OrganizedMeshGpuTimes & times, std::size_t & nfinite)
 {
     return gpu().run(xyzrgb, width, height, distance_threshold, triangles, times, nfinite);
 }

@@ -4,11 +4,11 @@
 
 | Knoten | Backend | Verfahren |
 |---|---|---|
-| `float_array_node` | CPU (PCL) | RANSAC-Ebene + `OrganizedFastMesh` |
-| `float_array_cuda_node` | GPU (CUDA) | dieselbe Pipeline auf der GPU |
-| `float_array_pcl_node` | CPU (PCL) | RANSAC-Ebene + Normalen + Greedy- oder Poisson-Mesh, auch für unorganisierte Clouds |
+| `organized_mesh_cpu_node` | CPU (PCL) | RANSAC-Ebene + `OrganizedFastMesh` |
+| `organized_mesh_gpu_node` | GPU (CUDA) | dieselbe Pipeline auf der GPU |
+| `unorganized_mesh_node` | CPU (PCL) | RANSAC-Ebene + Normalen + Greedy- oder Poisson-Mesh, auch für unorganisierte Clouds |
 
-> `float_array_node` und `float_array_cuda_node` haben denselben Ablauf, dieselben Parameter und dieselben
+> `organized_mesh_cpu_node` und `organized_mesh_gpu_node` haben denselben Ablauf, dieselben Parameter und dieselben
 Logs. Sie unterscheiden sich nur im Upload zur GPU und darin, dass die CPU für RANSAC und das Entpacken
 PCL verwendet.
 
@@ -28,13 +28,13 @@ Clouds ohne Farbe werden grün.
 |---|---|---|---|
 | `distance_threshold` | `0.01` | alle | RANSAC-Schwelle in m für Punkte auf der Ebene |
 | `output_topic` | `/object_mesh/vertices` | alle | Ausgabe-Topic |
-| `mode` | `fast` (pcl: `greedy`) | alle | cpu/gpu: nur `fast`; pcl: `greedy` oder `poisson` |
+| `mode` | `fast` (unorganized: `greedy`) | alle | organized_mesh: nur `fast`; unorganized_mesh: `greedy` oder `poisson` |
 | `enable_logging` | `true` | alle | CSV pro Frame schreiben |
-| `csv_path` | `meshify_cpu.csv` / `meshify_gpu.csv` / `meshify_pcl.csv` | alle | CSV-Datei, relativ zum Startordner |
+| `csv_path` | `meshify_organized_cpu.csv` / `meshify_organized_gpu.csv` / `meshify_unorganized.csv` | alle | CSV-Datei, relativ zum Startordner |
 | `queue_depth` | `100` | alle | Länge der Eingangs-Queue |
-| `search_radius` | `0.1` | float_array_pcl_node | Greedy: Suchradius |
-| `max_neighbors` | `150` | float_array_pcl_node | Greedy: max. Nachbarn |
-| `normal_k_search` | `20` | float_array_pcl_node | Nachbarn für die Normalen |
+| `search_radius` | `0.1` | unorganized_mesh_node | Greedy: Suchradius |
+| `max_neighbors` | `150` | unorganized_mesh_node | Greedy: max. Nachbarn |
+| `normal_k_search` | `20` | unorganized_mesh_node | Nachbarn für die Normalen |
 
 > Ein unbekannter `mode` beendet den Knoten beim Start mit einer Fehlermeldung.
 
@@ -70,28 +70,28 @@ colcon build --packages-select meshify --cmake-args -DMESHIFY_CUDA_ARCHITECTURES
 ## Starten
 
 ```bash
-ros2 run meshify float_array_node
-ros2 run meshify float_array_cuda_node --ros-args -p csv_path:=gpu.csv
-ros2 run meshify float_array_pcl_node --ros-args -p csv_path:=pcl.csv -p mode:=poisson
+ros2 run meshify organized_mesh_cpu_node
+ros2 run meshify organized_mesh_gpu_node --ros-args -p csv_path:=gpu.csv
+ros2 run meshify unorganized_mesh_node --ros-args -p csv_path:=poisson.csv -p mode:=poisson
 ```
 
 Mit Parametern, z. B. ohne CSV:
 
 ```bash
-ros2 run meshify float_array_cuda_node --ros-args -p enable_logging:=false
+ros2 run meshify organized_mesh_gpu_node --ros-args -p enable_logging:=false
 ```
 
 ## CSV-Log
 
 | Spalte | Inhalt |
 |---|---|
-| `backend` | `cpu`, `gpu` oder `pcl` |
+| `backend` | `organized_cpu`, `organized_gpu` oder `unorganized` |
 | `seq` | laufende Frame-Nummer des Knotens |
 | `stamp_sec`, `stamp_nanosec` | `header.stamp` der Cloud, ordnet Zeilen verschiedener Läufe demselben Frame zu |
 | `unpack_ms` | PointCloud2 einlesen |
 | `upload_ms` | nur GPU: Kopie in den Grafikspeicher |
 | `plane_ms` | Filter für gültige Punkte, RANSAC, Ebenenpunkte auf NaN setzen |
-| `normals_ms` | nur pcl: Normalen schätzen |
+| `normals_ms` | nur unorganized_mesh_node: Normalen schätzen |
 | `mesh_ms` | Mesh erzeugen |
 | `payload_ms` | Mesh → Float-Array im Hauptspeicher (CPU: Umwandlung, GPU: Kopie zurück) |
 | `publish_ms` | Nachricht veröffentlichen |
