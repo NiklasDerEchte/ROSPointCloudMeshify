@@ -1,12 +1,12 @@
-ros_pcl_module/build/
-ros_pcl_module/install/
-ros_pcl_module/log/
+meshify_ws/build/
+meshify_ws/install/
+meshify_ws/log/
 
 ros_zivid_driver/build/
 ros_zivid_driver/install/
 ros_zivid_driver/log/
 
-ros_pcl_module/src/ROS-TCP-Endpoint/
+meshify_ws/src/ROS-TCP-Endpoint/
 
 build/
 .vscode/

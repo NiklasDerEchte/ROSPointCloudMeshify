@@ -54,16 +54,16 @@ source /opt/ros/humble/setup.bash
 ./build.sh
 ```
 
-`build.sh` löscht `build/`, `install/` und `log/` in `ros_pcl_module` und baut alles neu. Danach:
+`build.sh` löscht `build/`, `install/` und `log/` in `meshify_ws` und baut alles neu. Danach:
 
 ```bash
-source ~/ROSPointCloudMeshify/ros_pcl_module/install/setup.bash
+source ~/ROSPointCloudMeshify/meshify_ws/install/setup.bash
 ```
 
 Optional nur für die eigene GPU bauen (schneller):
 
 ```bash
-cd ~/ROSPointCloudMeshify/ros_pcl_module
+cd ~/ROSPointCloudMeshify/meshify_ws
 colcon build --packages-select meshify --cmake-args -DMESHIFY_CUDA_ARCHITECTURES=86
 ```
 

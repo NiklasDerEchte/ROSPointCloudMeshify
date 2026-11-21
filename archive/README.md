@@ -9,5 +9,5 @@ Code that is no longer built or maintained. Kept for reference only.
 - `meshify_nodes/float_array_unity_plane_node.cpp`: Float32MultiArray mesh clipped by a plane
   from Unity (`/unity/clipping_plane`, ROSUnityURPMeshViz `ROSPlanePublisher`).
 
-To bring a node back, move it to `ros_pcl_module/src/meshify/src/` and add it to `NODES`
-in `ros_pcl_module/src/meshify/CMakeLists.txt` (plus its message dependencies).
+To bring a node back, move it to `meshify_ws/src/meshify/src/` and add it to `NODES`
+in `meshify_ws/src/meshify/CMakeLists.txt` (plus its message dependencies).
