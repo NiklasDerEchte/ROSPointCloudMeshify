@@ -87,7 +87,7 @@ ros2 run meshify organized_mesh_gpu_node --ros-args -p enable_logging:=false
 |---|---|
 | `backend` | `organized_cpu`, `organized_gpu` oder `unorganized` |
 | `seq` | laufende Frame-Nummer des Knotens |
-| `stamp_sec`, `stamp_nanosec` | `header.stamp` der Cloud, ordnet Zeilen verschiedener Läufe demselben Frame zu |
+| `stamp_sec`, `stamp_nanosec` | Zeitstempel aus `header.stamp` der ROS 2 `PointCloud2` |
 | `unpack_ms` | PointCloud2 einlesen |
 | `upload_ms` | nur GPU: Kopie in den Grafikspeicher |
 | `plane_ms` | Filter für gültige Punkte, RANSAC, Ebenenpunkte auf NaN setzen |
